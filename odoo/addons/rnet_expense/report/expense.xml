@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <template id="rnet_report_expense_sheet" inherit_id="hr_expense.report_expense_sheet">
+            <xpath expr="//div[@class='page']//h2" position="replace">
+                <h5><span t-field="o.seq"/></h5>
+                <h5>Expenses Report</h5>
+            </xpath>
+        </template>
+    </data>
+</odoo>

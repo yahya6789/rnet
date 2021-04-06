@@ -8,6 +8,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/expense.xml',
+        'report/expense.xml',
     ],
 
     "installable": True,
