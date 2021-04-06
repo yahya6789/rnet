@@ -5,6 +5,11 @@
                 <h5><span t-field="o.seq"/></h5>
                 <h5>Expenses Report</h5>
             </xpath>
+            <xpath expr="//div[@class='page']//table[@class='table table-sm']//tbody/tr/td[4]" position="replace">
+                <td class="text-right">
+                    <span t-field="line.unit_amount"/>
+                </td>
+            </xpath>
         </template>
     </data>
 </odoo>
