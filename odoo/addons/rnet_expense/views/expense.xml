@@ -1,5 +1,5 @@
 <odoo>
-    <data>
+    <data noupdate="True">
         <record id="sequence_expense" model="ir.sequence">
             <field name="name">Expense No</field>
             <field name="code">expense.no</field>
