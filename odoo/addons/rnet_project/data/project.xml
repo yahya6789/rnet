@@ -2,10 +2,10 @@
 <odoo>
     <data noupdate="1">
         <record id="1" model="project.type">
-            <field name="name">Project 1</field>
+            <field name="name">Type 1</field>
         </record>
         <record id="2" model="project.type">
-            <field name="name">Project2</field>
+            <field name="name">Type 2</field>
         </record>
         <record id="3" model="project.status">
             <field name="name">Open</field>
