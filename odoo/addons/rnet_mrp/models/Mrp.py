@@ -57,7 +57,7 @@ class Productivity(models.Model):
 class Workorder(models.Model):
     _inherit = 'mrp.workorder'
 
-    shift = fields.Integer('Shift')
+    shift = fields.Selection([(0, 0), (1, 1), (2, 2), (3, 3)], 'Shift', default=1, required=True)
     qty_producing_tmp = fields.Integer('qty_producing_tmp')
 
     @api.multi
