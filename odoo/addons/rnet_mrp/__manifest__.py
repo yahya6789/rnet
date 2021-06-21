@@ -8,6 +8,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/mrp.xml',
+        'report/production_order.xml'
     ],
 
     "installable": True,
