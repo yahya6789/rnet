@@ -81,5 +81,17 @@
                 </xpath>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="rnet_view_mrp_production_work_order_search">
+            <field name="name">rnet.view_mrp_production_work_order_search</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_work_order_search"/>
+
+            <field name="arch" type="xml">
+                <field name="workcenter_id" position="before">
+                    <field name="production_id"/>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>
