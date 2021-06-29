@@ -1,4 +1,7 @@
 from odoo import models,_,fields,api
+from odoo.exceptions import UserError
+from werkzeug import urls
+from odoo.addons.http_routing.models.ir_http import slug
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -38,3 +41,16 @@ class Transfer(models.Model):
         #Kalau statusnya "Waiting" (seperti backorder) maka scheduled date-nya di-set sekarang:
         if self.state == 'confirmed':
             self.scheduled_date = fields.Datetime.now()
+
+    @api.multi
+    def preview_delivery(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': self.get_portal_url(),
+        }
+
+    def get_portal_url(self):
+        base_url = '/' if self.env.context.get('relative_url') else \
+            self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        return urls.url_join(base_url, "delivery_slip/preview")
