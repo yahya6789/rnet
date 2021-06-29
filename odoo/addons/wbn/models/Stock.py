@@ -43,7 +43,7 @@ class Transfer(models.Model):
             self.scheduled_date = fields.Datetime.now()
 
     @api.multi
-    def preview_delivery(self):
+    def preview_picking(self):
         return {
             'type': 'ir.actions.act_url',
             'target': 'self',
@@ -53,4 +53,4 @@ class Transfer(models.Model):
     def get_portal_url(self):
         base_url = '/' if self.env.context.get('relative_url') else \
             self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        return urls.url_join(base_url, "delivery_slip/preview")
+        return urls.url_join(base_url, "picking/preview")
