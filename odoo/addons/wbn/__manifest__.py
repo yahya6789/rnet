@@ -21,6 +21,7 @@
         'views/expense.xml',
         'views/partner.xml',
         'views/partner-sequence.xml',
+        'views/stock_templates.xml',
         'security/ir.model.access.csv',
         'report/SalesReport.xml'
     ],
