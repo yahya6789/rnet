@@ -33,7 +33,7 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@class='oe_highlight'][4]" position="after">
-                    <button name="preview_picking" string="Preview" class="oe_highlight" type="object"/>
+                    <button name="preview_picking" string="Preview" class="oe_highlight" type="object" attrs="{'invisible':True}"/>
                 </xpath>
             </field>
         </record>

@@ -1,9 +1,10 @@
-from odoo import models,_,fields,api
+from odoo import models, _, fields, api
 from odoo.exceptions import UserError
 from werkzeug import urls
 from odoo.addons.http_routing.models.ir_http import slug
 
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -38,7 +39,7 @@ class Transfer(models.Model):
     @api.depends('move_lines.date_expected')
     def _compute_scheduled_date(self):
         super(Transfer, self)._compute_scheduled_date()
-        #Kalau statusnya "Waiting" (seperti backorder) maka scheduled date-nya di-set sekarang:
+        # Kalau statusnya "Waiting" (seperti backorder) maka scheduled date-nya di-set sekarang:
         if self.state == 'confirmed':
             self.scheduled_date = fields.Datetime.now()
 
@@ -50,7 +51,15 @@ class Transfer(models.Model):
             'url': self.get_portal_url(),
         }
 
-    def get_portal_url(self):
+    @api.multi
+    def get_portal_url(self, report_type=None, download=None):
+        self.ensure_one()
         base_url = '/' if self.env.context.get('relative_url') else \
             self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        return urls.url_join(base_url, "picking/preview")
+        base_url = urls.url_join(base_url, "picking/preview/" + str(self.id))
+
+        url = base_url + '?access_token=12345678-1234-1234-1234-12345678%s%s' % (
+            '&report_type=%s' % report_type if report_type else '',
+            '&download=true' if download else '',
+        )
+        return url
