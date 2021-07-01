@@ -14,6 +14,7 @@ class SalesReport(models.Model):
     qty_outstanding = fields.Integer('Qty Outstanding')
     sales_order_total_record = fields.Integer('SO Count')
     sp_name = fields.Char('Delivery #')
+    weight_delivered = fields.Integer('Gross Weight Delivered')
 
     nbr = fields.Integer('Done Deliveries', readonly=True)
     name = fields.Char('Customer Reference', readonly=True)
