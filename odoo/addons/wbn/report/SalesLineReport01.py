@@ -16,6 +16,7 @@ class SalesLineReport01(models.Model):
     product_name = fields.Char('Product Name')
     qty_order = fields.Integer('Qty Order')
     qty_delivered = fields.Integer('Qty Delivered')
+    qty_outstanding = fields.Integer('Qty Outstanding', compute='_compute_qty_outstanding')
     delivery_status = fields.Char('Delivery Status')
     qty_invoiced = fields.Integer('Qty Invoiced')
     qty_return_refund = fields.Integer('Qty Return Refund')
@@ -36,3 +37,8 @@ class SalesLineReport01(models.Model):
     @api.model_cr
     def init(self):
         self._cr.execute(""" select * from vw_so_line_rpt_01 """)
+
+    @api.depends('qty_order', 'qty_delivered')
+    @api.one
+    def _compute_qty_outstanding(self):
+        self.qty_outstanding = self.qty_order - self.qty_delivered

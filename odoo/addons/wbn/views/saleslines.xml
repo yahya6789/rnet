@@ -34,6 +34,7 @@
                     <field name="product_name"/>
                     <field name="qty_order"/>
                     <field name="qty_delivered"/>
+                    <field name="qty_outstanding"/>
                     <field name="delivery_status"/>
                     <field name="qty_invoiced"/>
                     <field name="qty_return_refund"/>
