@@ -10,6 +10,7 @@
     'depends': ['base', 'sale', 'purchase', 'stock', 'delivery'],
 
     'data': [
+        'views/accounting.xml',
         'views/purchaseorder.xml',
         'views/saleslines.xml',
         'views/purchaselines.xml',
