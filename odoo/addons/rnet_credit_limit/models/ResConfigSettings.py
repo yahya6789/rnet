@@ -16,17 +16,19 @@ class ResConfigSettings(models.TransientModel):
         ('warning', 'Warning')
     ], 'Delivery Order Validation', default='none',)
 
-    maximum_allowed_ap_age = fields.Integer('Maximum Allowed AP Age')
-
     sales_order_validation_ow = fields.Selection([
         ('none', 'None'),
         ('block', 'Block'),
         ('warning', 'Warning')
     ], 'Sales Order Validation', default='none',)
 
+    maximum_allowed_ap_so = fields.Integer('Maximum Allowed AP Age')
+
     delivery_order_validation_ow = fields.Selection([
         ('none', 'None'),
         ('block', 'Block'),
         ('warning', 'Warning')
     ], 'Delivery Order Validation', default='none',)
+
+    maximum_allowed_ap_do = fields.Integer('Maximum Allowed AP Age')
 
