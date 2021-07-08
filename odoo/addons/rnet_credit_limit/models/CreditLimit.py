@@ -26,8 +26,3 @@ class CreditLimit:
                     return False
         else:
             return False
-
-    def get_credit_so_warning_type(self):
-        return str(
-            self.env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.sales_order_validation_cr') or 'block'
-        )
