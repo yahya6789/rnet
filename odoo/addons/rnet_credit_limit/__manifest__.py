@@ -7,6 +7,7 @@
 
     'data': [
         'views/res_config_settings_view.xml',
+        'views/message_wizard.xml',
     ],
 
     "installable": True,
