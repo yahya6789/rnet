@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from .CreditLimit import CreditLimit
 
 import logging
 
@@ -41,47 +42,6 @@ class SaleOrder(models.Model):
         )
 
     '''
-    Fungsi cek credit limit dari addons.
-    '''
-    def is_credit_so_reached(self):
-        partner = self.partner_id
-
-        if partner.credit_limit > 0:
-            if partner.credit > partner.credit_limit:
-                return True
-            else:
-                credit = 0
-                inv_total_amt = 0
-                inv_rec = self.env['account.invoice'].search([
-                    ('partner_id', '=', partner.id),
-                    ('state', 'not in', ['draft', 'cancel'])
-                ])
-
-                sale_amount = self.search([
-                    ('partner_id', '=', partner.id),
-                ]).mapped('amount_total')
-
-                sale_amt = sum([sale for sale in sale_amount])
-
-                for inv in inv_rec:
-                    inv_total_amt += inv.amount_total - inv.residual
-
-                if partner.parent_id and partner.parent_id.credit < 0:
-                    credit = partner.parent_id.credit
-
-                elif partner.credit < 0:
-                    credit = partner.credit
-
-                total_sales = sale_amt + credit - inv_total_amt
-
-                if total_sales > partner.credit_limit:
-                    return True
-                else:
-                    return False
-        else:
-            return False
-
-    '''
     Fungsi action_confirm-nya modul sales
     '''
     @api.multi
@@ -110,11 +70,25 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_confirm(self):
+        partner = self.partner_id
+
         if self.get_credit_so_warning_type() == 'none':
             self.confirm()
 
-        if self.is_credit_so_reached() and (self.get_credit_so_warning_type() == 'block'):
+        inv_rec = self.env['account.invoice'].search([
+            ('partner_id', '=', partner.id),
+            ('state', 'not in', ['draft', 'cancel'])
+        ])
+
+        sale_amount = self.search([
+            ('partner_id', '=', partner.id),
+        ]).mapped('amount_total')
+
+        cr = CreditLimit()
+        is_credit_so_reached = cr.is_credit_so_reached(self.partner_id, inv_rec, sale_amount)
+
+        if is_credit_so_reached and (self.get_credit_so_warning_type() == 'block'):
             return self.show_block_window()
 
-        if self.is_credit_so_reached() and (self.get_credit_so_warning_type() == 'warning'):
+        if is_credit_so_reached and (self.get_credit_so_warning_type() == 'warning'):
             return self.show_warning_message()
