@@ -45,7 +45,7 @@ class SaleOrder(models.Model):
     Fungsi action_confirm-nya modul sales
     '''
     @api.multi
-    def confirm(self):
+    def action_yes(self):
         if self._get_forbidden_state_confirm() & set(self.mapped('state')):
             raise UserError(_(
                 'It is not allowed to confirm an order in the following states: %s'
@@ -73,7 +73,7 @@ class SaleOrder(models.Model):
         partner = self.partner_id
 
         if self.get_credit_so_warning_type() == 'none':
-            self.confirm()
+            self.action_yes()
 
         inv_rec = self.env['account.invoice'].search([
             ('partner_id', '=', partner.id),

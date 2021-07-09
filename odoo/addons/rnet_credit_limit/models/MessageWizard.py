@@ -15,7 +15,7 @@ class MessageWizard(models.TransientModel):
         current_id = int(self.env.context.get('current_id'))
         current_model = self.env.context.get('current_model')
         rec = self.env[current_model].browse([current_id])
-        return rec.confirm()
+        return rec.action_yes()
 
     @api.one
     def action_no(self):
