@@ -20,7 +20,7 @@ class SaleOrder(models.Model):
             'res_model': 'message.wizard',
             'res_id': message_id.id,
             'target': 'new',
-            'context': {'current_id': self.id}
+            'context': {'current_id': self.id, 'current_model': 'sale.order'}
         }
 
     def show_block_window(self):
@@ -33,7 +33,7 @@ class SaleOrder(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Customer Credit Limit',
             'views': [[view_id, 'form']],
-            'context': {'current_id': self.id}
+            'context': {'current_id': self.id, 'current_model': 'sale.order'}
         }
 
     def get_credit_so_warning_type(self):
