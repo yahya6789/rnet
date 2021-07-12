@@ -28,19 +28,21 @@ class StockPicking(models.Model):
 
     def get_credit_do_warning_type(self):
         return str(
-            self.env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.delivery_order_validation_cr') or 'block'
+            self.env['ir.config_parameter'].sudo().get_param(
+                'rnet_credit_limit.delivery_order_validation_cr') or 'block'
         )
 
     @api.multi
     def validate(self):
-        pass
+        return super(StockPicking, self).button_validate()
 
     @api.multi
     def button_validate(self):
         partner = self.partner_id
 
         if self.get_credit_do_warning_type() == 'none':
-            self.validate()
+            # return self.validate()
+            return super(StockPicking, self).button_validate()
 
         inv_rec = self.env['account.invoice'].search([
             ('partner_id', '=', partner.id),
