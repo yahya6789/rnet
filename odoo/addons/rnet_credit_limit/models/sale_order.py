@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-from .CreditLimit import CreditLimit
+from .credit_limit import CreditLimit
 
 import logging
 
@@ -11,16 +11,18 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def show_warning_message(self):
-        message_id = self.env['message.wizard'].create({'message': "This customer has reached his credit limit, "
-                                                                   "do you want to continue?"})
+        message_id = self.env['sale.credit.limit.warning'].create({
+            'message': "This customer has reached his credit limit, do you want to continue?"
+        })
+
         return {
             'name': 'Warning',
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
-            'res_model': 'message.wizard',
+            'res_model': 'sale.credit.limit.warning',
             'res_id': message_id.id,
             'target': 'new',
-            'context': {'current_id': self.id, 'current_model': 'sale.order'}
+            'context': {'current_id': self.id}
         }
 
     def show_block_window(self):
@@ -45,7 +47,7 @@ class SaleOrder(models.Model):
     Fungsi action_confirm-nya modul sales
     '''
     @api.multi
-    def action_yes(self):
+    def confirm(self):
         if self._get_forbidden_state_confirm() & set(self.mapped('state')):
             raise UserError(_(
                 'It is not allowed to confirm an order in the following states: %s'
@@ -73,7 +75,7 @@ class SaleOrder(models.Model):
         partner = self.partner_id
 
         if self.get_credit_so_warning_type() == 'none':
-            self.action_yes()
+            self.confirm()
 
         inv_rec = self.env['account.invoice'].search([
             ('partner_id', '=', partner.id),

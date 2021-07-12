@@ -1,4 +1,3 @@
-from . import ResConfigSettings
-from . import SaleOrder
-from . import MessageWizard
-from . import CreditLimit
+from . import res_config_settings
+from . import sale_order
+from . import credit_limit
