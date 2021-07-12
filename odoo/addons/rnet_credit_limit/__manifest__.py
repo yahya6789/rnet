@@ -7,7 +7,7 @@
 
     'data': [
         'views/res_config_settings_view.xml',
-        'views/sale_credit_limit_warning.xml',
+        'wizard/sale_credit_limit_warning_view.xml',
     ],
 
     "installable": True,
