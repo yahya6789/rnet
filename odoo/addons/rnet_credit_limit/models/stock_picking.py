@@ -11,6 +11,23 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('waiting', 'Waiting Another Operation'),
+        ('confirmed', 'Waiting'),
+        ('assigned', 'Ready'),
+        ('done', 'Done'),
+        ('cancel', 'Cancelled'),
+        ('account_review', 'Approve For Sale Order'),
+    ], string='Status', compute='_compute_state',
+        copy=False, index=True, readonly=True, store=True, track_visibility='onchange',
+        help=" * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
+             " * Waiting Another Operation: waiting for another move to proceed before it becomes automatically available (e.g. in Make-To-Order flows).\n"
+             " * Waiting: if it is not ready to be sent because the required products could not be reserved.\n"
+             " * Ready: products are reserved and ready to be sent. If the shipping policy is 'As soon as possible' this happens as soon as anything is reserved.\n"
+             " * Done: has been processed, can't be modified or cancelled anymore.\n"
+             " * Cancelled: has been cancelled, can't be confirmed anymore.")
+
     def show_warning_message(self):
         message_id = self.env['delivery.credit.limit.warning'].create({
             'message': "This customer has reached his credit limit, do you want to continue?"
@@ -23,6 +40,19 @@ class StockPicking(models.Model):
             'res_model': 'delivery.credit.limit.warning',
             'res_id': message_id.id,
             'target': 'new',
+            'context': {'current_id': self.id}
+        }
+
+    def show_block_window(self):
+        view_id = self.env.ref('rnet_credit_limit.delivery_credit_limit_block_wizard').id
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'delivery.credit.limit.block',
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+            'name': 'Customer Credit Limit',
+            'views': [[view_id, 'form']],
             'context': {'current_id': self.id}
         }
 
@@ -62,5 +92,8 @@ class StockPicking(models.Model):
         if is_credit_so_reached and (self.get_credit_do_warning_type() == 'warning'):
             # return self.show_warning_message()
             return super(StockPicking, self).button_validate()
+
+        if is_credit_so_reached and (self.get_credit_do_warning_type() == 'block'):
+            return self.show_block_window()
 
         return False
