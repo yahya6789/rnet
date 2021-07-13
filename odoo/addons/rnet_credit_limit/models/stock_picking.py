@@ -60,6 +60,7 @@ class StockPicking(models.Model):
         cr = CreditLimit()
         is_credit_so_reached = cr.is_credit_so_reached(partner, inv_rec, sale_amount)
         if is_credit_so_reached and (self.get_credit_do_warning_type() == 'warning'):
-            return self.show_warning_message()
+            # return self.show_warning_message()
+            return super(StockPicking, self).button_validate()
 
         return False
