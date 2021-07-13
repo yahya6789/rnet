@@ -18,7 +18,7 @@ class StockPicking(models.Model):
         ('assigned', 'Ready'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
-        ('account_review', 'Approve For Sale Order'),
+        ('account_review', 'Approve For Delivery'),
     ], string='Status', compute='_compute_state',
         copy=False, index=True, readonly=True, store=True, track_visibility='onchange',
         help=" * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
