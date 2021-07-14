@@ -16,9 +16,9 @@ class StockPicking(models.Model):
         ('waiting', 'Waiting Another Operation'),
         ('confirmed', 'Waiting'),
         ('assigned', 'Ready'),
+        ('account_review', 'Approve For Delivery'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
-        ('account_review', 'Approve For Delivery'),
     ], string='Status', compute='_compute_state',
         copy=False, index=True, readonly=True, store=True, track_visibility='onchange',
         help=" * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
@@ -97,3 +97,9 @@ class StockPicking(models.Model):
             return self.show_block_window()
 
         return False
+
+    def action_account_approve(self):
+        if self.env.user.has_group('stock.group_stock_manager'):
+            return super(StockPicking, self).button_validate()
+        else:
+            raise UserError("Please contact your Administrator for delivery approval")

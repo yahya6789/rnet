@@ -7,6 +7,7 @@
 
     'data': [
         'views/res_config_settings_view.xml',
+        'views/stock_picking_view.xml',
         'wizard/sale_credit_limit_warning_view.xml',
         'wizard/delivery_credit_limit_warning_view.xml',
         'wizard/delivery_credit_limit_block_view.xml'
