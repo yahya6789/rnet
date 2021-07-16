@@ -43,6 +43,11 @@ class SaleOrder(models.Model):
             self.env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.sales_order_validation_cr') or 'block'
         )
 
+    def get_overdue_so_warning_type(self):
+        return str(
+            self.env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.sales_order_validation_ow') or 'block'
+        )
+
     '''
     Fungsi action_confirm-nya modul sales
     '''
@@ -74,9 +79,6 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         partner = self.partner_id
 
-        if self.get_credit_so_warning_type() == 'none':
-            self.confirm()
-
         inv_rec = self.env['account.invoice'].search([
             ('partner_id', '=', partner.id),
             ('state', 'not in', ['draft', 'cancel'])
@@ -94,3 +96,13 @@ class SaleOrder(models.Model):
 
         if is_credit_so_reached and (self.get_credit_so_warning_type() == 'warning'):
             return self.show_warning_message()
+
+        is_so_overdue = cr.is_so_overdue(partner.id, self.env)
+
+        if is_so_overdue and (self.get_overdue_so_warning_type() == 'block'):
+            return self.show_block_window()
+
+        if is_so_overdue and (self.get_overdue_so_warning_type() == 'warning'):
+            return self.show_warning_message()
+
+        return self.confirm()
