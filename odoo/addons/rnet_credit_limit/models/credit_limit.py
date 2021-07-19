@@ -34,13 +34,13 @@ class CreditLimit:
         else:
             return False
 
-    def is_so_overdue(self, partner_id, env):
+    def is_so_overdue(self, partner_id, env, overdue_days):
         account_type = ['receivable']
         date_from = time.strftime('%Y-%m-%d')
         target_move = 'all'
         period_length = 30
         balance, total, dummy = env['report.bi_partner_ledger_report.bi_report_agedpartnerbalance']._get_partner_move_lines(account_type, date_from, target_move, period_length)
-        overdue_days = int(env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.maximum_allowed_ap_so'))
+        #overdue_days = int(env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.maximum_allowed_ap_so'))
 
         partner_limit = self.is_partner_aged(partner_id, balance, overdue_days)
         if partner_limit['overdue'] > 0:

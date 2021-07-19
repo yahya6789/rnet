@@ -62,6 +62,12 @@ class StockPicking(models.Model):
                 'rnet_credit_limit.delivery_order_validation_cr') or 'block'
         )
 
+    def get_overdue_do_warning_type(self):
+        return str(
+            self.env['ir.config_parameter'].sudo().get_param(
+                'rnet_credit_limit.delivery_order_validation_ow') or 'block'
+        )
+
     @api.multi
     def validate(self):
         return super(StockPicking, self).button_validate()
@@ -69,9 +75,10 @@ class StockPicking(models.Model):
     @api.multi
     def button_validate(self):
         partner = self.partner_id
+        credit_do_warning_type = self.get_credit_do_warning_type()
+        overdue_do_warning_type = self.get_overdue_do_warning_type()
 
-        if self.get_credit_do_warning_type() == 'none':
-            # return self.validate()
+        if credit_do_warning_type == 'none' and overdue_do_warning_type == 'none':
             return super(StockPicking, self).button_validate()
 
         inv_rec = self.env['account.invoice'].search([
@@ -89,14 +96,24 @@ class StockPicking(models.Model):
 
         cr = CreditLimit()
         is_credit_so_reached = cr.is_credit_so_reached(partner, inv_rec, sale_amount)
-        if is_credit_so_reached and (self.get_credit_do_warning_type() == 'warning'):
+        if is_credit_so_reached and (credit_do_warning_type == 'warning'):
             # return self.show_warning_message()
             return super(StockPicking, self).button_validate()
 
-        if is_credit_so_reached and (self.get_credit_do_warning_type() == 'block'):
+        if is_credit_so_reached and (credit_do_warning_type == 'block'):
             return self.show_block_window()
 
-        return False
+        overdue_days = int(self.env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.maximum_allowed_ap_do'))
+        is_so_overdue = cr.is_so_overdue(partner.id, self.env, overdue_days)
+
+        if is_so_overdue and (overdue_do_warning_type == 'warning'):
+            # return self.show_warning_message()
+            return super(StockPicking, self).button_validate()
+
+        if is_so_overdue and (overdue_do_warning_type == 'block'):
+            return self.show_block_window()
+
+        return super(StockPicking, self).button_validate()
 
     def action_account_approve(self):
         if self.env.user.has_group('stock.group_stock_manager'):
