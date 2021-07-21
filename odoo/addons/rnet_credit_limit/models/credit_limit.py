@@ -51,7 +51,12 @@ class CreditLimit:
         if days <= 0:
             raise Exception('Overdue days cannot negative')
 
-        partner_limit = {}
+        partner_limit = {
+            'overdue': 0,
+            'id': -1,
+            'name': ''
+        }
+
         age_range = 0
         partner = list(filter(lambda p: p['partner_id'] == partner_id, partners))
         if not partner:
