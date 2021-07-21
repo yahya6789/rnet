@@ -97,7 +97,7 @@ class SaleOrder(models.Model):
         if is_credit_so_reached and (self.get_credit_so_warning_type() == 'warning'):
             return self.show_warning_message()
 
-        overdue_days = int(env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.maximum_allowed_ap_so'))
+        overdue_days = int(self.env['ir.config_parameter'].sudo().get_param('rnet_credit_limit.maximum_allowed_ap_so'))
         is_so_overdue = cr.is_so_overdue(partner.id, self.env, overdue_days)
 
         if is_so_overdue and (self.get_overdue_so_warning_type() == 'block'):
