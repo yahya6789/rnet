@@ -27,6 +27,8 @@ class Project(models.Model):
     actual_end_date = fields.Date(string='Actual End Date')
     description = fields.Char(string='Description')
 
+    parent_project_id = fields.Many2one('project.project', string='Parent Project')
+
     @api.model
     def create(self, vals):
         proj = super(Project, self).create(vals)

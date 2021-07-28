@@ -55,6 +55,12 @@
                     <page name="team" string="Project Team"/>
                     <page name="location" string="Site Location"/>
                 </xpath>
+                <xpath expr="//div[@class='oe_title'][1]/div[1]/div[1]" position="after">
+                    <div>
+                      <label for="label_parent_project" class="oe_inline" string="Parent Project :"/>
+                      <field name="parent_project_id" class="oe_inline oe_input_align"/>
+                    </div>
+                </xpath>
             </field>
         </record>
     </data>
