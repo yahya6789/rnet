@@ -61,6 +61,9 @@
                       <field name="parent_project_id" class="oe_inline oe_input_align"/>
                     </div>
                 </xpath>
+                <xpath expr="//page[1]" position="attributes">
+                    <attribute name="string">Project Info</attribute>
+                </xpath>
             </field>
         </record>
     </data>
