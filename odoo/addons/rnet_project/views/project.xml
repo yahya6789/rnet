@@ -53,6 +53,9 @@
                         </group>
                     </group>
                 </xpath>
+
+                <xpath expr="//page[@name='settings']/group[@name='misc']" position="replace"/>
+
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page name="team" string="Project Team"/>
                     <page name="scope" string="Scope of Work"/>
