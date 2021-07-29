@@ -70,7 +70,24 @@
                 <xpath expr="//page[@name='settings']/group[@name='misc']" position="replace"/>
 
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page name="team" string="Project Team"/>
+                    <page name="team" string="Project Team">
+                        <group>
+                            <group>
+                                <field name="project_manager"/>
+                                <field name="project_coordinator"/>
+                            </group>
+                            <group>
+                                <field name="pic_technical"/>
+                                <field name="pic_project_cost"/>
+                            </group>
+                        </group>
+                        <label for="team_member" string="Team Member"/>
+                        <field name="team_member" options="{'no_create':True, 'no_quick_create':True}">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
                     <page name="scope" string="Scope of Work"/>
                     <page name="phase" string="Project Phase/Term"/>
                     <page name="location" string="Site Location"/>
