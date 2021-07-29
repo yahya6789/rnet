@@ -16,8 +16,8 @@ class ProjectStatus(models.Model):
 class Project(models.Model):
     _inherit = 'project.project'
     no = fields.Char(string='Project No.', readonly=False, required=True, default='New')
-    type_id = fields.Many2one('project.type', string='Project Type', required=True)
-    status_id = fields.Many2one('project.status', string='Project Status')
+    project_type = fields.Many2one('project.type', string='Project Type', required=True)
+    project_status = fields.Many2one('project.status', string='Project Status')
     contract_no = fields.Char(string='Contract No.')
     contract_date = fields.Date(string='Contract Date')
     reference_no = fields.Char(string='Reference No.')
@@ -26,7 +26,7 @@ class Project(models.Model):
     actual_start_date = fields.Date(string='Actual Start Date')
     actual_end_date = fields.Date(string='Actual End Date')
     description = fields.Char(string='Description')
-    partner_id = fields.Many2one('res.partner', string='Customer', required=True)
+    customer = fields.Many2one('res.partner', string='Customer', required=True)
     spk_no = fields.Char(string='SPK.PO No.')
     spk_date = fields.Date(string='SPK.PO Date.')
     res_currency = fields.Many2one('res.currency', string='Currency', required=True)

@@ -9,8 +9,8 @@
                     <field name="no"/>
                 </field>
                 <field name="partner_id" position="after">
-                    <field name="type_id"/>
-                    <field name="status_id"/>
+                    <field name="project_type"/>
+                    <field name="project_status"/>
                     <field name="contract_no"/>
                     <field name="contract_date"/>
                     <field name="reference_no"/>
@@ -35,34 +35,13 @@
                 <xpath expr="//page[1]/group[1]/field[@name='privacy_visibility']" position="replace"/>
                 <xpath expr="//page[1]/group[1]/field[@name='partner_id']" position="replace"/>
 
-                <!--
-                <xpath expr="//notebook/page/group[1]" position="after">
-                    <group>
-                        <group>
-                            <field name="type_id"/>
-                            <field name="status_id"/>
-                            <field name="contract_no"/>
-                            <field name="contract_date"/>
-                            <field name="reference_no"/>
-                        </group>
-                        <group>
-                            <field name="plan_start_date"/>
-                            <field name="plan_end_date"/>
-                            <field name="actual_start_date"/>
-                            <field name="actual_end_date"/>
-                            <field name="description"/>
-                        </group>
-                    </group>
-                </xpath>
-                -->
-
                 <xpath expr="//notebook/page/group[1]" position="after">
                     <group>
                         <group>
                             <field name="no" string="Project No"/>
-                            <field name="type_id"/>
+                            <field name="project_type"/>
                             <field name="description"/>
-                            <field name="partner_id"/>
+                            <field name="customer"/>
                             <field name="spk_no"/>
                             <field name="spk_date"/>
                             <field name="contract_no"/>
