@@ -52,6 +52,17 @@
                             <field name="power_comm"/>
                         </group>
                         <group>
+                            <field name="customer_pic_tech"/>
+                            <field name="customer_pic_comm"/>
+                            <field name="project_duration"/>
+                            <field name="plan_delivery_date"/>
+                            <field name="actual_delivery_date"/>
+                            <field name="term_of_delivery"/>
+                            <field name="plan_start_date"/>
+                            <field name="plan_end_date"/>
+                            <field name="actual_start_date"/>
+                            <field name="actual_end_date"/>
+                            <field name="notes"/>
                         </group>
                     </group>
                 </xpath>
@@ -81,7 +92,7 @@
                 <xpath expr="//div[@class='oe_title'][1]/div[1]/div[1]" position="after">
                     <div>
                       <label for="label_parent_project" class="oe_inline" string="Parent Project :"/>
-                      <field name="parent_project_id" class="oe_inline oe_input_align"/>
+                      <field name="parent_project" class="oe_inline oe_input_align"/>
                     </div>
                 </xpath>
                 <xpath expr="//page[1]" position="attributes">

@@ -26,6 +26,7 @@ class Project(models.Model):
     actual_start_date = fields.Date(string='Actual Start Date')
     actual_end_date = fields.Date(string='Actual End Date')
     description = fields.Char(string='Description')
+    parent_project = fields.Many2one('project.project', string='Parent Project')
     customer = fields.Many2one('res.partner', string='Customer', required=True)
     spk_no = fields.Char(string='SPK.PO No.')
     spk_date = fields.Date(string='SPK.PO Date.')
@@ -33,8 +34,13 @@ class Project(models.Model):
     payment_term = fields.Char(string='Term of Payment')
     no_kow1 = fields.Char(string='No. KoW1')
     power_comm = fields.Char(string='Power / Comm')
-
-    parent_project_id = fields.Many2one('project.project', string='Parent Project')
+    customer_pic_tech = fields.Many2one('res.partner', string='Customer PIC Tech', required=True)
+    customer_pic_comm = fields.Many2one('res.partner', string='Customer PIC Comm', required=True)
+    project_duration = fields.Integer(string='Project Duration', required=True)
+    plan_delivery_date = fields.Date(string='Plan Delivery Date')
+    actual_delivery_date = fields.Date(string='Actual Delivery Date')
+    term_of_delivery = fields.Char(string='Term of Delivery')
+    notes = fields.Text(string='Notes')
 
     @api.model
     def create(self, vals):
