@@ -35,6 +35,7 @@
                 <xpath expr="//page[1]/group[1]/field[@name='privacy_visibility']" position="replace"/>
                 <xpath expr="//page[1]/group[1]/field[@name='partner_id']" position="replace"/>
 
+                <!--
                 <xpath expr="//notebook/page/group[1]" position="after">
                     <group>
                         <group>
@@ -50,6 +51,28 @@
                             <field name="actual_start_date"/>
                             <field name="actual_end_date"/>
                             <field name="description"/>
+                        </group>
+                    </group>
+                </xpath>
+                -->
+
+                <xpath expr="//notebook/page/group[1]" position="after">
+                    <group>
+                        <group>
+                            <field name="no" string="Project No"/>
+                            <field name="type_id"/>
+                            <field name="description"/>
+                            <field name="partner_id"/>
+                            <field name="spk_no"/>
+                            <field name="spk_date"/>
+                            <field name="contract_no"/>
+                            <field name="contract_date"/>
+                            <field name="res_currency"/>
+                            <field name="payment_term"/>
+                            <field name="no_kow1"/>
+                            <field name="power_comm"/>
+                        </group>
+                        <group>
                         </group>
                     </group>
                 </xpath>

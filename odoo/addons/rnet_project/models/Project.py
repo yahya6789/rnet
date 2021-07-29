@@ -26,6 +26,13 @@ class Project(models.Model):
     actual_start_date = fields.Date(string='Actual Start Date')
     actual_end_date = fields.Date(string='Actual End Date')
     description = fields.Char(string='Description')
+    partner_id = fields.Many2one('res.partner', string='Customer')
+    spk_no = fields.Char(string='SPK.PO No.')
+    spk_date = fields.Date(string='SPK.PO Date.')
+    res_currency = fields.Many2one('res.currency', string='Currency')
+    payment_term = fields.Char(string='Term of Payment')
+    no_kow1 = fields.Char(string='No. KoW1')
+    power_comm = fields.Char(string='Power / Comm')
 
     parent_project_id = fields.Many2one('project.project', string='Parent Project')
 
