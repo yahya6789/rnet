@@ -31,10 +31,9 @@
             <field name="model">project.project</field>
             <field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
-                <!-- Privacy -->
-                <xpath expr="//page[1]/group[1]/field[2]" position="replace"/>
-                <!-- Configuration and time scheduling -->
-                <xpath expr="//page[1]/group[2]" position="replace"/>
+                <xpath expr="//page[1]/group[1]/field[@name='user_id']" position="replace"/>
+                <xpath expr="//page[1]/group[1]/field[@name='privacy_visibility']" position="replace"/>
+                <xpath expr="//page[1]/group[1]/field[@name='partner_id']" position="replace"/>
 
                 <xpath expr="//notebook/page/group[1]" position="after">
                     <group>
