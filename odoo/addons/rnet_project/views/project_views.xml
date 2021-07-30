@@ -9,6 +9,13 @@
         </record>
         <!-- -->
 
+        <!-- override action -->
+        <record id="project.open_view_project_all" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="project.view_project"/>
+        </record>
+        <!-- -->
+
         <record model="ir.actions.act_window" id="open_project_type">
             <field name="name">Project Type</field>
             <field name="res_model">project.type</field>
