@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+         <record model="ir.ui.view" id="ogut_product_category_form_view">
+            <field name="name">ogut.product_category_form_view</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[3]/group" position="after">
+                    <group string="Asset Generate" modifiers="{}">
+                        <field name="po_generate_multiple_asset"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

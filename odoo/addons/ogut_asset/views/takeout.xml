@@ -1,0 +1,162 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="ogut_asset_takeout_form">
+            <field name="name">ogut_asset_takeout_form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="picking_type_id" position="replace" />
+                <field name="location_id" position="replace"/>
+                <field name="location_dest_id" position="replace"/>
+
+                <field name="partner_id" position="after">
+                    <field name="picking_type_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </field>
+                <field name="picking_type_id" position="after">
+                    <field name="gut_source_department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </field>
+                <field name="gut_source_department" position="after">
+                    <field name="location_id"/>
+                </field>
+                <field name="location_id" position="after">
+                    <field name="gut_destination_department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </field>
+                <field name="gut_destination_department" position="after">
+                    <field name="location_dest_id"/>
+                </field>
+                <field name="location_dest_id" position="after">
+                    <field name="gut_purpose" invisible="context.get('contact_display',False)"/>
+                </field>
+                <field name="backorder_id" position="after">
+                    <field name="scheduled_date" attrs="{'readonly': ['|', ('id', '=', False), ('state', 'in', ('done', 'cancel'))], 'required': [('id', '!=', False)]}"/>
+                    <field name="date_done" string="Effective Date" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                    <field name="origin" placeholder="e.g. PO0032"/>
+                    <field name="owner_id" groups="stock.group_tracking_owner"/>
+                    <div groups="stock.group_tracking_owner" colspan="2" col="2">
+                        <button name="action_assign_owner" string="Assign Owner" type="object" attrs="{'invisible': ['|',('move_line_exist', '=', False),('state', 'not in', ('draft','assigned','confirmed'))]}" class="oe_link"/>
+                    </div>
+                </field>
+                <xpath expr="//sheet/group/group[last()]" position="replace">
+                    <group invisible="context.get('contact_display',False)">
+                        <field name="gut_issued_by"/>
+                        <field name="gut_issued_date"/>
+                        <field name="gut_qc_by"/>
+                        <field name="gut_qc_date"/>
+                        <field name="gut_approved_by"/>
+                        <field name="gut_approved_date"/>
+                        <field name="gut_received_by"/>
+                        <field name="gut_received_date"/>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook/page[2]" position="attributes">
+                    <attribute name='string'>Inventory</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[2]/field[@name='move_ids_without_package']/tree[1]/field[@name='product_uom']" position="after">
+                    <field name="gut_remarks"/>
+                </xpath>
+                <xpath expr="//notebook/page[2]" position="after">
+                    <page string="Asset" invisible="context.get('contact_display',False)"
+                        attrs="{'invisible':[('group_id','!=',False)]}">
+                        <field name="gut_asset_lines" string="Assets">
+                            <tree editable="bottom">
+                                <field name="asset_id"/>
+                                <field name="model" string="Type/Model" readonly="1"/>
+                                <field name="serial" string="S/N" readonly="1"/>
+                                <field name="number" string="Asset No." readonly="1"/>
+                                <field name="remarks" string="Remarks"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <report string="Takeout" id="action_report_takeout"
+            model="stock.picking" report_type="qweb-pdf"
+            name="ogut_asset.report_takeout"
+            file="ogut_asset.report_takeout"
+            print_report_name="'Print Takeout - %s - %s' % (object.partner_id.name or '', object.name)">
+        </report>
+
+        <record model="ir.ui.view" id="ogut_asset_takeout_tree">
+            <field name="name">ogut_asset_takeout_tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="picking_type_id" position="replace">
+                    <field name="scheduled_date"/>
+                </field>
+
+                <field name="name" position="attributes">
+                    <attribute name="string">Transaction No.</attribute>
+                </field>
+                <field name="location_dest_id" position="replace"/>
+                <field name="partner_id" position="replace"/>
+                <field name="scheduled_date" position="replace"/>
+                <field name="origin" position="replace"/>
+                <field name="backorder_id" position="replace"/>
+                <field name="state" position="replace"/>
+
+                <field name="scheduled_date" position="after">
+                    <field name="picking_type_id"/>
+                </field>
+                <field name="picking_type_id" position="after">
+                    <field name="gut_purpose" invisible="context.get('contact_display',False)"/>
+                </field>
+                <field name="gut_purpose" position="after">
+                    <field name="partner_id"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="gut_source_department"/>
+                </field>
+                <field name="gut_source_department" position="after">
+                    <field name="location_id"/>
+                </field>
+                <field name="location_id" position="after">
+                    <field name="gut_destination_department"/>
+                </field>
+                <field name="gut_destination_department" position="after">
+                    <field name="location_dest_id"/>
+                </field>
+                <field name="location_dest_id" position="after">
+                    <field name="gut_issued_by"/>
+                </field>
+                <field name="gut_issued_by" position="after">
+                    <field name="gut_issued_date"/>
+                </field>
+                <field name="gut_issued_date" position="after">
+                    <field name="gut_received_by"/>
+                </field>
+                <field name="gut_received_by" position="after">
+                    <field name="gut_received_date"/>
+                </field>
+                <field name="gut_received_date" position="after">
+                    <field name="gut_inventory_lines_count"/>
+                </field>
+                <field name="gut_inventory_lines_count" position="after">
+                    <field name="gut_asset_lines_count"/>
+                </field>
+                <field name="gut_asset_lines_count" position="after">
+                    <field name="origin"/>
+                </field>
+                <field name="origin" position="after">
+                    <field name="backorder_id"/>
+                </field>
+                <field name="backorder_id" position="after">
+                    <field name="state"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_takeout_form">
+            <field name="name">Inventory / Asset Takeout</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id.name', '=like', 'Take Out%')]</field>
+            <field name="context">{'type': 'takeout'}</field>
+        </record>
+        <menuitem id="menu_operation_takeout" name="Take Out" parent="stock.menu_stock_warehouse_mgmt" action="open_takeout_form" sequence="3"/>
+        <menuitem id="menu_operation_takeout_2" name="Take Out" parent="odoo_asset_transfer_ce.asset_accountability_sub_top_menu" action="open_takeout_form" sequence="8"/>
+    </data>
+</odoo>

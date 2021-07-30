@@ -1,0 +1,142 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="ogut_asset_search">
+            <field name="name">ogut.asset.search</field>
+            <field name="model">account.asset.asset.custom</field>
+            <field name="inherit_id" ref="odoo_account_asset.view_account_asset_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="code"/>
+                    <field name="custom_serial_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ogut_asset_tree">
+            <field name="name">ogut.asset.tree</field>
+            <field name="model">account.asset.asset.custom</field>
+            <field name="inherit_id" ref="odoo_account_asset.view_account_asset_asset_purchase_tree"/>
+            <field name="arch" type="xml">
+                <field name="salvage_value" position="after">
+                    <field name="gut_total_terdepresiasi"/>
+                </field>
+                <field name="value_residual" position="after">
+                    <field name="gut_unposted"/>
+                </field>
+                <field name="method_number" position="attributes">
+                    <attribute name="string">Total Jadwal Depre.</attribute>
+                </field>
+                <field name="method_number" position="after">
+                    <field name="gut_sisa_depresiasi"/>
+                </field>
+                <field name="custom_source_partner_id" position="replace"/>
+                <field name="method_number" position="after">
+                    <field name="custom_source_partner_id"/>
+                </field>
+                <field name="custom_source_partner_id" position="attributes">
+                    <attribute name="string">Custodian</attribute>
+                </field>
+                <field name="custom_source_department_id" position="attributes">
+                    <attribute name="string">Department</attribute>
+                </field>
+                <field name="custom_source_department_id" position="after">
+                    <field name="gut_source_location"/>
+                    <field name="gut_auto_depreciation"/>
+                </field>
+                <field name="gut_auto_depreciation" position="attributes">
+                    <attribute name="string">Auto Depre.</attribute>
+                </field>
+                <field name="gut_source_location" position="attributes">
+                    <attribute name="string">Location</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ogut_asset_form">
+            <field name="name">ogut.asset.form</field>
+            <field name="model">account.asset.asset.custom</field>
+            <field name="inherit_id" ref="odoo_asset_transfer_ce.view_account_asset_asset_transfer_form_inherit"/>
+            <field name="priority">17</field>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-dashboard"
+                        name="open_calibration_form" context="{'asset_id': id,}">
+
+                        <field string="Calibration" name="gut_calibration_count" widget="statinfo"/>
+                    </button>
+                </div>
+                <field name="category_id" position="attributes">
+                    <attribute name="string">Asset Category</attribute>
+                </field>
+                <field name="category_id" position="after">
+                    <field name="gut_product_category"/>
+                </field>
+                <field name="custom_number" position="attributes">
+                    <attribute name="string">Asset No.</attribute>
+                </field>
+                <field name="date" position="after">
+                    <field name="gut_calibration_certificate"/>
+                    <field name="gut_status"/>
+                    <field name="gut_condition"/>
+                    <field name="gut_condition_desc"/>
+                </field>
+                <field name="invoice_id" position="after">
+                    <field name="gut_last_calibration" readonly="1"/>
+                </field>
+                <field name="custom_model_number" position="attributes">
+                    <attribute name="string">Type / Model</attribute>
+                </field>
+                <field name="custom_serial_number" position="attributes">
+                    <attribute name="string">S/N</attribute>
+                </field>
+                <field name="custom_source_department_id" position="attributes">
+                    <attribute name="string">Source Department</attribute>
+                </field>
+                <field name="custom_source_department_id" position="after">
+                    <field name="gut_source_location"/>
+                </field>
+                <xpath expr="//notebook/page[last()]" position="after">
+                    <page string='Lokasi'>
+                        <group>
+                            <group string="Location">
+                                <field name="gut_longitude"/>
+                                <field name="gut_latitude"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="salvage_value" position="after">
+                    <field name="gut_total_terdepresiasi" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </field>
+                <field name="value_residual" position="after">
+                    <field name="gut_unposted" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_asset_status">
+            <field name="name">Asset Status</field>
+            <field name="res_model">gut.asset.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_asset_condition">
+            <field name="name">Asset Condition</field>
+            <field name="res_model">gut.asset.condition</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_asset_calibration">
+            <field name="name">Asset Calibration</field>
+            <field name="res_model">gut.asset.calibration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_asset_status" name="Asset Status" parent="odoo_account_asset_extend_ce.asset_configuration_sub_top_menu" action="open_asset_status" sequence="100"/>
+        <menuitem id="menu_asset_condition" name="Asset Condition" parent="odoo_account_asset_extend_ce.asset_configuration_sub_top_menu" action="open_asset_condition" sequence="101"/>
+        <menuitem id="menu_asset_calibration" name="Assets Calibration" parent="odoo_account_asset_extend_ce.asset_sub_top_menu" action="open_asset_calibration" sequence="11"/>
+    </data>
+</odoo>

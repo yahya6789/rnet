@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="stat1" model="gut.asset.status">
+            <field name="name">Aktif</field>
+        </record>
+        <record id="stat2" model="gut.asset.status">
+            <field name="name">Not Aktif</field>
+        </record>
+        <record id="stat3" model="gut.asset.status">
+            <field name="name">Hilang</field>
+        </record>
+        <record id="cond1" model="gut.asset.condition">
+            <field name="name">Ok</field>
+        </record>
+        <record id="cond2" model="gut.asset.condition">
+            <field name="name">Not Ok</field>
+        </record>
+        <record id="cond3" model="gut.asset.condition">
+            <field name="name">Rusak</field>
+        </record>
+        <record id="cond4" model="gut.asset.condition">
+            <field name="name">50%</field>
+        </record>
+        <record id="transferType1" model="asset.transfer.type">
+            <field name="code">OUT</field>
+            <field name="description">Take Out</field>
+            <field name="display_name">Take Out</field>
+            <field name="gut_is_system">True</field>
+        </record>
+        <record id="transferType2" model="asset.transfer.type">
+            <field name="code">REC</field>
+            <field name="description">Material Receipt</field>
+            <field name="display_name">Material Receipt</field>
+            <field name="gut_is_system">True</field>
+        </record>
+        <record id="seq_calibration_no" model="ir.sequence">
+            <field name="name">Calibration No. Sequence</field>
+            <field name="code">calibration.seq</field>
+            <field name="prefix">CL</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

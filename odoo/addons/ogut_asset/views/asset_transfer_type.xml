@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="odoo_asset_transfer_ce.action_asset_transfer_type">
+            <field name="name">Asset Transfer Type</field>
+            <field name="res_model">asset.transfer.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Transfer Type.
+                </p>
+            </field>
+            <field name="context">{"search_default_fil_is_not_system_type":1}</field>
+        </record>
+        <record model="ir.ui.view" id="ogut_asset_transfer_type_search">
+            <field name="name">ogut.asset_transfer_type_search</field>
+            <field name="model">asset.transfer.type</field>
+            <field name="inherit_id" ref="odoo_asset_transfer_ce.view_asset_transfer_type_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description']" position="after">
+                    <filter name="fil_is_not_system_type" string="Not System" domain="[('gut_is_system','=',False)]" help="Show only non-system asset type"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="ogut_asset_transfer_type_form">
+            <field name="name">ogut.asset_transfer_type_form</field>
+            <field name="model">asset.transfer.type</field>
+            <field name="inherit_id" ref="odoo_asset_transfer_ce.asset_transfer_type_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="replace">
+                    <sheet>
+                        <group name="asset_info">
+                            <field name="code"/>
+                            <field name="description"/>
+                            <field string="Is System?" name="gut_is_system"/>
+                        </group>
+                    </sheet>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="ogut_asset_transfer_type_tree">
+            <field name="name">ogut.asset_transfer_type_tree</field>
+            <field name="model">asset.transfer.type</field>
+            <field name="inherit_id" ref="odoo_asset_transfer_ce.asset_transfer_type_tree"/>
+            <field name="arch" type="xml">
+                <field name="description" position="after">
+                    <field name="gut_is_system"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

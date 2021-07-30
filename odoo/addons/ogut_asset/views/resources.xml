@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="web_assets_backend" name="ogut_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/ogut_asset/static/src/css/ogut.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

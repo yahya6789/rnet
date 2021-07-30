@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="gut_asset_report_pivot">
+        <field name="name">gut.asset.report.pivot</field>
+        <field name="model">asset_asset_report_custom</field>
+        <field name="arch" type="xml">
+            <pivot string="Assets Analysis" disable_linking="True">
+                <field name="asset_total" type="measure"/>
+                <field name="asset_depre_sch_total" type="measure"/>
+                <field name="purchased_value" type="measure"/>
+                <field name="depre_opbal_value" type="measure"/>
+                <field name="depre_sch_total_value" type="measure"/>
+                <field name="depre_depreciated_value" type="measure"/>
+                <field name="value_balance" type="measure"/>
+                <field name="depline_sch_amount" type="measure"/>
+                <field name="depline_depreciated_amount" type="measure"/>
+                <field name="depline_depreciated_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_open_asset_report">
+        <field name="name">Assets Analysis</field>
+        <field name="res_model">asset_asset_report_custom</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="context">{}</field>  <!-- force empty -->
+        <field name="help" type="html">
+          <p>
+            From this report, you can have an overview on all depreciations. The
+            search bar can also be used to personalize your assets depreciation reporting.
+          </p>
+        </field>
+    </record>
+
+    <menuitem name="Assets" action="action_open_asset_report" id="menu_asset_report"
+        parent="odoo_account_asset_extend_ce.asset_report_sub_top_menu" sequence="9"/>
+</odoo>

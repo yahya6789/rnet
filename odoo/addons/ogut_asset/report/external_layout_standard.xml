@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="gut_external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[hasclass('header')]" position="replace">
+            <div class="header" t-att-style="report_header_style">
+                <div class="row">
+                    <div class="col-3">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                    </div>
+                    <div class="col-9 text-right" name="company_address">
+                        <span t-field="company.name" /><br/>
+                        <span t-field="company.street" /><br/>
+                        <span t-field="company.street2" />&amp;nbsp;-&amp;nbsp;<span t-field="company.state_id" /><br/>
+                    </div>
+                </div>
+                <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                    <div class="col-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="ogut_asset_accountability_transfer_form">
+            <field name="name">ogut.asset.accountability.transfer.form</field>
+            <field name="model">asset.accountability.transfer</field>
+            <field name="inherit_id" ref="odoo_asset_transfer_ce.asset_accountability_transfer_view"/>
+            <field name="arch" type="xml">
+                <field name="source_partner_id" position="replace"/>
+                <field name="source_department_id" position="attributes">
+                    <attribute name="string">Source Department</attribute>
+                </field>
+                <field name="source_department_id" position="before">
+                    <field name="source_partner_id" />
+                </field>
+                <field name="source_department_id" position="after">
+                    <field name="gut_source_location" />
+                </field>
+
+                <field name="destination_partner_id" position="replace"/>
+                <field name="destination_department_id" position="attributes">
+                    <attribute name="string">Destination Department</attribute>
+                </field>
+                <field name="destination_department_id" position="before">
+                    <field name="destination_partner_id" />
+                </field>
+                <field name="destination_department_id" position="after">
+                    <field name="gut_dest_location" />
+                </field>
+
+                <field name="transferred_date" position="after">
+                    <field name="gut_source_document" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ogut_asset_accountability_transfer_search">
+            <field name="name">ogut.asset.accountability.transfer.search</field>
+            <field name="model">asset.accountability.transfer</field>
+            <field name="inherit_id" ref="odoo_asset_transfer_ce.asset_accountability_transfer_tree"/>
+            <field name="arch" type="xml">
+                <field name="source_partner_id" position="replace"/>
+
+                <field name="transferred_asset_id" position="before">
+                    <field name="name"/>
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="string">Transfer ID</attribute>
+                </field>
+                <field name="name" position="after">
+                    <field name="transferred_date"/>
+                </field>
+
+                <field name="source_department_id" position="attributes">
+                    <attribute name="string">Source Department</attribute>
+                </field>
+                <field name="source_department_id" position="before">
+                    <field name="source_partner_id" />
+                </field>
+                <field name="source_department_id" position="after">
+                    <field name="gut_source_location" />
+                </field>
+
+                <field name="destination_partner_id" position="replace"/>
+                <field name="destination_department_id" position="attributes">
+                    <attribute name="string">Destination Department</attribute>
+                </field>
+                <field name="destination_department_id" position="before">
+                    <field name="destination_partner_id" />
+                </field>
+                <field name="destination_department_id" position="after">
+                    <field name="gut_dest_location" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

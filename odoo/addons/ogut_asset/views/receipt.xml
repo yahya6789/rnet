@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <report string="Material Receipt" id="action_report_receipt"
+            model="stock.picking" report_type="qweb-pdf"
+            name="ogut_asset.report_receipt"
+            file="ogut_asset.report_receipt"
+            print_report_name="'Print Material Receipt - %s - %s' % (object.partner_id.name or '', object.name)">
+        </report>
+        <record model="ir.actions.act_window" id="open_receipt_form">
+            <field name="name">Inventory / Material Receipt</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id.name', '=like', 'Material%')]</field>
+            <field name="context">{'type': 'material'}</field>
+        </record>
+        <menuitem id="menu_operation_receipt" name="Material Receipt" parent="stock.menu_stock_warehouse_mgmt" action="open_receipt_form" sequence="4"/>
+        <menuitem id="menu_operation_receipt_2" name="Material Receipt" parent="odoo_asset_transfer_ce.asset_accountability_sub_top_menu" action="open_receipt_form" sequence="9"/>
+    </data>
+</odoo>
