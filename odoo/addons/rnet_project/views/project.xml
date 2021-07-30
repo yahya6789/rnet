@@ -1,5 +1,38 @@
 <odoo>
     <data>
+        <!-- override existing menu sequences -->
+        <record model="ir.ui.menu" id="project.menu_project_tags_act">
+            <field name="sequence">11</field>
+        </record>
+        <record model="ir.ui.menu" id="project.project_menu_config_activity_type">
+            <field name="sequence">12</field>
+        </record>
+        <!-- -->
+
+        <record model="ir.actions.act_window" id="open_project_type">
+            <field name="name">Project Type</field>
+            <field name="res_model">project.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_project_status">
+            <field name="name">Project Status</field>
+            <field name="res_model">project.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_project_type"
+                  name="Project Type"
+                  parent="project.menu_project_config"
+                  action="open_project_type" sequence="13"/>
+
+        <menuitem id="menu_project_status"
+                  name="Project Status"
+                  parent="project.menu_project_config"
+                  action="open_project_status" sequence="14"/>
+
         <record id="rnet_project_view_project" model="ir.ui.view">
             <field name="name">rnet.project_view_project</field>
             <field name="model">project.project</field>
