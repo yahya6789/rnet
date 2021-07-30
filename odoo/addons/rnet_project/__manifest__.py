@@ -8,7 +8,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/project.xml',
-        'views/project.xml',
+        'views/project_views.xml',
     ],
 
     "installable": True,
