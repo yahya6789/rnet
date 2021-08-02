@@ -24,6 +24,9 @@
         'views/partner-sequence.xml',
         'views/product_template_views.xml',
         'views/stock_templates.xml',
+        'views/sale_views.xml',
+        'views/business_unit_view.xml',
+        'views/sales_area_view.xml',
         'security/ir.model.access.csv',
         'report/SalesReport.xml'
     ],
