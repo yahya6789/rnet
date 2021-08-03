@@ -28,7 +28,7 @@
                     </div>
                     <group>
                         <field name="name"/>
-                        <field name="parent"/>
+                        <field name="parent" options="{'no_create':True}"/>
                         <field name="longitude"/>
                         <field name="latitude"/>
                         <field name="map_location_code"/>
