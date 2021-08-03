@@ -1,4 +1,4 @@
-from odoo import models, api
+from odoo import models, api, fields
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -7,6 +7,9 @@ _logger = logging.getLogger(__name__)
 class Partner(models.Model):
     _inherit = 'res.partner'
     _order = 'name'
+
+    salesarea = fields.Many2one('sales.area', string='Sales Area')
+    businessunit = fields.Many2one('business.unit', string='Business Unit')
 
     @api.multi
     def name_get(self):

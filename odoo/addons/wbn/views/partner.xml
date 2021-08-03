@@ -13,6 +13,10 @@
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[3]/group[1]/group[3]/field[@name='barcode']" position="attributes">
                     <attribute name="string">Alias</attribute>
                 </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='category_id']" position="after">
+                    <field name="salesarea" options="{'no_create':True}"/>
+                    <field name="businessunit" options="{'no_create':True}"/>
+                </xpath>
             </field>
         </record>
         <record model="ir.ui.view" id="wbn.view_partner_tree">
