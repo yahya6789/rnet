@@ -1,15 +1,16 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="wbn.stock_search">
-            <field name="name">wbn.stock.search</field>
+        <record model="ir.ui.view" id="stock_search">
+            <field name="name">stock.search</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_internal_search"/>
             <field name="arch" type="xml">
                 <field name="name" string="Picking List" filter_domain="['|',('name','ilike', self),('origin','ilike',self)]"/>
             </field>
         </record>
-        <record model="ir.ui.view" id="wbn.stock_vpicktree">
-            <field name="name">wbn.stock.vpicktree</field>
+
+        <record model="ir.ui.view" id="stock_vpicktree">
+            <field name="name">stock.vpicktree</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.vpicktree"/>
             <field name="arch" type="xml">
@@ -27,8 +28,9 @@
                 </field>
             </field>
         </record>
-        <record model="ir.ui.view" id="wbn.view_picking_form">
-            <field name="name">wbn.view.picking.form</field>
+
+        <record model="ir.ui.view" id="view_picking_form">
+            <field name="name">view.picking.form</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
