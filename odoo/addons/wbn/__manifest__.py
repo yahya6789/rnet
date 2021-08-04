@@ -7,11 +7,10 @@
     'category': 'Extra Tools',
     'version': '0.1',
 
-    'depends': ['base', 'sale', 'purchase', 'stock', 'delivery'],
+    'depends': ['base', 'sale', 'rnet_purchase', 'stock', 'delivery'],
 
     'data': [
         'views/accounting.xml',
-        'views/purchaseorder.xml',
         'views/saleslines.xml',
         'views/purchaselines.xml',
         'views/resources.xml',
