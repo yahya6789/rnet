@@ -7,7 +7,7 @@
     'category': 'Extra Tools',
     'version': '0.1',
 
-    'depends': ['base', 'sale', 'rnet_purchase', 'stock', 'delivery'],
+    'depends': ['base', 'rnet_sales', 'rnet_purchase', 'rnet_inventory', 'delivery'],
 
     'data': [
         'views/accounting.xml',
@@ -21,7 +21,6 @@
         'views/partner.xml',
         'views/partner-sequence.xml',
         'views/product_template_views.xml',
-        'views/sale_views.xml',
         'views/business_unit_view.xml',
         'views/sales_area_view.xml',
         'views/product_views.xml',
