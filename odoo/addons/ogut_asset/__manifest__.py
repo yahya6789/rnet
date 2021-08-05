@@ -26,6 +26,7 @@
         'report/purchase_line.xml',
         'report/external_layout_standard.xml',
         'views/stock.xml',
+        'views/purchase_requisition_view.xml',
     ],
 
     "installable": True,
