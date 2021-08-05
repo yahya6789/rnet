@@ -1,7 +1,9 @@
 from odoo import models, fields, api
 
 import logging
+
 _logger = logging.getLogger(__name__)
+
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
@@ -9,6 +11,7 @@ class PurchaseOrder(models.Model):
     gut_qty_received = fields.Integer('Quantity Received', compute='_get_qty_received')
     gut_qty_billed = fields.Integer('Quantity Billed', compute='_get_qty_billed')
     gut_receive_status = fields.Char('Receive Status', compute='_get_receive_status')
+    project = fields.Many2one('project.project', string='Project')
 
     @api.one
     def _get_qty_total(self):
@@ -42,6 +45,7 @@ class PurchaseOrder(models.Model):
             self.gut_receive_status = 'Over'
         else:
             self.gut_receive_status = None
+
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
