@@ -24,6 +24,7 @@
         'views/business_unit_view.xml',
         'views/sales_area_view.xml',
         'views/product_views.xml',
+        'views/product_group_views.xml',
         'security/ir.model.access.csv',
         'report/SalesReport.xml'
     ],

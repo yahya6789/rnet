@@ -5,3 +5,5 @@ from . import AgedPartnerReport
 from . import BusinessUnit
 from . import SalesArea
 from . import ProductCategory
+from . import ProductGroup
+from . import Product
