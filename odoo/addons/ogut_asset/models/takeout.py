@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
+from odoo import models, fields, api, _
 from datetime import date
 from odoo.exceptions import ValidationError
 import logging
+
 _logger = logging.getLogger(__name__)
+
 
 class Takeout(models.Model):
     _inherit = 'stock.picking'
@@ -19,11 +21,14 @@ class Takeout(models.Model):
     gut_approved_date = fields.Date('Approved Date')
     gut_received_by = fields.Many2one('res.users', 'Received By')
     gut_received_date = fields.Date('Received Date')
-    gut_asset_lines = fields.One2many(comodel_name='gut.takeout.asset.line', inverse_name='gut_takeout_id', string='Assets', store=True)
+    gut_asset_lines = fields.One2many(comodel_name='gut.takeout.asset.line', inverse_name='gut_takeout_id',
+                                      string='Assets', store=True)
     gut_source_department = fields.Many2one('hr.department', 'Source Department')
     gut_destination_department = fields.Many2one('hr.department', 'Destination Department')
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
     gut_inventory_lines_count = fields.Integer(string='Qty Inventory', compute='_get_inventory_lines_count')
+
+    project = fields.Many2one('project.project', string='Project')
 
     def _compute_show_mark_as_todo(self):
         super(Takeout, self)._compute_show_mark_as_todo()
@@ -47,7 +52,7 @@ class Takeout(models.Model):
         if total_done < 1 and self.move_lines:
             raise ValidationError(_("Total done quantity is 0"))
 
-        #raise ValidationError(_("Validation done"))
+        # raise ValidationError(_("Validation done"))
         return
 
     def button_validate(self):
@@ -74,7 +79,7 @@ class Takeout(models.Model):
         return
 
     def _takeout_movement(self):
-        #_logger.info("===== Creating takeout movement =====")
+        # _logger.info("===== Creating takeout movement =====")
         asset_type = self.env['asset.transfer.type'].search([('code', '=', 'OUT')])
         cust_source = self.env['res.partner'].search([('id', '=', 1)])
 
@@ -93,13 +98,14 @@ class Takeout(models.Model):
                 'gut_asset_lines_id': self.id
             })
 
-        info = {'custodian': self.partner_id, 'department' : self.gut_destination_department, 'location' : self.location_dest_id}
+        info = {'custodian': self.partner_id, 'department': self.gut_destination_department,
+                'location': self.location_dest_id}
         asset.asset_id.update_additional_info(info)
 
         return
 
     def _material_movement(self):
-        #_logger.info("===== Creating material movement =====")
+        # _logger.info("===== Creating material movement =====")
         asset_type = self.env['asset.transfer.type'].search([('code', '=', 'REC')])
         dest_source = self.env['res.partner'].search([('id', '=', 1)])
 
@@ -118,7 +124,8 @@ class Takeout(models.Model):
                 'gut_asset_lines_id': self.id
             })
 
-        info = {'custodian': dest_source.id, 'department' : self.gut_destination_department, 'location' : self.location_dest_id}
+        info = {'custodian': dest_source.id, 'department': self.gut_destination_department,
+                'location': self.location_dest_id}
         asset.asset_id.update_additional_info(info)
 
         return
@@ -127,15 +134,15 @@ class Takeout(models.Model):
     def onchange_picking_type_id(self):
         if self._context.get('type') == 'takeout':
             res = {
-                'domain' : {
-                    'picking_type_id' : [('name', '=like', 'Take Out%')],
+                'domain': {
+                    'picking_type_id': [('name', '=like', 'Take Out%')],
                 }
             }
             return res
         elif self._context.get('type') == 'material':
             res = {
-                'domain' : {
-                    'picking_type_id' : [('name', '=like', 'Material %')],
+                'domain': {
+                    'picking_type_id': [('name', '=like', 'Material %')],
                 }
             }
             return res
