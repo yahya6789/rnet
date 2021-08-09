@@ -11,7 +11,6 @@
 
     'data': [
         'views/accounting.xml',
-        'views/saleslines.xml',
         'views/purchaselines.xml',
         'views/resources.xml',
         'views/salesorder.xml',
@@ -26,7 +25,6 @@
         'views/product_views.xml',
         'views/product_group_views.xml',
         'security/ir.model.access.csv',
-        'report/SalesReport.xml'
     ],
 
     'demo': [
