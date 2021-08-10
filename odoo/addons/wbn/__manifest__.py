@@ -11,7 +11,6 @@
 
     'data': [
         'views/accounting.xml',
-        'views/purchaselines.xml',
         'views/resources.xml',
         'views/salesorder.xml',
         'views/quotations.xml',
