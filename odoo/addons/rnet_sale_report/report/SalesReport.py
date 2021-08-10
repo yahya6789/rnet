@@ -15,6 +15,7 @@ class SalesReport(models.Model):
     sales_order_total_record = fields.Integer('SO Count')
     sp_name = fields.Char('Delivery #')
     weight_delivered = fields.Integer('Gross Weight Delivered')
+    unit_price = fields.Float('Unit Price')
 
     nbr = fields.Integer('Done Deliveries', readonly=True)
     name = fields.Char('Customer Reference', readonly=True)
