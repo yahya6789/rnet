@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gut_asset_status,access_gut_asset_status,model_gut_asset_status,,1,1,1,1
+access_gut_asset_condition,access_gut_asset_condition,model_gut_asset_condition,,1,1,1,1
+access_gut_asset_calibration,access_gut_asset_calibration,model_gut_asset_calibration,,1,1,1,1

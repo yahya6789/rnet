@@ -9,10 +9,6 @@
     'data': [
         'security/ir.model.access.csv',
         'security/record_rules.xml',
-        'views/asset.xml',
-        'views/asset_transfer.xml',
-        'views/asset_transfer_type.xml',
-        'views/calibration.xml',
         'views/takeout.xml',
         'views/receipt.xml',
         'views/resources.xml',
@@ -21,7 +17,6 @@
         'views/account.xml',
         'views/purchase_order.xml',
         'views/product.xml',
-        'data/asset.xml',
         'report/asset.xml',
         'report/purchase_line.xml',
         'report/external_layout_standard.xml',
