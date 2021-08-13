@@ -11,7 +11,9 @@
         'views/asset.xml',
         'views/asset_transfer.xml',
         'views/asset_transfer_type.xml',
-        'views/calibration.xml'
+        'views/calibration.xml',
+        'views/takeout.xml',
+        'views/takeout_templates.xml',
     ],
 
     "installable": True,

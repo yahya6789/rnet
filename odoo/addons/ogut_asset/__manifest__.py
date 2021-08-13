@@ -4,15 +4,13 @@
     'author': "4Net Prima Solusi",
     'version': '0.1',
 
-    'depends': ['hr','odoo_account_asset_extend_ce','om_account_asset'],
+    'depends': ['hr','rnet_asset'],
 
     'data': [
         'security/ir.model.access.csv',
         'security/record_rules.xml',
-        'views/takeout.xml',
         'views/receipt.xml',
         'views/resources.xml',
-        'views/takeout_templates.xml',
         'views/receipt_templates.xml',
         'views/account.xml',
         'views/purchase_order.xml',
