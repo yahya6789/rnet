@@ -15,7 +15,6 @@
         'views/account.xml',
         'views/purchase_order.xml',
         'views/product.xml',
-        'report/asset.xml',
         'report/external_layout_standard.xml',
         'views/stock.xml',
         'views/purchase_requisition_view.xml',

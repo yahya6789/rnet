@@ -14,6 +14,7 @@
         'views/calibration.xml',
         'views/takeout.xml',
         'views/takeout_templates.xml',
+        'report/asset.xml',
     ],
 
     "installable": True,

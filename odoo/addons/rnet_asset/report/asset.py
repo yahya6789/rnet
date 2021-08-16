@@ -1,11 +1,12 @@
 from odoo import models, fields, api, tools
 
+
 class Asset(models.Model):
     _name = "asset_asset_report_custom"
     _description = "Asset Report"
     _auto = False
 
-    #row
+    # row
     asset_id = fields.Many2one('account.asset.asset.custom', string='Asset')
     asset_no = fields.Char('Asset No')
     reference = fields.Char('Reference')
@@ -28,7 +29,7 @@ class Asset(models.Model):
     depline_depreciation_date = fields.Date('Depre Line Date')
     depline_depreciated = fields.Boolean('Depre Line Depreciated Flag')
 
-    #measure
+    # measure
     asset_total = fields.Float('Asset Total')
     asset_depre_sch_total = fields.Float('Total Depreciation Schedule')
     purchased_value = fields.Float('Purchased Amount')
