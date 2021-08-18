@@ -1,8 +1,9 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="wbn.sales_order">
-            <field name="name">wbn.salesorder</field>
+        <record model="ir.ui.view" id="sales_order_form_1">
+            <field name="name">WBN Sale Order</field>
             <field name="model">sale.order</field>
+            <field name="priority" eval="50"/>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <field name="sale_order_template_id" position="after">
@@ -16,8 +17,8 @@
                 </xpath>
             </field>
         </record>
-        <record model="ir.ui.view" id="wbn.sales_order_tree">
-            <field name="name">wbn.salesorder.tree</field>
+        <record model="ir.ui.view" id="sales_order_tree_1">
+            <field name="name">WBN Sale Order Tree</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="arch" type="xml">

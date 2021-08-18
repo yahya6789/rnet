@@ -7,9 +7,11 @@
     'category': 'Extra Tools',
     'version': '0.1',
 
-    'depends': ['sale'],
+    'depends': ['sale_management'],
 
     'data': [
+        'views/salesorder.xml',
+        'views/quotations.xml',
         'views/sale_views.xml',
     ],
 
