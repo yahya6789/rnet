@@ -10,6 +10,7 @@
     'depends': ['sale'],
 
     'data': [
+        'security/ir.model.access.csv',
         'views/purchaselines.xml',
     ],
 
