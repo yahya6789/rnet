@@ -106,7 +106,7 @@
                                             <td>Date</td><td>:&#8194;<span t-field="o.scheduled_date" t-options='{"format": "dd-MM-yyyy"}'/></td>
                                         </tr>
                                         <tr>
-                                            <td>Job Order No.</td><td>:&#8194;<span t-field="o.origin"/></td>
+                                            <td>Job Order No.</td><td>:&#8194;<span t-field="o.project.no"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
