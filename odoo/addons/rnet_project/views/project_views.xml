@@ -81,7 +81,7 @@
                             <field name="no" string="Project No"/>
                             <field name="project_type"/>
                             <field name="description"/>
-                            <field name="customer"/>
+                            <field name="partner_id"/>
                             <field name="spk_no"/>
                             <field name="spk_date"/>
                             <field name="contract_no"/>
