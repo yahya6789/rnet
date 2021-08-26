@@ -63,6 +63,10 @@
                 <field name="partner_id" position="attributes">
                     <attribute name='string'>Customer</attribute>
                 </field>
+                <field name="description" position="replace"/>
+                <field name="project_type" position="after">
+                    <field name="description" />
+                </field>
             </field>
         </record>
 
