@@ -15,7 +15,7 @@ class ProjectStatus(models.Model):
 
 class Project(models.Model):
     _inherit = 'project.project'
-    no = fields.Char(string='Project No.', readonly=False)
+    no = fields.Char(string='Project No.', readonly=True)
     project_type = fields.Many2one('project.type', string='Project Type', required=True)
     project_status = fields.Many2one('project.status', string='Project Status')
     contract_no = fields.Char(string='Contract No.')
@@ -49,7 +49,7 @@ class Project(models.Model):
     @api.model
     def create(self, vals):
         proj = super(Project, self).create(vals)
-        if proj.no == 'New':
-            no = self.env['ir.sequence'].next_by_code('project.no') or 'Job Order No.'
+        if not proj.no:
+            no = self.env['ir.sequence'].next_by_code('project.no') or None
             proj.write({'no': no})
         return proj
