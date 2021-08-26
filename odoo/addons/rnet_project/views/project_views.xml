@@ -99,6 +99,7 @@
                             <field name="customer_pic_tech"/>
                             <field name="customer_pic_comm"/>
                             <field name="project_duration"/>
+                            <field name="project_status"/>
                             <field name="plan_delivery_date"/>
                             <field name="actual_delivery_date"/>
                             <field name="term_of_delivery"/>
