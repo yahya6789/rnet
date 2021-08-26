@@ -53,3 +53,14 @@ class Project(models.Model):
             no = self.env['ir.sequence'].next_by_code('project.no') or None
             proj.write({'no': no})
         return proj
+
+    @api.multi
+    def name_get(self):
+        data = []
+        for o in self:
+            display_name = '['
+            display_name += o.no or ""
+            display_name += '] '
+            display_name += o.name or ""
+            data.append((o.id, display_name))
+        return data
