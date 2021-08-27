@@ -13,7 +13,6 @@
         'views/resources.xml',
         'views/receipt_templates.xml',
         'views/account.xml',
-        'views/purchase_order.xml',
         'views/product.xml',
         'report/external_layout_standard.xml',
         'views/stock.xml',

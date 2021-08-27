@@ -7,7 +7,7 @@
 
     'data': [
         'security/ir.model.access.csv',
-        'views/purchaseorder.xml',
+        'views/purchase_order.xml',
     ],
 
     "installable": True,
