@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="material_purchase_requisition_form_view" model="ir.ui.view">
-            <field name="name">material.purchase.requisition.form.view</field>
+            <field name="name">Purchase Requisition Form View</field>
             <field name="model">material.purchase.requisition</field>
             <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_form_view"/>
             <field name="arch" type="xml">

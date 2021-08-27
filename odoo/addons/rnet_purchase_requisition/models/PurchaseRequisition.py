@@ -8,6 +8,8 @@ _logger = logging.getLogger(__name__)
 class PurchaseRequisition(models.Model):
     _inherit = 'material.purchase.requisition'
 
+    project = fields.Many2one('project.project', string='Project')
+
     @api.multi
     def request_stock(self):
         stock_obj = self.env['stock.picking']
