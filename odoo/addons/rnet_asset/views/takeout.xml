@@ -35,7 +35,6 @@
                     <div groups="stock.group_tracking_owner" colspan="2" col="2">
                         <button name="action_assign_owner" string="Assign Owner" type="object" attrs="{'invisible': ['|',('move_line_exist', '=', False),('state', 'not in', ('draft','assigned','confirmed'))]}" class="oe_link"/>
                     </div>
-                    <field name="project" options="{'no_create':True, 'no_quick_create':True}"/>
                 </field>
                 <xpath expr="//sheet/group/group[last()]" position="replace">
                     <group invisible="context.get('contact_display',False)">

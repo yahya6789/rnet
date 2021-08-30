@@ -9,6 +9,7 @@
         'security/ir.model.access.csv',
         'data/project.xml',
         'views/project_views.xml',
+        'views/stock_picking_views.xml',
     ],
 
     "installable": True,

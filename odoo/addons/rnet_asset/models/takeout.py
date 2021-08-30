@@ -28,8 +28,6 @@ class Takeout(models.Model):
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
     gut_inventory_lines_count = fields.Integer(string='Qty Inventory', compute='_get_inventory_lines_count')
 
-    project = fields.Many2one('project.project', string='Project')
-
     def _compute_show_mark_as_todo(self):
         super(Takeout, self)._compute_show_mark_as_todo()
         if self.state == 'draft':
