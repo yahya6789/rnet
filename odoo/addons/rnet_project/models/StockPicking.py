@@ -4,7 +4,7 @@ from odoo import models, fields, api
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    project = fields.Many2one('project.project', string='Project', readonly=True)
+    project = fields.Many2one('project.project', string='Project')
 
     @api.model
     def create(self, vals):
