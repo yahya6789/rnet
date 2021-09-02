@@ -11,7 +11,6 @@ class PurchaseOrder(models.Model):
     gut_qty_received = fields.Integer('Quantity Received', compute='_get_qty_received')
     gut_qty_billed = fields.Integer('Quantity Billed', compute='_get_qty_billed')
     gut_receive_status = fields.Char('Receive Status', compute='_get_receive_status')
-    project = fields.Many2one('project.project', string='Project')
 
     @api.one
     def _get_qty_total(self):
