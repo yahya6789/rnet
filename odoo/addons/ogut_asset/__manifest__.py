@@ -4,7 +4,7 @@
     'author': "4Net Prima Solusi",
     'version': '0.1',
 
-    'depends': ['hr','rnet_asset','rnet_purchase_requisition'],
+    'depends': ['hr','rnet_asset'],
 
     'data': [
         'security/ir.model.access.csv',
