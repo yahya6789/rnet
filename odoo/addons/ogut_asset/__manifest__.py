@@ -4,7 +4,7 @@
     'author': "4Net Prima Solusi",
     'version': '0.1',
 
-    'depends': ['hr','rnet_asset'],
+    'depends': ['hr','purchase','rnet_asset','rnet_project'],
 
     'data': [
         'security/ir.model.access.csv',
@@ -16,6 +16,7 @@
         'views/product.xml',
         'report/external_layout_standard.xml',
         'views/stock.xml',
+        'views/purchase_order.xml',
     ],
 
     "installable": True,
