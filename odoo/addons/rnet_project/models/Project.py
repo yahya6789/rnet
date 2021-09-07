@@ -15,7 +15,7 @@ class ProjectStatus(models.Model):
 
 class Project(models.Model):
     _inherit = 'project.project'
-    no = fields.Char(string='Project No.', readonly=True)
+    no = fields.Char(string='Project No.')
     project_type = fields.Many2one('project.type', string='Project Type', required=True)
     project_status = fields.Many2one('project.status', string='Project Status')
     contract_no = fields.Char(string='Contract No.')
