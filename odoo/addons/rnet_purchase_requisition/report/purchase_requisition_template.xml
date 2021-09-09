@@ -75,8 +75,8 @@
                                                 <td class="border border-dark"><span t-field="doc.name"/></td>
                                             </tr>
                                             <tr>
-                                                <td class="border border-dark"><span t-field="doc.project.name"/></td>
-                                                <td class="border border-dark">2010P-0059</td>
+                                                <td class="border border-dark">Job Order No.</td>
+                                                <td class="border border-dark"><span t-field="doc.project.no"/></td>
                                             </tr>
                                             <tr>
                                                 <td class="border border-dark">Project / Location</td>
