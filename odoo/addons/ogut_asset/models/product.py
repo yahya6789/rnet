@@ -17,3 +17,8 @@ class Product(models.Model):
     @api.one
     def _is_generate_multiple_asset(self):
         self.is_generate_multiple_asset = self.categ_id.po_generate_multiple_asset
+
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    brand = fields.Char('Brand')
