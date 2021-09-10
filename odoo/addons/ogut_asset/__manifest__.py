@@ -17,6 +17,7 @@
         'report/external_layout_standard.xml',
         'views/stock.xml',
         'views/purchase_order.xml',
+        'views/project_views.xml',
     ],
 
     "installable": True,
