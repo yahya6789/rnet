@@ -8,6 +8,9 @@
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='company_id']" position="after">
                     <field name="project"/>
                 </xpath>
+                <xpath expr="//sheet[1]/group[1]/group[2]/field[@name='project']" position="attributes">
+                    <attribute name="string">Job Order No.</attribute>
+                </xpath>
             </field>
         </record>
     </data>
