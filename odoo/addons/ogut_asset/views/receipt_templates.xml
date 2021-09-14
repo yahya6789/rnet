@@ -69,7 +69,7 @@
                                         <tr>
                                             <td>
                                                 <h2 class="text-center m-0">Material Receipt</h2>
-                                                <p class="text-center font-italic m-0">Bon Pengembalian Barang</p>
+                                                <p class="text-center font-italic m-0">Bon Penerimaan Barang</p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -107,6 +107,12 @@
                                         </tr>
                                         <tr>
                                             <td>Job Order No.</td><td>:&#8194;<span t-field="o.project.no"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>From</td><td>:&#8194;<span t-field="o.location_id"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>To</td><td>:&#8194;<span t-field="o.location_dest_id"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
