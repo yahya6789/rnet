@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        <!--
         <record id="stat1" model="gut.asset.status">
             <field name="name">Aktif</field>
         </record>
@@ -34,6 +35,7 @@
             <field name="display_name">Material Receipt</field>
             <field name="gut_is_system">True</field>
         </record>
+        -->
         <record id="seq_calibration_no" model="ir.sequence">
             <field name="name">Calibration No. Sequence</field>
             <field name="code">calibration.seq</field>
