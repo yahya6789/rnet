@@ -101,6 +101,7 @@
                     <field name="picking_type_id"/>
                 </field>
                 <field name="picking_type_id" position="after">
+                    <field name="project"/>
                     <field name="gut_purpose" invisible="context.get('contact_display',False)"/>
                 </field>
                 <field name="gut_purpose" position="after">
