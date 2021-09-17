@@ -149,6 +149,17 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="view_picking_internal_search">
+            <field name="name">View Picking Internal Search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field['group_id']" position="after">
+                    <field name="project" filter_domain="[('project.name','ilike',self)]"/>
+                </xpath>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="open_takeout_form">
             <field name="name">Inventory / Asset Takeout</field>
             <field name="res_model">stock.picking</field>
