@@ -11,6 +11,8 @@
                 <xpath expr="//sheet[1]/group[1]/group[2]/field[@name='project']" position="attributes">
                     <attribute name="string">Job Order No.</attribute>
                 </xpath>
+                <xpath expr="//field[@name='account_analytic_id']" position="replace"/>
+                <xpath expr="//field[@name='analytic_tag_ids']" position="replace"/>
             </field>
         </record>
     </data>
