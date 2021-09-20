@@ -101,9 +101,9 @@
                                                         <span t-esc="i"/><t t-set="i" t-value="i+1"/>
                                                     </td>
                                                     <td class="border border-dark"><span t-field="line.product_id.name"/></td>
-                                                    <td class="border border-dark"><span t-esc="line.requisition_type"/></td>
-                                                    <td class="border border-dark"><span t-esc="line.qty"/></td>
                                                     <td class="border border-dark">&amp;nbsp;</td>
+                                                    <td class="border border-dark"><span t-esc="line.qty"/></td>
+                                                    <td class="border border-dark"><span t-field="doc.receive_date"/></td>
                                                     <td class="border border-dark">&amp;nbsp;</td>
                                                 </tr>
                                             </t>
