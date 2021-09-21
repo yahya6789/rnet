@@ -27,4 +27,4 @@ class Product(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    brand = fields.Char('Brand')
+    brand = fields.Many2one('gut.brand', 'Brand')
