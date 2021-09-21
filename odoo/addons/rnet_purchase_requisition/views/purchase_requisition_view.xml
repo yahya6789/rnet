@@ -11,6 +11,7 @@
                  </xpath>
                 <xpath expr="//tree[1]/field[@name='description']" position="after">
                     <field name="brand"/>
+                    <field name="brand_note"/>
                 </xpath>
                 <xpath expr="//tree[1]/field[@name='partner_id']" position="after">
                     <field name="remark"/>
