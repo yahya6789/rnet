@@ -11,6 +11,9 @@
                         <field name="po_generate_multiple_asset"/>
                     </group>
                 </xpath>
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="product_prefix" class="oe_inline"/>
+                </xpath>
             </field>
         </record>
         
