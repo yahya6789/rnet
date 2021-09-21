@@ -109,6 +109,9 @@
                                             <td>Job Order No.</td><td>:&#8194;<span t-field="o.project.no"/></td>
                                         </tr>
                                         <tr>
+                                            <td>Project</td><td>:&#8194;<span t-field="o.project.name"/></td>
+                                        </tr>
+                                        <tr>
                                             <td>From</td><td>:&#8194;<span t-field="o.location_id"/></td>
                                         </tr>
                                         <tr>
