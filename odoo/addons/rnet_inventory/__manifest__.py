@@ -7,6 +7,7 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'views/brand_view.xml',
     ],
 
     "installable": True,
