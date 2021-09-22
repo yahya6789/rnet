@@ -7,6 +7,7 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'data/product_sequence.xml',
         'views/brand_view.xml',
     ],
 
