@@ -71,8 +71,8 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="border border-dark">Req. No</td>
-                                                <td class="border border-dark"><span t-field="doc.name"/></td>
+                                                <td class="border border-dark" style="width: 25%">Req. No</td>
+                                                <td class="border border-dark">&amp;nbsp;</td>
                                             </tr>
                                             <tr>
                                                 <td class="border border-dark">Job Order No.</td>
