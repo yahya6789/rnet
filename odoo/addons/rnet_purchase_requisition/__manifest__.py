@@ -7,6 +7,7 @@
 
     'data': [
         'views/purchase_requisition_view.xml',
+        'report/requisition_template.xml',
         'report/purchase_requisition_template.xml',
     ],
 
