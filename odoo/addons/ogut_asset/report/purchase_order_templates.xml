@@ -1,0 +1,313 @@
+<odoo>
+    <template id="report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//t[1]/t[1]" position="replace">
+            <div class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"/>
+                        </div>
+                        <div class="col-6 text-right">
+                            <img t-att-src="'/ogut_asset/static/src/img/dqs-logo.png'" style="max-height: 45px;"/>
+                            <img t-att-src="'/ogut_asset/static/src/img/iqnet-logo.png'" style="max-height: 45px;"/><br/>
+                            <small><strong>Cert. No. 422970</strong></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-center"><strong>PURCHASE ORDER</strong></h5>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-borderless table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 20%">Order Date</td>
+                                        <td style="width: 30%">:&amp;nbsp;<span t-field="o.date_order"/></td>
+                                        <td style="width: 20%">Vendor ID</td>
+                                        <td style="width: 30%">:&amp;nbsp;<span t-field="o.partner_id.ref"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order No</td>
+                                        <td>:&amp;nbsp;<span t-field="o.name"/></td>
+                                        <td>Vendor Name</td>
+                                        <td>:&amp;nbsp;<span t-field="o.partner_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>PR Doc No.</td>
+                                        <td>:&amp;nbsp;<span t-field="o.origin"/></td>
+                                        <td>Vendor Address</td>
+                                        <td>:&amp;nbsp;<span t-field="o.partner_id.street"/>&amp;nbsp;
+                                            <span t-field="o.partner_id.city"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delivery Date</td>
+                                        <td>:&amp;nbsp;<span t-field="o.date_planned"/></td>
+                                        <td>Phone</td>
+                                        <td>:&amp;nbsp;<span t-field="o.partner_id.phone"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delivery To</td>
+                                        <td>:&amp;nbsp;<span t-field="o.picking_type_id.name"/></td>
+                                        <td>Fax</td>
+                                        <td>:&amp;nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Terms of Delivery</td>
+                                        <td>:&amp;nbsp;</td>
+                                        <td>Contact Person</td>
+                                        <td>:&amp;nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payment Terms</td>
+                                        <td>:&amp;nbsp;</td>
+                                        <td>Currency</td>
+                                        <td>:&amp;nbsp;<span t-field="o.currency_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quality Control</td>
+                                        <td>:&amp;nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6 mr-1">
+                            <table class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-dark bg-dark">Only for Tax Purpose</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark">
+                                            <span>PT. Graha Usaha Teknik</span><br/>
+                                            <span>Ged. Office 8 Level 18-A Scbd, Jl. Jend. Sudirman</span><br/>
+                                            <span>Kav. 52-53. No. RT. RW. Kel. Senayan Kec. Kebayoran Baru</span><br/>
+                                            <span>Jakarta Selatan, DKI Jakarta</span><br/>
+                                            <span>NPWP: 02.388.911.6-062.000</span><br/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-dark bg-dark">Acknowledgement</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark">
+                                            <span>
+                                                Please confirm with your order acknowledgement upon receipt of copy of this PO.
+                                                This order is subject to terms and conditions as stipulated in the attached pages,
+                                                unless otherwise specifically agreed in the separate contract.
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6 mr-1">
+                            <table class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-dark bg-dark">Invoice To</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark">
+                                            <span t-field="o.company_id.partner_id.street"/><br/>
+                                            <span t-field="o.company_id.partner_id.street2"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-dark bg-dark">Remark</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark">
+                                             <table class="table table-borderless table-sm">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 30%">PIC/User</td>
+                                                        <td>:&amp;nbsp;<span t-field="o.project.project_manager"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Job Order No.</td>
+                                                        <td>:&amp;nbsp;<span t-field="o.project.no"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Project</td>
+                                                        <td>:&amp;nbsp;<span t-field="o.project.name"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 5%" class="border border-dark">No.</td>
+                                        <td style="width: 30%" class="border border-dark">Description</td>
+                                        <td style="width: 15%" class="border border-dark">Type/Brand</td>
+                                        <td style="width: 10%" class="border border-dark">Qty</td>
+                                        <td style="width: 5%" class="border border-dark">Unit</td>
+                                        <td style="width: 10%" class="border border-dark">Unit Price</td>
+                                        <!--<td style="width: 10%" class="border border-dark">Disc %</td>-->
+                                        <td style="width: 5%" class="border border-dark">Tax</td>
+                                        <td style="width: 10%" class="border border-dark">Amount</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="i" t-value="1" />
+                                    <tr t-foreach="o.order_line" t-as="line">
+                                        <td class="border border-dark"><span t-esc="i"/><t t-set="i" t-value="i+1"/></td>
+                                        <td class="border border-dark"><span t-field="line.name"/></td>
+                                        <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
+                                        <td class="text-center border border-dark"><span t-field="line.product_qty"/></td>
+                                        <td class="text-center border border-dark"><span t-field="line.product_uom"/></td>
+                                        <td class="text-center border border-dark"><span t-field="line.price_unit"/></td>
+                                        <!--<td class="text-center border border-dark">&amp;nbsp;</td>-->
+                                        <td class="text-right border border-dark"><span t-field="line.price_tax"/></td>
+                                        <td class="text-right border border-dark"><span t-field="line.price_subtotal"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">Remarks:</div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-7">
+                            <table class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 20%" class="border border-dark text-center">Approval</td>
+                                        <td style="width: 20%" class="border border-dark text-center">Approval</td>
+                                        <td style="width: 20%" class="border border-dark text-center">Approval</td>
+                                        <td style="width: 20%" class="border border-dark text-center">Purchaser</td>
+                                        <td style="width: 20%" class="border border-dark text-center">Acknowledgement</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark"><span t-field="o.approve_dept_manager_id.name"/></td>
+                                        <td class="border border-dark"><span t-field="o.approve_finance_manager_id.name"/></td>
+                                        <td class="border border-dark"><span t-field="o.approve_director_manager_id.name"/></td>
+                                        <td class="border border-dark"><span t-field="o.user_id.name"/></td>
+                                        <td class="border border-dark">&amp;ensp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-5">
+                            <table class="table table-borderless table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%">Sub Total</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.amount_untaxed"/></td>
+                                    </tr>
+                                    <!--
+                                    <tr>
+                                        <td>Discount</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">:&amp;ensp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sub. Tot After Disc.</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">:&amp;ensp;<span t-field="o.amount_untaxed"/></td>
+                                    </tr>
+                                    -->
+                                    <tr>
+                                        <td>VAT 10%</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.amount_tax"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sub Tot After Tax</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>
+                                    </tr>
+                                    <!--
+                                    <tr>
+                                        <td>Estimated Freight</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">:&amp;ensp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sub Tot After Freight</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">:&amp;ensp;</td>
+                                    </tr>
+                                    -->
+                                    <tr>
+                                        <td><strong>Total Order</strong></td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="border border-dark">Say:</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark" style="width: 50%">
+                                            <div class="row">
+                                                <div class="col-6"><span t-field="o.company_id.name"/></div>
+                                                <div class="col-6">
+                                                    <div class="text-right">
+                                                        <span t-field="o.company_id.phone"/><br/>
+                                                        <span t-field="o.company_id.email"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="border border-dark" style="width: 50%">
+                                            <span t-field="o.company_id.partner_id.street"/>&amp;nbsp;
+                                            <span t-field="o.company_id.partner_id.street2"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

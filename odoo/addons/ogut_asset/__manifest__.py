@@ -19,6 +19,7 @@
         'views/purchase_order.xml',
         'views/project_views.xml',
         'views/purchase_requisition_view.xml',
+        'report/purchase_order_templates.xml',
     ],
 
     "installable": True,
