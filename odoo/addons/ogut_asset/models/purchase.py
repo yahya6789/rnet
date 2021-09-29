@@ -24,6 +24,19 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def open_po_revision_list(self):
+        if self.po_revision_count:
+            for po in self:
+                return {
+                    'name': _('Revision History'),
+                    'view_type': 'form',
+                    'view_mode': 'tree,form',
+                    'res_model': 'purchase.order.history',
+                    'view_id': False,
+                    'type': 'ir.actions.act_window',
+                    'domain': [('original_id', '=', po.id)],
+                    'option': {'no_create_edit': True},
+                }
+            pass
         pass
 
     @api.multi

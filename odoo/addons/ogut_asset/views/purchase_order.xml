@@ -18,7 +18,7 @@
                 </xpath>
                 <xpath expr="//button[@name='action_view_invoice'][@class='oe_stat_button']" position="after">
                     <button type="object" class="oe_stat_button" icon="fa-clipboard"
-                            name="open_po_revision_list" context="{'original_id': id,}">
+                            name="open_po_revision_list" context="{'original_id': id,}" attrs="{'invisible':['|', ('po_revision_count', '=', 0), ('state', 'in', ('draft','sent','to approve'))]}">
                         <field string="Revision" name="po_revision_count" widget="statinfo"/>
                     </button>
                 </xpath>
