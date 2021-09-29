@@ -13,6 +13,9 @@
                 </xpath>
                 <xpath expr="//field[@name='account_analytic_id']" position="replace"/>
                 <xpath expr="//field[@name='analytic_tag_ids']" position="replace"/>
+                <xpath expr="//button[@name='button_unlock']" position="after">
+                    <button name="button_make_revision" states="purchase,finance_approval,director_approval" string="Make Revision" type="object"/>
+                </xpath>
             </field>
         </record>
     </data>
