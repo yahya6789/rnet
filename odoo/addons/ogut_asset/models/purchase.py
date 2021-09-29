@@ -1,11 +1,10 @@
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
-from datetime import datetime
 
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     project = fields.Many2one('project.project', string='Project')
+    po_revision_count = fields.Integer(compute='_get_po_revision_count')
 
     def _get_latest_revision_number(self):
         query = """
@@ -17,6 +16,15 @@ class PurchaseOrder(models.Model):
         self.env.cr.execute(query, params)
         res = self.env.cr.dictfetchone()
         return res['max']
+
+    @api.multi
+    def _get_po_revision_count(self):
+        res = self.env['purchase.order.history'].search_count([('original_id', '=', self.id)])
+        self.po_revision_count = res or 0
+
+    @api.multi
+    def open_po_revision_list(self):
+        pass
 
     @api.multi
     def button_make_revision(self):
@@ -136,4 +144,4 @@ class PurchaseOrder(models.Model):
 
         self.env.cr.execute(query, params)
         self.env.cr.commit()
-        raise UserError(_('It works!'))
+        return True;
