@@ -205,7 +205,6 @@
                                     <tr>
                                         <td style="width: 20%" class="border border-dark text-center">Approval</td>
                                         <td style="width: 20%" class="border border-dark text-center">Approval</td>
-                                        <td style="width: 20%" class="border border-dark text-center">Approval</td>
                                         <td style="width: 20%" class="border border-dark text-center">Purchaser</td>
                                         <td style="width: 20%" class="border border-dark text-center">Acknowledgement</td>
                                     </tr>
@@ -214,13 +213,11 @@
                                         <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
                                         <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
                                         <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
-                                        <td class="border border-dark"><p>&amp;ensp;</p><br/></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-dark"><span t-field="o.approve_dept_manager_id.name"/></td>
                                         <td class="border border-dark"><span t-field="o.approve_finance_manager_id.name"/></td>
                                         <td class="border border-dark"><span t-field="o.approve_director_manager_id.name"/></td>
-                                        <td class="border border-dark"><span t-field="o.user_id.name"/></td>
+                                        <td class="border border-dark"><span t-field="o.approve_dept_manager_id.name"/></td>
                                         <td class="border border-dark">&amp;ensp;</td>
                                     </tr>
                                 </tbody>
