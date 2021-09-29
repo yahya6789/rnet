@@ -6,6 +6,18 @@ class PurchaseOrder(models.Model):
     project = fields.Many2one('project.project', string='Project')
     po_revision_count = fields.Integer(compute='_get_po_revision_count')
 
+    @api.model
+    def create(self, vals):
+        return super(models.Model, self).create(vals)
+
+    @api.multi
+    def button_confirm(self):
+        res = super(PurchaseOrder, self).button_confirm()
+        for order in self:
+            sequence = self.env['ir.sequence'].next_by_code('purchase.order') or '/'
+            order.write({'name': sequence})
+        return res
+
     def _get_latest_revision_number(self):
         query = """
             SELECT MAX (poh.revision)
