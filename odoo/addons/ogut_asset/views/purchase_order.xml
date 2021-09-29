@@ -24,5 +24,16 @@
                 </xpath>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="purchase_order_tree">
+            <field name="name">Purchase Order Tree</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="po_revision_count" string="Revision"/>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>

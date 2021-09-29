@@ -36,7 +36,7 @@
                             <span class="o_form_label" attrs="{'invisible': [('state','not in',('draft','sent'))]}">Request for Quotation </span>
                             <span class="o_form_label" attrs="{'invisible': [('state','in',('draft','sent'))]}">Purchase Order </span>
                             <h1>
-                                <field name="name" readonly="1"/>
+                                <field name="name" readonly="1"/> (rev. <field name="revision" readonly="1"/>)
                             </h1>
                         </div>
                         <group>

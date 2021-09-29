@@ -17,7 +17,7 @@ class PurchaseOrder(models.Model):
         res = self.env.cr.dictfetchone()
         return res['max']
 
-    @api.multi
+    @api.one
     def _get_po_revision_count(self):
         res = self.env['purchase.order.history'].search_count([('original_id', '=', self.id)])
         self.po_revision_count = res or 0
