@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="open_requisition_line">
+            <field name="name">Purchase Requisition Lines</field>
+            <field name="res_model">vw.purchase.requisition.lines</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_prod_name_group': 1}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_requisition_line_search">
+            <field name="name">purchase requisition line search</field>
+            <field name="model">vw.purchase.requisition.lines</field>
+            <field name="arch" type="xml">
+                <search string="Search requisition">
+                    <field name="req_name" string="Requisition"/>
+                    <field name="prod_name" string="Product"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Product" name="prod_name_group" context="{'group_by': 'prod_name'}"/>
+                        <filter string="Department" name="dept_name_group" context="{'group_by': 'dept_name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_requisition_line_tree">
+            <field name="name">purchase requisition line tree</field>
+            <field name="model">vw.purchase.requisition.lines</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false">
+                    <field name="id" string="#"/>
+                    <field name="req_name"/>
+                    <field name="dept_name"/>
+                    <field name="prod_name"/>
+                    <field name="desc"/>
+                    <field name="qty"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="menu_requisition_line" name="Purchase Requisiton Lines"
+                  parent="purchase.menu_procurement_management" sequence="7"
+                  action="open_requisition_line"/>
+    </data>
+</odoo>
