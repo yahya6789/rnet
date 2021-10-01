@@ -32,12 +32,21 @@
                 <tree create="false" edit="false">
                     <field name="id" string="#"/>
                     <field name="req_name"/>
+                    <field name="dept_id" invisible="1"/>
                     <field name="dept_name"/>
+                    <field name="prod_id" invisible="1"/>
                     <field name="prod_name"/>
                     <field name="desc"/>
                     <field name="qty"/>
                 </tree>
             </field>
+        </record>
+
+        <record id="action_create_rfq" model="ir.actions.server">
+            <field name="name">Create RFQ</field>
+            <field name="model_id" ref="model_vw_purchase_requisition_lines"/>
+            <field name="state">code</field>
+            <field name="code">model.open_wizard()</field>
         </record>
 
         <menuitem id="menu_requisition_line" name="Purchase Requisiton Lines"

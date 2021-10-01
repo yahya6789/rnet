@@ -1,4 +1,8 @@
-from odoo import models, fields, api, tools
+from odoo import models, fields, api, tools, _
+
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class PurchaseRequisitionLine(models.Model):
@@ -40,3 +44,7 @@ class PurchaseRequisitionLine(models.Model):
             where
                 req.state::text = 'approve'::text
         """)
+
+    @api.multi
+    def open_wizard(self):
+        pass
