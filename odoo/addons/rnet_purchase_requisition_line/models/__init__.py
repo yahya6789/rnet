@@ -1,1 +1,1 @@
-from . import PurchaseRequisitionLine
+from . import purchase_requisition_line
