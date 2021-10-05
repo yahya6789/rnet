@@ -22,7 +22,11 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
             self.warehouse_id = wh_exist.id
 
     def _create_po(self, requisitions):
-        names = [req.name for req in requisitions]
+        names = []
+        for req in requisitions:
+            if req.name not in names:
+                names.append(req.name)
+
         values = {
             'partner_id': self.vendor_id.id,
             'currency_id': self.env.user.company_id.currency_id.id,
@@ -58,9 +62,18 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
         for req in requisitions:
             pr_line_ids = [req_line.id for req_line in req.requisition_line_ids]
             # _logger.info("PR Lines: " + str(pr_line_ids))
+
             intersect_line_ids = [value for value in pr_line_ids if value in po_line_ids]
             # _logger.info("Intersect Lines: " + str(intersect_line_ids))
 
+            pr_line_ids = list(filter(lambda pr_line_id: pr_line_id not in intersect_line_ids, pr_line_ids))
+            # _logger.info("New PR Lines: " + str(pr_line_ids))
+
+            if not pr_line_ids:
+                # _logger.info("Requisition " + req.name + " is empty, updating state")
+                req.write({"state": "stock"})
+
+            """
             for line in req.requisition_line_ids:
                 if line.id in intersect_line_ids:
                     # _logger.info("Unlinking " + str(line.id))
@@ -69,6 +82,7 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
             if not req.requisition_line_ids:
                 # _logger.info("Requisition " + req.name + " is empty, updating state")
                 req.write({"state": "stock"})
+            """
 
     @api.multi
     def create_po(self):
