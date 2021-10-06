@@ -55,34 +55,24 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
             lines.append(obj.sudo().create([values]))
         return lines
 
-    def _update_requisition(self, requisitions, po_lines):
-        po_line_ids = [po_line.id for po_line in po_lines]
-        # _logger.info("PO Lines: " + str(po_line_ids))
+    def _update_requisition(self, requisitions, req_lines):
+        selected_requisition_line_ids = [line.id for line in req_lines]
 
         for req in requisitions:
-            pr_line_ids = [req_line.id for req_line in req.requisition_line_ids]
-            # _logger.info("PR Lines: " + str(pr_line_ids))
-
-            intersect_line_ids = [value for value in pr_line_ids if value in po_line_ids]
-            # _logger.info("Intersect Lines: " + str(intersect_line_ids))
-
-            pr_line_ids = list(filter(lambda pr_line_id: pr_line_id not in intersect_line_ids, pr_line_ids))
-            # _logger.info("New PR Lines: " + str(pr_line_ids))
-
-            if not pr_line_ids:
-                # _logger.info("Requisition " + req.name + " is empty, updating state")
-                req.write({"state": "stock"})
-
-            """
             for line in req.requisition_line_ids:
-                if line.id in intersect_line_ids:
-                    # _logger.info("Unlinking " + str(line.id))
-                    line.unlink()
+                if line.id in selected_requisition_line_ids:
+                    line.write({"has_po": True})
 
-            if not req.requisition_line_ids:
+        for req in requisitions:
+            is_update_state = True
+            for line in req.requisition_line_ids:
+                # _logger.info("Line " + str(line.id) + " has PO: " + str(line.has_po))
+                if not line.has_po:
+                    is_update_state = False
+                    break
+            if is_update_state:
                 # _logger.info("Requisition " + req.name + " is empty, updating state")
                 req.write({"state": "stock"})
-            """
 
     @api.multi
     def create_po(self):
@@ -91,7 +81,7 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
         context = dict(self._context or {})
         active_ids = context.get('active_ids', []) or []
         req_lines = self.env['material.purchase.requisition.line'].browse(active_ids)
-        req_ids = [req_line.requisition_id.id for req_line in req_lines]
+        req_ids = [line.requisition_id.id for line in req_lines]
         requisitions = self.env['material.purchase.requisition'].browse(req_ids)
 
         po = self._create_po(requisitions)

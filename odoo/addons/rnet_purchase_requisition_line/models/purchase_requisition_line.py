@@ -1,6 +1,12 @@
 from odoo import models, fields, api, tools, _
 
 
+class PurchaseRequisitionLine(models.Model):
+    _inherit = 'material.purchase.requisition.line'
+
+    has_po = fields.Boolean(string="Has PO", default=False)
+
+
 class VwPurchaseRequisitionLine(models.Model):
     _name = 'vw.purchase.requisition.line'
     _auto = False
@@ -43,4 +49,5 @@ class VwPurchaseRequisitionLine(models.Model):
                 reql.uom = uom.id
             where
                 req.state = 'approve'
+                and reql.has_po is not true 
         """)
