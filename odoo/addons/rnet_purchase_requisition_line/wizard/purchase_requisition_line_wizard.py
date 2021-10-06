@@ -37,24 +37,62 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
         }
         return self.env['purchase.order'].sudo().create([values])
 
-    def _create_po_lines(self, purchase_order, req_lines):
+    """
+    - Grup/merge quantity unit untuk PR lines (products) yang sama
+        menjadi satu line (product).
+    """
+    def _prepare_po_lines(self, purchase_order, req_lines):
         lines = []
-        obj = self.env['purchase.order.line']
         for line in req_lines:
-            values = {
+            value = {
                 'product_id': line.product_id.id,
                 'name': line.product_id.name,
                 'product_qty': line.qty,
                 'product_uom': line.uom.id,
-                'date_planned': fields.Date.today(),
+                'date_planned': fields.datetime.now(),
                 'price_unit': line.product_id.standard_price,
                 'order_id': purchase_order.id,
                 # 'account_analytic_id': self.analytic_account_id.id,
                 'custom_requisition_line_id': line.id
             }
-            lines.append(obj.sudo().create([values]))
+            lines.append(value)
+
+        values = []
+        for line in lines:
+            line_exist_id = None
+            line_exist = False
+
+            for value in values:
+                if value.get('product_id') == line.get('product_id'):
+                    line_exist_id = line.get('product_id')
+                    line_exist = True
+
+            if line_exist:
+                # sum
+                for value in values:
+                    if value.get('product_id') == line_exist_id:
+                        qty = value.get('product_qty') + line.get('product_qty')
+                        value.update({
+                            'product_qty': qty
+                        })
+            else:
+                values.append(line)
+
+        return values
+
+    def _create_po_lines(self, purchase_order, req_lines):
+        lines = []
+        values = self._prepare_po_lines(purchase_order, req_lines)
+        for value in values:
+            obj = self.env['purchase.order.line']
+            lines.append(obj.sudo().create([value]))
         return lines
 
+    """
+    - Tandai PR line (product) yang telah dibuatkan PO nya.
+    - Update state PR kalau semua PR line telah dibuatkan PO nya
+        dan tidak ada internal picking.
+    """
     def _update_requisition(self, requisitions, req_lines):
         selected_requisition_line_ids = [line.id for line in req_lines]
 
