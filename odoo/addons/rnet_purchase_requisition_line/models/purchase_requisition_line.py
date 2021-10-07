@@ -49,5 +49,6 @@ class VwPurchaseRequisitionLine(models.Model):
                 reql.uom = uom.id
             where
                 req.state = 'approve'
+                and reql.requisition_type = 'purchase'
                 and reql.has_po is not true 
         """)
