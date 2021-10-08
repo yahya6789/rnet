@@ -289,11 +289,12 @@
                                 <tr>
                                     <td class="border border-dark" style="width: 50%">
                                         <div class="row">
-                                            <div class="col-6"><span t-field="o.company_id.name"/></div>
+                                            <!--<div class="col-6"><span t-field="o.company_id.name"/></div>-->
+                                            <div class="col-6">http://www.ptgut.co.id</div>
                                             <div class="col-6">
                                                 <div class="text-right">
-                                                    <span t-field="o.company_id.phone"/><br/>
-                                                    <span t-field="o.company_id.email"/>
+                                                    Tel: +62 21 8378 7333&amp;nbsp;<!--<span t-field="o.company_id.phone"/>--><br/>
+                                                    Fax: +62 21 8378 7222&amp;nbsp;<!--<span t-field="o.company_id.email"/>-->
                                                 </div>
                                             </div>
                                         </div>
