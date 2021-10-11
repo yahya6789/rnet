@@ -1,0 +1,160 @@
+<odoo>
+    <data>
+        <template id="requisition_template" inherit_id="material_purchase_requisitions.purchase_requisition">
+            <xpath expr="//t[1]/t[1]/t[1]/t[1]" position="replace">
+                <t t-call="web.basic_layout">
+                    <div class="header">
+                        <!--<span t-field="doc.company_id.name"/>-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-7">
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"/>
+                                </div>
+                                <div class="col-5">
+                                    <table class="table table-sm">
+                                        <tbody>
+                                            <tr class="border">
+                                                <td style="width: 60%" class="border border-dark">Doc No.</td>
+                                                <td style="width: 40%" class="border border-dark">5.4.3</td>
+                                            </tr>
+                                            <tr class="border">
+                                                <td style="width: 60%" class="border border-dark">Revision</td>
+                                                <td style="width: 40%" class="border border-dark">00</td>
+                                            </tr>
+                                            <tr class="border">
+                                                <td style="width: 60%" class="border border-dark">Release Date</td>
+                                                <td style="width: 40%" class="border border-dark">03.03.2009</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-sm table-borderless">
+                                        <tbody>
+                                            <tr><td colspan="3">Record No.:</td></tr>
+                                            <tr><td colspan="3">Date Record:</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-sm">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3" class="text-center border border-dark">
+                                                    <h5><strong>REQUISITION</strong></h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%" class="border border-dark" rowspan="3">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                <form>
+                                                                    <div class="form-check">
+                                                                        <input type="checkbox" class="form-check-input" id="chk1"/>
+                                                                        <label for="chk1">Material</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input type="checkbox" class="form-check-input" id="chk2"/>
+                                                                        <label for="chk2">Tools</label><br/>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input type="checkbox" class="form-check-input" id="chk3"/>
+                                                                        <label for="chk3">Other</label>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="border border-dark" style="width: 25%">Req. No</td>
+                                                <td class="border border-dark">&amp;nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-dark">Job Order No.</td>
+                                                <td class="border border-dark"><span t-field="doc.project.no"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-dark">Project / Location</td>
+                                                <td class="border border-dark">&amp;nbsp;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered table-sm">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 5%" class="border border-dark">No</td>
+                                                <td style="width: 30%" class="border border-dark">Description</td>
+                                                <td style="width: 20%" class="border border-dark">Type</td>
+                                                <td style="width: 10%" class="border border-dark">Qty/Unit</td>
+                                                <td style="width: 15%" class="border border-dark">Delivery Time Required</td>
+                                                <td style="width: 20%" class="border border-dark">Purpose, Reason, Cost Category</td>
+                                            </tr>
+                                            <t t-set="i" t-value="1" />
+                                            <t t-foreach ="doc.requisition_line_ids" t-as="line">
+                                                <tr>
+                                                    <td class="border border-dark">
+                                                        <span t-esc="i"/><t t-set="i" t-value="i+1"/>
+                                                    </td>
+                                                    <td class="border border-dark"><span t-field="line.product_id.name"/></td>
+                                                    <td class="border border-dark">&amp;nbsp;</td>
+                                                    <td class="border border-dark"><span t-esc="line.qty"/></td>
+                                                    <td class="border border-dark"><span t-field="doc.receive_date"/></td>
+                                                    <td class="border border-dark">&amp;nbsp;</td>
+                                                </tr>
+                                            </t>
+                                            <tr>
+                                                <td colspan="6" class="border border-dark">
+                                                    <span class="font-italic">Note: Send a copy back to requester after completely processed</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered table-sm">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 33%" class="border border-dark text-center">Applicant</td>
+                                                <td style="width: 33%" class="border border-dark text-center">Approved</td>
+                                                <td style="width: 33%" class="border border-dark text-center">Received</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-dark"><p>&amp;ensp;</p><br></br></td>
+                                                <td class="border border-dark"><p>&amp;ensp;</p><br></br></td>
+                                                <td class="border border-dark"><p>&amp;ensp;</p><br></br></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-dark">Name:&amp;ensp;<span t-field="doc.employee_id"/></td>
+                                                <td class="border border-dark">Name:</td>
+                                                <td class="border border-dark">Name:</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-dark">Date:&amp;ensp;<span t-field="doc.request_date"/></td>
+                                                <td class="border border-dark">Date:&amp;ensp;</td>
+                                                <td class="border border-dark">Date:&amp;ensp;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="container">
+                            <div class="row justify-content-end">
+                                <div class="col-12">
+                                    <div class="text-right">
+                                        Page <span class="page" /> of <span class="topage" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

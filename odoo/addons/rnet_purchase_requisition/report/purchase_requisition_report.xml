@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="report_purchase_requisition"
+            model="material.purchase.requisition"
+            string="Purchase Requisition"
+            report_type="qweb-pdf"
+            name="material_purchase_requisitions.purchase_requisition"
+            file="material_purchase_requisitions.purchase_requisition"
+        />
+    </data>
+</odoo>
