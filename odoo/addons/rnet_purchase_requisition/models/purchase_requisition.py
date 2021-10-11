@@ -12,6 +12,17 @@ class PurchaseRequisition(models.Model):
 
     project = fields.Many2one('project.project', string='Project')
 
+    @api.model
+    def create(self, vals):
+        res = super(PurchaseRequisition, self).create(vals)
+        list_name = res.name.split('/')
+        list_name[2] = res.department_id.name[0:3].upper()
+        new_name = '/'
+        res.write({
+            'name': new_name.join(list_name)
+        })
+        return res
+
     @api.multi
     def request_stock(self):
         stock_obj = self.env['stock.picking']
