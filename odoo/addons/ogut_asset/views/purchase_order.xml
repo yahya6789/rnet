@@ -33,6 +33,9 @@
                 <field name="name" position="after">
                     <field name="po_revision_count" string="Revision"/>
                 </field>
+                <field name="partner_id" position="after">
+                    <field name="project"/>
+                </field>
             </field>
         </record>
     </data>
