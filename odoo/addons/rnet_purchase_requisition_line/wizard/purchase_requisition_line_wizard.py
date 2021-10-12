@@ -34,6 +34,7 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
             'company_id': self.company_id.id,
             # 'custom_requisition_id': rec.id,
             'origin': ",".join(names),
+            'user_id': self.env.uid,
         }
         return self.env['purchase.order'].sudo().create([values])
 
@@ -53,7 +54,8 @@ class PurchaseRequisitionLineWizard(models.TransientModel):
                 'price_unit': line.product_id.standard_price,
                 'order_id': purchase_order.id,
                 # 'account_analytic_id': self.analytic_account_id.id,
-                'custom_requisition_line_id': line.id
+                'custom_requisition_line_id': line.id,
+                'user_id': self.env.uid,
             }
             lines.append(value)
 
