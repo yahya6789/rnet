@@ -56,7 +56,10 @@
                                         <td class="border border-dark" style="width: 15%">Dept/Section</td>
                                         <td class="border border-dark" style="width: 35%"><span t-field="doc.department_id.name"/></td>
                                         <td class="border border-dark" style="width: 15%">Delivery to</td>
-                                        <td class="border border-dark" style="width: 35%"><span t-field="doc.dest_location_id.name"/></td>
+                                        <td class="border border-dark" style="width: 35%">
+                                            <span t-field="doc.dest_location_id.location_id.name"/>/
+                                            <span t-field="doc.dest_location_id.name"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="border border-dark" style="width: 15%">Project</td>
