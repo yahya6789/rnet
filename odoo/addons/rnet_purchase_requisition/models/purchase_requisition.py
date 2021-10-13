@@ -11,6 +11,7 @@ class PurchaseRequisition(models.Model):
     _inherit = 'material.purchase.requisition'
 
     project = fields.Many2one('project.project', string='Project')
+    vendors = fields.Char(compute='_get_vendors')
 
     @api.model
     def create(self, vals):
@@ -22,6 +23,14 @@ class PurchaseRequisition(models.Model):
             'name': new_name.join(list_name)
         })
         return res
+
+    @api.one
+    def _get_vendors(self):
+        vendors = set()
+        for line in self.requisition_line_ids:
+            for partner_id in line.partner_id:
+                vendors.add(partner_id.name)
+        self.vendors = ', '.join(vendors)
 
     @api.multi
     def request_stock(self):
