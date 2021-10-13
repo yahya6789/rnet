@@ -68,69 +68,9 @@
                                         <td class="border border-dark" style="width: 35%"><span t-field="doc.project.no"/></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="8" class="border border-dark">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-3">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk1"/>
-                                                            <label for="chk1">Project related material</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk2"/>
-                                                            <label for="chk2">New Investment</label><br/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk3"/>
-                                                            <label for="chk3">Expansion</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-3">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk4"/>
-                                                            <label for="chk4">Consumables</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk5"/>
-                                                            <label for="chk5">Import</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk6"/>
-                                                            <label for="chk6">Quality Control</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-3">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk5"/>
-                                                            <label for="chk5">Replacement</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk6"/>
-                                                            <label for="chk6">Miscellaneous</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="chk7"/>
-                                                            <label for="chk7">Car Rental</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <td class="border border-dark" style="width: 15%">Categories</td>
+                                        <td class="border border-dark" colspan="3">
+                                            <span t-field="doc.categories"/>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -12,6 +12,7 @@ class PurchaseRequisition(models.Model):
 
     project = fields.Many2one('project.project', string='Project')
     vendors = fields.Char(compute='_get_vendors')
+    categories = fields.Char(compute='_get_categories')
 
     @api.model
     def create(self, vals):
@@ -31,6 +32,13 @@ class PurchaseRequisition(models.Model):
             for partner_id in line.partner_id:
                 vendors.add(partner_id.name)
         self.vendors = ', '.join(vendors)
+
+    @api.one
+    def _get_categories(self):
+        categories = set()
+        for line in self.requisition_line_ids:
+            categories.add(line.product_id.categ_id.name)
+        self.categories = ', '.join(categories)
 
     @api.multi
     def request_stock(self):
