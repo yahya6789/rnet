@@ -267,23 +267,24 @@
                                 <tr>
                                     <td>Sub Tot After Tax</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>
+                                    <!--<td class="text-right">&amp;ensp;<span t-field="o.amount_untaxed_no_freight"/></td>-->
+                                    <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_tax"/></td>
                                 </tr>
                                 <tr>
                                     <td>Estimated Freight</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_freight_total"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.estimated_freight"/></td>
                                 </tr>
                                 <tr>
                                     <td>Sub Tot After Freight</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total_with_freight"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_freight"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Total Order</strong></td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <!--<td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>-->
-                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total_with_freight"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>
+                                    <!--<td class="text-right">&amp;ensp;<span t-field="o.amount_total_with_freight"/></td>-->
                                 </tr>
                             </tbody>
                         </table>
