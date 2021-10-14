@@ -5,6 +5,9 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     project = fields.Many2one('project.project', string='Project')
     po_revision_count = fields.Integer(compute='_get_po_revision_count')
+    amount_untaxed_no_freight = fields.Monetary(compute='_get_amount_untaxed_no_freight')
+    amount_freight_total = fields.Monetary(compute='_get_amount_freight_total')
+    amount_total_with_freight = fields.Monetary(compute='_get_amount_total_with_freight')
 
     @api.model
     def create(self, vals):
@@ -170,3 +173,23 @@ class PurchaseOrder(models.Model):
         self.env.cr.execute(query, params)
         self.env.cr.commit()
         return True;
+
+    @api.one
+    def _get_amount_freight_total(self):
+        for line in self.order_line:
+            if line.product_id.display_as_delivery_cost:
+                self.amount_freight_total = self.amount_freight_total + line.price_subtotal
+
+    @api.one
+    @api.depends('amount_untaxed')
+    def _get_amount_untaxed_no_freight(self):
+        self.amount_untaxed_no_freight = self.amount_untaxed
+
+        for line in self.order_line:
+            if line.product_id.display_as_delivery_cost:
+                self.amount_untaxed_no_freight = self.amount_untaxed_no_freight - line.price_subtotal
+
+    @api.one
+    @api.depends('amount_total','amount_freight_total')
+    def _get_amount_total_with_freight(self):
+        self.amount_total_with_freight = self.amount_total + self.amount_freight_total

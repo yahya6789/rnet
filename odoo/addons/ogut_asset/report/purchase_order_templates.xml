@@ -193,15 +193,17 @@
                             <tbody>
                                 <t t-set="i" t-value="1" />
                                 <tr t-foreach="o.order_line" t-as="line">
-                                    <td class="border border-dark"><span t-esc="i"/><t t-set="i" t-value="i+1"/></td>
-                                    <td class="border border-dark"><span t-field="line.name"/></td>
-                                    <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
-                                    <td class="text-center border border-dark"><span t-field="line.product_qty"/></td>
-                                    <td class="text-center border border-dark"><span t-field="line.product_uom"/></td>
-                                    <td class="text-center border border-dark"><span t-field="line.price_unit"/></td>
-                                    <!--<td class="text-center border border-dark">&amp;nbsp;</td>-->
-                                    <td class="text-right border border-dark"><span t-field="line.price_tax"/></td>
-                                    <td class="text-right border border-dark"><span t-field="line.price_subtotal"/></td>
+                                    <t t-if="not line.product_id.display_as_delivery_cost">
+                                        <td class="border border-dark"><span t-esc="i"/><t t-set="i" t-value="i+1"/></td>
+                                        <td class="border border-dark"><span t-field="line.name"/></td>
+                                        <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
+                                        <td class="text-center border border-dark"><span t-field="line.product_qty"/></td>
+                                        <td class="text-center border border-dark"><span t-field="line.product_uom"/></td>
+                                        <td class="text-right border border-dark"><span t-field="line.price_unit"/></td>
+                                        <!--<td class="text-center border border-dark">&amp;nbsp;</td>-->
+                                        <td class="text-right border border-dark"><span t-field="line.price_tax"/></td>
+                                        <td class="text-right border border-dark"><span t-field="line.price_subtotal"/></td>
+                                    </t>
                                 </tr>
                             </tbody>
                         </table>
@@ -242,7 +244,8 @@
                                 <tr>
                                     <td style="width: 50%">Sub Total</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.amount_untaxed"/></td>
+                                    <!--<td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.amount_untaxed"/></td>-->
+                                    <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.amount_untaxed_no_freight"/></td>
                                 </tr>
                                 <!--
                                 <tr>
@@ -266,22 +269,21 @@
                                     <td class="text-right" style="width: 0%">:</td>
                                     <td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>
                                 </tr>
-                                <!--
                                 <tr>
                                     <td>Estimated Freight</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">:&amp;ensp;</td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_freight_total"/></td>
                                 </tr>
                                 <tr>
                                     <td>Sub Tot After Freight</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">:&amp;ensp;</td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total_with_freight"/></td>
                                 </tr>
-                                -->
                                 <tr>
                                     <td><strong>Total Order</strong></td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>
+                                    <!--<td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>-->
+                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total_with_freight"/></td>
                                 </tr>
                             </tbody>
                         </table>
