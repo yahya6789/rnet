@@ -185,7 +185,7 @@
                                     <td style="width: 10%" class="border border-dark">Qty</td>
                                     <td style="width: 5%" class="border border-dark">Unit</td>
                                     <td style="width: 10%" class="border border-dark">Unit Price</td>
-                                    <!--<td style="width: 10%" class="border border-dark">Disc %</td>-->
+                                    <td style="width: 10%" class="border border-dark">Disc %</td>
                                     <td style="width: 5%" class="border border-dark">Tax</td>
                                     <td style="width: 10%" class="border border-dark">Amount</td>
                                 </tr>
@@ -200,7 +200,7 @@
                                         <td class="text-center border border-dark"><span t-field="line.product_qty"/></td>
                                         <td class="text-center border border-dark"><span t-field="line.product_uom"/></td>
                                         <td class="text-right border border-dark"><span t-field="line.price_unit"/></td>
-                                        <!--<td class="text-center border border-dark">&amp;nbsp;</td>-->
+                                        <td class="text-center border border-dark"><span t-field="line.discount"/></td>
                                         <td class="text-right border border-dark"><span t-field="line.price_tax"/></td>
                                         <td class="text-right border border-dark"><span t-field="line.price_subtotal"/></td>
                                     </t>
@@ -245,24 +245,22 @@
                                     <td style="width: 50%">Sub Total</td>
                                     <td class="text-right" style="width: 0%">:</td>
                                     <!--<td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.amount_untaxed"/></td>-->
-                                    <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.amount_untaxed_no_freight"/></td>
+                                    <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.subtot"/></td>
                                 </tr>
-                                <!--
                                 <tr>
-                                    <td>Discount</td>
+                                    <td>Discount <span t-field="o.disc_percent"/> %</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">:&amp;ensp;</td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.disc"/></td>
                                 </tr>
                                 <tr>
                                     <td>Sub. Tot After Disc.</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">:&amp;ensp;<span t-field="o.amount_untaxed"/></td>
+                                    <td class="text-right">:&amp;ensp;<span t-field="o.subtot_after_disc"/></td>
                                 </tr>
-                                -->
                                 <tr>
-                                    <td>VAT 10%</td>
+                                    <td>VAT <span t-field="o.vat_percent"/> %</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_tax"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.vat"/></td>
                                 </tr>
                                 <tr>
                                     <td>Sub Tot After Tax</td>
@@ -273,7 +271,7 @@
                                 <tr>
                                     <td>Freight</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.estimated_freight"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.freight"/></td>
                                 </tr>
                                 <tr>
                                     <td>Sub Tot After Freight</td>
@@ -283,7 +281,7 @@
                                 <tr>
                                     <td><strong>Total Order</strong></td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.amount_total"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.total_order"/></td>
                                     <!--<td class="text-right">&amp;ensp;<span t-field="o.amount_total_with_freight"/></td>-->
                                 </tr>
                             </tbody>

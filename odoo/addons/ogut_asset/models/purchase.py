@@ -1,14 +1,23 @@
 from odoo import models, fields, api, _
 
+import logging
+
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     project = fields.Many2one('project.project', string='Project')
     po_revision_count = fields.Integer(compute='_get_po_revision_count')
-    amount_untaxed_no_freight = fields.Monetary(compute='_get_amount_untaxed_no_freight')
-    estimated_freight = fields.Monetary(compute='_get_estimated_freight')
-    subtot_after_freight = fields.Monetary(compute='_get_subtot_after_freight')
+
+    subtot = fields.Monetary(compute='_get_subtot')
+    disc_percent = fields.Float(compute='_get_disc_percent')
+    disc = fields.Monetary(compute='_get_disc')
+    subtot_after_disc = fields.Monetary(compute='_get_subtot_after_disc')
+    vat_percent = fields.Float(compute='_get_vat_percent')
+    vat = fields.Monetary(compute='_get_vat')
     subtot_after_tax = fields.Monetary(compute='_get_subtot_after_tax')
+    freight = fields.Monetary(compute='_get_freight')
+    subtot_after_freight = fields.Monetary(compute='_get_subtot_after_freight')
+    total_order = fields.Monetary(compute='_get_total_order')
 
     @api.model
     def create(self, vals):
@@ -176,26 +185,55 @@ class PurchaseOrder(models.Model):
         return True;
 
     @api.one
-    def _get_estimated_freight(self):
+    def _get_subtot(self):
         for line in self.order_line:
-            if line.product_id.display_as_delivery_cost:
-                self.estimated_freight = self.estimated_freight + line.price_subtotal
+            if not line.product_id.display_as_delivery_cost:
+                self.subtot = self.subtot + (line.price_unit * line.product_qty)
 
     @api.one
-    @api.depends('amount_untaxed')
-    def _get_amount_untaxed_no_freight(self):
-        self.amount_untaxed_no_freight = self.amount_untaxed
-
+    def _get_disc_percent(self):
         for line in self.order_line:
-            if line.product_id.display_as_delivery_cost:
-                self.amount_untaxed_no_freight = self.amount_untaxed_no_freight - line.price_subtotal
+            if not line.product_id.display_as_delivery_cost:
+                self.disc_percent = self.disc_percent + line.discount
 
     @api.one
-    @api.depends('amount_untaxed_no_freight', 'amount_tax')
+    @api.depends('subtot', 'disc_percent')
+    def _get_disc(self):
+        self.disc = self.subtot * (self.disc_percent / 100)
+
+    @api.one
+    @api.depends('subtot', 'disc')
+    def _get_subtot_after_disc(self):
+        self.subtot_after_disc = self.subtot - self.disc
+
+    @api.one
+    def _get_vat_percent(self):
+        for line in self.order_line:
+            if not line.product_id.display_as_delivery_cost:
+                self.vat_percent = self.vat_percent + line.taxes_id.amount
+
+    @api.one
+    @api.depends('subtot_after_disc', 'vat_percent')
+    def _get_vat(self):
+        self.vat = self.subtot_after_disc * (self.vat_percent / 100)
+
+    @api.one
+    @api.depends('subtot_after_disc', 'vat')
     def _get_subtot_after_tax(self):
-        self.subtot_after_tax = self.amount_untaxed_no_freight + self.amount_tax
+        self.subtot_after_tax = self.subtot_after_disc + self.vat
 
     @api.one
-    @api.depends('subtot_after_tax', 'estimated_freight')
+    def _get_freight(self):
+        for line in self.order_line:
+            if line.product_id.display_as_delivery_cost:
+                self.freight = self.freight + line.price_unit
+
+    @api.one
+    @api.depends('subtot_after_tax', 'freight')
     def _get_subtot_after_freight(self):
-        self.subtot_after_freight = self.subtot_after_tax + self.estimated_freight
+        self.subtot_after_freight = self.subtot_after_tax + self.freight
+
+    @api.one
+    @api.depends('subtot_after_freight')
+    def _get_total_order(self):
+        self.total_order = self.subtot_after_freight
