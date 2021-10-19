@@ -250,7 +250,7 @@
                                 <tr>
                                     <td>Discount <span t-field="o.disc_percent"/> %</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.disc"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.disc_amount"/></td>
                                 </tr>
                                 <tr>
                                     <td>Sub. Tot After Disc.</td>
@@ -258,9 +258,10 @@
                                     <td class="text-right">:&amp;ensp;<span t-field="o.subtot_after_disc"/></td>
                                 </tr>
                                 <tr>
-                                    <td>VAT <span t-field="o.vat_percent"/> %</td>
+                                    <!--<td>VAT <span t-field="o.vat_percent"/> %</td>-->
+                                    <td>VAT</td>
                                     <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.vat"/></td>
+                                    <td class="text-right">&amp;ensp;<span t-field="o.vat_amount"/></td>
                                 </tr>
                                 <tr>
                                     <td>Sub Tot After Tax</td>
@@ -280,8 +281,8 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Total Order</strong></td>
-                                    <td class="text-right" style="width: 0%">:</td>
-                                    <td class="text-right">&amp;ensp;<span t-field="o.total_order"/></td>
+                                    <td class="text-right" style="width: 0%"><strong>:</strong></td>
+                                    <td class="text-right">&amp;ensp;<strong><span t-field="o.total_order"/></strong></td>
                                     <!--<td class="text-right">&amp;ensp;<span t-field="o.amount_total_with_freight"/></td>-->
                                 </tr>
                             </tbody>

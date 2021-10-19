@@ -8,15 +8,15 @@ class PurchaseOrder(models.Model):
     project = fields.Many2one('project.project', string='Project')
     po_revision_count = fields.Integer(compute='_get_po_revision_count')
 
-    subtot = fields.Monetary(compute='_get_subtot')
-    disc_percent = fields.Float(compute='_get_disc_percent')
-    disc = fields.Monetary(compute='_get_disc')
-    subtot_after_disc = fields.Monetary(compute='_get_subtot_after_disc')
-    vat_percent = fields.Float(compute='_get_vat_percent')
-    vat = fields.Monetary(compute='_get_vat')
-    subtot_after_tax = fields.Monetary(compute='_get_subtot_after_tax')
+    subtot = fields.Monetary(compute='_compute_subtot')
+    disc_percent = fields.Float(string='Discount', default=0)
+    disc_amount = fields.Monetary(compute='_compute_disc')
+    subtot_after_disc = fields.Monetary(compute='_compute_subtot_after_disc')
+    vat_percent = fields.Float(string='VAT', default=0)
+    vat_amount = fields.Monetary(compute='_compute_vat')
+    subtot_after_tax = fields.Monetary(compute='_compute_subtot_after_tax')
     freight = fields.Monetary(compute='_get_freight')
-    subtot_after_freight = fields.Monetary(compute='_get_subtot_after_freight')
+    subtot_after_freight = fields.Monetary(compute='_compute_subtot_after_freight')
     total_order = fields.Monetary(compute='_get_total_order')
 
     @api.model
@@ -185,42 +185,30 @@ class PurchaseOrder(models.Model):
         return True;
 
     @api.one
-    def _get_subtot(self):
+    def _compute_subtot(self):
         for line in self.order_line:
             if not line.product_id.display_as_delivery_cost:
-                self.subtot = self.subtot + (line.price_unit * line.product_qty)
-
-    @api.one
-    def _get_disc_percent(self):
-        for line in self.order_line:
-            if not line.product_id.display_as_delivery_cost:
-                self.disc_percent = self.disc_percent + line.discount
+                self.subtot = self.subtot + line.price_subtotal
 
     @api.one
     @api.depends('subtot', 'disc_percent')
-    def _get_disc(self):
-        self.disc = self.subtot * (self.disc_percent / 100)
+    def _compute_disc(self):
+        self.disc_amount = self.subtot * (self.disc_percent / 100)
 
     @api.one
-    @api.depends('subtot', 'disc')
-    def _get_subtot_after_disc(self):
-        self.subtot_after_disc = self.subtot - self.disc
-
-    @api.one
-    def _get_vat_percent(self):
-        for line in self.order_line:
-            if not line.product_id.display_as_delivery_cost:
-                self.vat_percent = self.vat_percent + line.taxes_id.amount
+    @api.depends('subtot', 'disc_amount')
+    def _compute_subtot_after_disc(self):
+        self.subtot_after_disc = self.subtot - self.disc_amount
 
     @api.one
     @api.depends('subtot_after_disc', 'vat_percent')
-    def _get_vat(self):
-        self.vat = self.subtot_after_disc * (self.vat_percent / 100)
+    def _compute_vat(self):
+        self.vat_amount = self.amount_tax # self.subtot_after_disc * (self.vat_percent / 100)
 
     @api.one
-    @api.depends('subtot_after_disc', 'vat')
-    def _get_subtot_after_tax(self):
-        self.subtot_after_tax = self.subtot_after_disc + self.vat
+    @api.depends('subtot_after_disc', 'vat_amount')
+    def _compute_subtot_after_tax(self):
+        self.subtot_after_tax = self.subtot_after_disc + self.vat_amount
 
     @api.one
     def _get_freight(self):
@@ -230,7 +218,7 @@ class PurchaseOrder(models.Model):
 
     @api.one
     @api.depends('subtot_after_tax', 'freight')
-    def _get_subtot_after_freight(self):
+    def _compute_subtot_after_freight(self):
         self.subtot_after_freight = self.subtot_after_tax + self.freight
 
     @api.one
