@@ -20,6 +20,9 @@
                         <field string="Revision" name="po_revision_count" widget="statinfo"/>
                     </button>
                 </xpath>
+                <xpath expr="//group[@class='oe_subtotal_footer oe_right'][1]/field[@name='amount_tax']" position="after">
+                    <field name="freight" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </xpath>
             </field>
         </record>
 

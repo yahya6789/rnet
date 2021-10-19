@@ -9,7 +9,7 @@ class PurchaseOrder(models.Model):
     po_revision_count = fields.Integer(compute='_get_po_revision_count')
 
     subtot = fields.Monetary(compute='_compute_subtot')
-    disc_percent = fields.Float(string='Discount', default=0)
+    disc_percent = fields.Float(string='Discount (%)', default=0)
     disc_amount = fields.Monetary(compute='_compute_disc')
     subtot_after_disc = fields.Monetary(compute='_compute_subtot_after_disc')
     vat_percent = fields.Float(string='VAT', default=0)
@@ -183,6 +183,21 @@ class PurchaseOrder(models.Model):
         self.env.cr.execute(query, params)
         self.env.cr.commit()
         return True;
+
+    @api.depends('order_line.price_total', 'freight')
+    def _amount_all(self):
+        freight = self.freight
+        for order in self:
+            amount_untaxed = amount_tax = 0.0
+            for line in order.order_line:
+                if not line.product_id.display_as_delivery_cost:
+                    amount_untaxed += line.price_subtotal
+                    amount_tax += line.price_tax
+            order.update({
+                'amount_untaxed': order.currency_id.round(amount_untaxed),
+                'amount_tax': order.currency_id.round(amount_tax),
+                'amount_total': amount_untaxed + amount_tax + freight,
+            })
 
     @api.one
     def _compute_subtot(self):
