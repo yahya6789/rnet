@@ -187,6 +187,7 @@ class PurchaseOrder(models.Model):
     @api.depends('order_line.price_total', 'freight')
     def _amount_all(self):
         freight = self.freight
+        disc = self.disc_amount
         for order in self:
             amount_untaxed = amount_tax = 0.0
             for line in order.order_line:
@@ -196,7 +197,7 @@ class PurchaseOrder(models.Model):
             order.update({
                 'amount_untaxed': order.currency_id.round(amount_untaxed),
                 'amount_tax': order.currency_id.round(amount_tax),
-                'amount_total': amount_untaxed + amount_tax + freight,
+                'amount_total': amount_untaxed - disc + amount_tax + freight,
             })
 
     @api.one
