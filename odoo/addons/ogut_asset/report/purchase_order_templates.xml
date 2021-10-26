@@ -155,7 +155,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td style="width: 30%">PIC/User</td>
-                                                    <td>:&amp;nbsp;<span t-field="o.project.project_manager"/></td>
+                                                    <td>:&amp;nbsp;<span t-field="o.responsible_id"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Job Order No.</td>

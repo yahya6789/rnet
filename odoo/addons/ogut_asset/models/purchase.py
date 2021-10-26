@@ -19,6 +19,8 @@ class PurchaseOrder(models.Model):
     subtot_after_freight = fields.Monetary(compute='_compute_subtot_after_freight')
     total_order = fields.Monetary(compute='_get_total_order')
 
+    responsible_id = fields.Many2one('hr.employee', string='Responsible')
+
     @api.model
     def create(self, vals):
         return super(models.Model, self).create(vals)
