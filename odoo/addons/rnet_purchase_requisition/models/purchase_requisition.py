@@ -88,6 +88,7 @@ class PurchaseRequisition(models.Model):
                                 'custom_requisition_id': rec.id,
                                 'origin': rec.name,
                                 'project': rec.project.id,
+                                'responsible_id': self.requisiton_responsible_id.id,
                             }
                             purchase_order = purchase_obj.create(po_vals)
                             po_dict.update({partner: purchase_order})
