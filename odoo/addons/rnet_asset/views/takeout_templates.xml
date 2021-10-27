@@ -140,7 +140,7 @@
                                             <tr>
                                                 <td><span t-esc="idx"/></td>
                                                 <td><span t-field="line.product_id.display_name"/></td>
-                                                <td>&#8194;</td>
+                                                <td><span t-field="line.product_id.brand.name"/></td>
                                                 <td>
                                                     <span t-esc="'%.0f'% line.quantity_done" />&#160;
                                                     <span t-field="line.product_id.uom_id.name"/>
