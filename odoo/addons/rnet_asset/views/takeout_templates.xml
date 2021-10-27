@@ -81,7 +81,7 @@
                                 <table class="table table-borderless table-sm">
                                     <tbody>
                                         <tr>
-                                            <td>Client</td><td>:&#8194;<span t-field="o.partner_id.display_name"/></td>
+                                            <td>Client</td><td>:&#8194;<span t-field="o.project.name"/></td>
                                         </tr>
                                         <tr>
                                             <td>Address</td>
