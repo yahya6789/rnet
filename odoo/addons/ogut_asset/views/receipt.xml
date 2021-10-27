@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <report string="Material Receipt" id="action_report_receipt"
-            model="stock.picking" report_type="qweb-pdf"
+            model="stock.picking"
             name="ogut_asset.report_receipt"
             file="ogut_asset.report_receipt"
             print_report_name="'Print Material Receipt - %s - %s' % (object.partner_id.name or '', object.name)">

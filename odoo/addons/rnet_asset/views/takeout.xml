@@ -72,7 +72,7 @@
         </record>
 
         <report string="Takeout" id="action_report_takeout"
-            model="stock.picking" report_type="qweb-pdf"
+            model="stock.picking"
             name="rnet_asset.report_takeout"
             file="rnet_asset.report_takeout"
             print_report_name="'Print Takeout - %s - %s' % (object.partner_id.name or '', object.name)">
