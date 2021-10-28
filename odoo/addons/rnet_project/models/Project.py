@@ -64,3 +64,12 @@ class Project(models.Model):
             display_name += o.name or ""
             data.append((o.id, display_name))
         return data
+
+    @api.model
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+        args = args or []
+        domain = []
+        if name:
+            domain = ['|', ('no', operator, name), ('name', operator, name)]
+        project_ids = self._search(domain + args, limit=limit)
+        return self.browse(project_ids).name_get()
