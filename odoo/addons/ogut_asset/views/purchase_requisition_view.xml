@@ -6,10 +6,26 @@
             <field name="model">material.purchase.requisition</field>
             <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="/form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                </xpath>
                 <xpath expr="//group[1]/field[@name='project']" position="attributes">
                     <attribute name="string">Job Order No.</attribute>
                  </xpath>
                 <xpath expr="//sheet[1]/group[1]/group[2]/field[@name='maintenance_id']" position="replace"/>
+            </field>
+        </record>
+        <record id="material_purchase_requisition_form_view_hide_edit" model="ir.ui.view">
+            <field name="name">Purchase Requisition Form View - Hide Edit Button</field>
+            <field name="model">material.purchase.requisition</field>
+            <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('material_purchase_requisitions.group_purchase_requisition_user')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form" position="attributes">
+                    <attribute name="create">true</attribute>
+                    <attribute name="edit">true</attribute>
+                </xpath>
             </field>
         </record>
     </data>
