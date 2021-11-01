@@ -21,6 +21,7 @@
         'views/purchase_requisition_view.xml',
         'report/purchase_order_templates.xml',
         'views/purchase_order_history.xml',
+        'wizard/purchase_requisition_reject_wizard_view.xml'
     ],
 
     "installable": True,

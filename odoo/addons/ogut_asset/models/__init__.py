@@ -9,3 +9,4 @@ from . import account_move
 from . import stock
 from . import purchase
 from . import purchase_history
+from . import purchase_requisition

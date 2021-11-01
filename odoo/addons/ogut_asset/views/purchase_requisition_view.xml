@@ -10,6 +10,9 @@
                     <attribute name="create">false</attribute>
                     <attribute name="edit">false</attribute>
                 </xpath>
+                <xpath expr="//button[@name='requisition_reject']" position="replace">
+                    <button name="requisition_reject" type="object" string="Reject" groups="material_purchase_requisitions.group_purchase_requisition_department" states="dept_confirm"/>
+                </xpath>
                 <xpath expr="//group[1]/field[@name='project']" position="attributes">
                     <attribute name="string">Job Order No.</attribute>
                  </xpath>
