@@ -99,3 +99,12 @@ class PurchaseRequisition(models.Model):
                             po_line_vals = rec._prepare_po_line(line, purchase_order)
                             purchase_line_obj.sudo().create(po_line_vals)
                 rec.state = 'stock'
+
+    @api.onchange('project')
+    def on_change_project(self):
+        pm = self.project.project_manager
+        if pm:
+            self.requisiton_responsible_id = pm
+        else:
+            self.requisiton_responsible_id = None
+

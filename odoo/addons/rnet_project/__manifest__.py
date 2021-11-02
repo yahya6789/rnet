@@ -3,7 +3,7 @@
     'author': "RNET",
     'version': '0.1',
 
-    'depends': ['project'],
+    'depends': ['project','hr'],
 
     'data': [
         'security/ir.model.access.csv',

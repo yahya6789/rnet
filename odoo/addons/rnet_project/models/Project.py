@@ -40,11 +40,11 @@ class Project(models.Model):
     actual_delivery_date = fields.Date(string='Actual Delivery Date')
     term_of_delivery = fields.Char(string='Term of Delivery')
     notes = fields.Text(string='Notes')
-    project_manager = fields.Many2one('res.users', string='Project Manager', required=True)
-    project_coordinator = fields.Many2one('res.users', string='Project Coordinator')
-    pic_technical = fields.Many2one('res.users', string='PIC Technical')
-    pic_project_cost = fields.Many2one('res.users', string='PIC Project Cost')
-    team_member = fields.Many2many('res.users', string='Team Member')
+    project_manager = fields.Many2one('hr.employee', string='Project Manager', required=True)
+    project_coordinator = fields.Many2one('hr.employee', string='Project Coordinator')
+    pic_technical = fields.Many2one('hr.employee', string='PIC Technical')
+    pic_project_cost = fields.Many2one('hr.employee', string='PIC Project Cost')
+    team_member = fields.Many2many('hr.employee', string='Team Member')
 
     @api.model
     def create(self, vals):
