@@ -97,7 +97,7 @@
                                             <td class="border border-dark"><span t-esc="line.uom.name"/></td>
                                             <td class="border border-dark">&amp;nbsp;</td>
                                             <td class="border border-dark">&amp;nbsp;</td>
-                                            <td class="border border-dark">&amp;nbsp;</td>
+                                            <td class="border border-dark"><span t-field="line.remark"/></td>
                                         </tr>
                                     </t>
                                 </tbody>
