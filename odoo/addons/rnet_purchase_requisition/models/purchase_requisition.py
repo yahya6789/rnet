@@ -42,6 +42,8 @@ class PurchaseRequisition(models.Model):
 
     @api.multi
     def request_stock(self):
+        self.is_requisition_date_valid()
+
         stock_obj = self.env['stock.picking']
         purchase_obj = self.env['purchase.order']
         purchase_line_obj = self.env['purchase.order.line']
@@ -108,3 +110,30 @@ class PurchaseRequisition(models.Model):
         else:
             self.requisiton_responsible_id = None
 
+    def is_requisition_date_valid(self):
+        if self.request_date > self.receive_date:
+            raise UserError(_("Received Date cannot earlier than Requisition Date"))
+
+    @api.multi
+    def write(self, vals):
+        if vals.get('receive_date'):
+            receive_date = datetime.strptime(vals.get('receive_date'), '%Y-%m-%d').date()
+            if self.request_date > receive_date:
+                raise UserError(_("Received Date cannot earlier than Requisition Date"))
+
+        return super(PurchaseRequisition, self).write(vals)
+
+    @api.multi
+    def requisition_confirm(self):
+        self.is_requisition_date_valid()
+        return super(PurchaseRequisition, self).requisition_confirm()
+
+    @api.multi
+    def manager_approve(self):
+        self.is_requisition_date_valid()
+        return super(PurchaseRequisition, self).manager_approve()
+
+    @api.multi
+    def user_approve(self):
+        self.is_requisition_date_valid()
+        return super(PurchaseRequisition, self).user_approve()
