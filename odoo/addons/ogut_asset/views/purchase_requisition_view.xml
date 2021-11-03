@@ -17,6 +17,9 @@
                     <attribute name="string">Job Order No.</attribute>
                  </xpath>
                 <xpath expr="//sheet[1]/group[1]/group[2]/field[@name='maintenance_id']" position="replace"/>
+                <xpath expr="//page[3]/group[1]/group[1]/field[@name='reject_employee_id']" position="after">
+                    <field name="reject_reason"/>
+                </xpath>
             </field>
         </record>
         <record id="material_purchase_requisition_form_view_hide_edit" model="ir.ui.view">
