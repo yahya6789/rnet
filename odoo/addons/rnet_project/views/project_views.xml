@@ -139,6 +139,7 @@
                     <page name="settings" string="Settings">
                         <group>
                             <field name="privacy_visibility" widget="radio"/>
+                            <field name="analytic_account" class="oe_inline"/>
                         </group>
                         <group name="misc">
                             <group string="Configuration" groups="base.group_no_one" name="configuration">
