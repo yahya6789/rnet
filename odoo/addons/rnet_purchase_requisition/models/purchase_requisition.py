@@ -105,10 +105,10 @@ class PurchaseRequisition(models.Model):
     @api.onchange('project')
     def on_change_project(self):
         pm = self.project.project_manager
-        if pm:
-            self.requisiton_responsible_id = pm
-        else:
-            self.requisiton_responsible_id = None
+        analytic = self.project.analytic_account
+
+        self.requisiton_responsible_id = pm if pm else None
+        self.analytic_account_id = analytic if analytic else None
 
     def is_requisition_date_valid(self):
         if self.request_date > self.receive_date:
