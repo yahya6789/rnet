@@ -67,11 +67,11 @@
                                     <td>Terms of Delivery</td>
                                     <td>:&amp;nbsp;</td>
                                     <td>Contact Person</td>
-                                    <td>:&amp;nbsp;</td>
+                                    <td>:&amp;nbsp;<span t-field="o.partner_id.barcode"/></td>
                                 </tr>
                                 <tr>
                                     <td>Payment Terms</td>
-                                    <td>:&amp;nbsp;</td>
+                                    <td>:&amp;nbsp;<span t-field="o.payment_term_id.name"/></td>
                                     <td>Currency</td>
                                     <td>:&amp;nbsp;<span t-field="o.currency_id.name"/></td>
                                 </tr>
