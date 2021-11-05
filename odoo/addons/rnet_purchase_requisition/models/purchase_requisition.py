@@ -13,6 +13,7 @@ class PurchaseRequisition(models.Model):
     project = fields.Many2one('project.project', string='Project')
     vendors = fields.Char(compute='_get_vendors')
     categories = fields.Char(compute='_get_categories')
+    product_id = fields.Many2one('product.product', related='requisition_line_ids.product_id', string='Product', readonly=False)
 
     @api.model
     def create(self, vals):
