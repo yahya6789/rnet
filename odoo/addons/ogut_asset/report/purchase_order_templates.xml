@@ -67,7 +67,16 @@
                                     <td>Terms of Delivery</td>
                                     <td>:&amp;nbsp;</td>
                                     <td>Contact Person</td>
-                                    <td>:&amp;nbsp;<span t-field="o.partner_id.barcode"/></td>
+                                    <td>:&amp;nbsp;
+                                        <t t-foreach="o.partner_id.child_ids" t-as="p" >
+                                            <t t-if="p.type == 'contact'">
+                                                <span t-field="p.name"/>
+                                                <t t-if="not p_last">
+                                                    <span>,&amp;nbsp;</span>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Payment Terms</td>
