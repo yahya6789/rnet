@@ -112,8 +112,9 @@ class PurchaseRequisition(models.Model):
         self.analytic_account_id = analytic if analytic else None
 
     def is_requisition_date_valid(self):
-        if self.request_date > self.receive_date:
-            raise UserError(_("Received Date cannot earlier than Requisition Date"))
+        if self.receive_date:
+            if self.request_date > self.receive_date:
+                raise UserError(_("Received Date cannot earlier than Requisition Date"))
 
     @api.multi
     def write(self, vals):
