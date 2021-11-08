@@ -26,7 +26,7 @@ class Takeout(models.Model):
     gut_source_department = fields.Many2one('hr.department', 'Source Department')
     gut_destination_department = fields.Many2one('hr.department', 'Destination Department')
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
-    gut_inventory_lines_count = fields.Integer(string='Qty Inventory', compute='_get_inventory_lines_count')
+    gut_inventory_lines_count = fields.Integer(string='Qty Inventory', default=0)
 
     def _compute_show_mark_as_todo(self):
         super(Takeout, self)._compute_show_mark_as_todo()
@@ -155,3 +155,24 @@ class Takeout(models.Model):
     def _get_inventory_lines_count(self):
         self.gut_inventory_lines_count = len(self.move_lines)
         return
+
+    """
+    @api.one
+    def _get_inventory_lines_sum(self):
+        total = 0
+        for line in self.move_line_ids_without_package:
+            total = total + line.qty_done
+
+        self.gut_inventory_lines_count = total
+    """
+
+    @api.model
+    def create(self, vals):
+        if vals.get('origin'):
+            order = self.env['purchase.order'].search([('name', '=', vals.get('origin'))])
+            if order:
+                total = 0
+                for line in order.order_line:
+                    total = total + line.product_qty
+                vals.update({'gut_inventory_lines_count': total})
+        return super(Takeout, self).create(vals)
