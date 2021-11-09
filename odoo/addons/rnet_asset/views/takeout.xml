@@ -18,11 +18,17 @@
                 <field name="gut_source_department" position="after">
                     <field name="location_id"/>
                 </field>
+                <field name="gut_source_department" position="attributes">
+                    <attribute name='string'>Source Dept.</attribute>
+                </field>
                 <field name="location_id" position="after">
                     <field name="gut_destination_department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                 </field>
                 <field name="gut_destination_department" position="after">
                     <field name="location_dest_id"/>
+                </field>
+                <field name="gut_destination_department" position="attributes">
+                    <attribute name='string'>Destination Dept.</attribute>
                 </field>
                 <field name="location_dest_id" position="after">
                     <field name="gut_purpose" invisible="context.get('contact_display',False)"/>
