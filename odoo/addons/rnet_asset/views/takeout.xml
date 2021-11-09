@@ -37,7 +37,8 @@
                     </div>
                 </field>
                 <xpath expr="//sheet/group/group[last()]" position="replace">
-                    <group invisible="context.get('contact_display',False)">
+                    <!--<group invisible="context.get('contact_display',False)">-->
+                    <group>
                         <field name="gut_issued_by"/>
                         <field name="gut_issued_date"/>
                         <field name="gut_qc_by"/>
