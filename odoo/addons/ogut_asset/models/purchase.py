@@ -27,11 +27,11 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def button_confirm(self):
-        res = super(PurchaseOrder, self).button_confirm()
         for order in self:
             sequence = self.env['ir.sequence'].next_by_code('purchase.order') or '/'
             order.write({'name': sequence})
-        return res
+
+        return super(PurchaseOrder, self).button_confirm()
 
     def _get_latest_revision_number(self):
         query = """
