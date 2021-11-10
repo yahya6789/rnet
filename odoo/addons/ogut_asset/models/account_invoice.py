@@ -46,7 +46,7 @@ class AccountInvoiceLine(models.Model):
         if self.asset_category_id_custom:
             vals = {
                 'name': self.name,
-                'code': self.invoice_id.number or False,
+                # 'code': self.invoice_id.number or False,
                 'category_id': self.asset_category_id_custom.id,
                 #'category_name': self.asset_category_id_custom.name,
                 'value': self.price_subtotal_signed,
@@ -70,7 +70,7 @@ class AccountInvoiceLine(models.Model):
         if self.asset_category_id_custom:
             vals = {
                 'name': self.name,
-                'code': self.invoice_id.number or False,
+                # 'code': self.invoice_id.number or False,
                 'category_id': self.asset_category_id_custom.id,
                 #'category_name': self.asset_category_id_custom.name,
                 #'value': self.price_subtotal_signed,
