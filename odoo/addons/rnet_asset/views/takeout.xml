@@ -5,6 +5,15 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
+                <field name="show_lots_text" position="after">
+                    <field name="show_confirm" invisible="1"/>
+                    <button name="action_ok" attrs="{'invisible': [('show_confirm', '=', False)]}" string="Confirm" type="object" class="oe_highlight" groups="base.group_user"/>
+                </field>
+
+                <button name="action_confirm" position="attributes">
+                    <attribute name='string'>Approve</attribute>
+                </button>
+
                 <field name="picking_type_id" position="replace" />
                 <field name="location_id" position="replace"/>
                 <field name="location_dest_id" position="replace"/>

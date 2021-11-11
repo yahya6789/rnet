@@ -17,7 +17,7 @@ class Takeout(models.Model):
     gut_issued_date = fields.Date('Issued Date')
     gut_qc_by = fields.Many2one('res.users', 'QC By')
     gut_qc_date = fields.Date('QC Date')
-    gut_approved_by = fields.Many2one('res.users', 'Approved By')
+    gut_approved_by = fields.Many2one('res.users', 'Approved By', required=True)
     gut_approved_date = fields.Date('Approved Date')
     gut_received_by = fields.Many2one('res.users', 'Received By')
     gut_received_date = fields.Date('Received Date')
@@ -28,12 +28,41 @@ class Takeout(models.Model):
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
     gut_inventory_lines_count = fields.Integer(string='Qty Inventory', default=0)
 
+    show_confirm = fields.Boolean(
+        compute='_compute_show_confirm',
+        help='Technical field used to compute whether the confirm button should be shown.')
+
+    @api.multi
+    @api.depends('state', 'move_lines')
     def _compute_show_mark_as_todo(self):
-        super(Takeout, self)._compute_show_mark_as_todo()
-        if self.state == 'draft':
-            for line in self:
-                if line.gut_asset_lines or line.package_level_ids:
-                    line.show_mark_as_todo = True
+        for picking in self:
+            if self.env.user.id == self.gut_approved_by.id:
+                if not picking.move_lines and not picking.package_level_ids:
+                    picking.show_mark_as_todo = False
+                elif not picking.immediate_transfer and picking.state == 'waiting':
+                    picking.show_mark_as_todo = True
+                elif picking.state != 'waiting' or not picking.id:
+                    picking.show_mark_as_todo = False
+                else:
+                    picking.show_mark_as_todo = True
+            else:
+                picking.show_mark_as_todo = False
+
+    @api.multi
+    @api.depends('state', 'move_lines')
+    def _compute_show_confirm(self):
+        for picking in self:
+            if not picking.move_lines and not picking.package_level_ids:
+                picking.show_confirm = False
+            elif not (picking.immediate_transfer) and picking.state == 'draft':
+                picking.show_confirm = True
+            elif picking.state != 'draft' or not picking.id:
+                picking.show_confirm = False
+            else:
+                picking.show_confirm = True
+
+    def action_ok(self):
+        self.write({'state': 'waiting'})
 
     def action_confirm(self):
         res = super(Takeout, self).action_confirm()
