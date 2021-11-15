@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 class Asset(models.Model):
     _inherit = 'account.asset.asset.custom'
 
-    #gut_product_category = fields.Many2one('product.category', string='Product Category', required=False, readonly=True, states={'draft': [('readonly', False)]})
+    gut_product_category = fields.Many2one('product.category', string='Product Category', required=False, readonly=True, states={'draft': [('readonly', False)]})
     gut_product_mapping = fields.Many2one('product.product', 'Product Mapping')
     gut_calibration_certificate = fields.Boolean(string='Calibration Certificate', default=False)
     gut_condition_desc = fields.Char(string='Condition Desc.', required=False, readonly=True, states={'draft': [('readonly', False)]})
