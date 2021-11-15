@@ -69,7 +69,8 @@
                     <attribute name="string">Asset Category</attribute>
                 </field>
                 <field name="category_id" position="after">
-                    <field name="gut_product_category"/>
+                    <!--<field name="gut_product_category"/>-->
+                    <field name="gut_product_mapping"/>
                 </field>
                 <field name="custom_number" position="attributes">
                     <attribute name="string">Asset No.</attribute>
@@ -90,6 +91,9 @@
                 </field>
                 <field name="custom_source_department_id" position="after">
                     <field name="gut_source_location"/>
+                </field>
+                <field name="custom_manufacturer_id" position="after">
+                    <field name="gut_manufactured_year"/>
                 </field>
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page string='Lokasi'>
