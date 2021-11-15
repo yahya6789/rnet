@@ -22,6 +22,10 @@ class Asset(models.Model):
     gut_total_terdepresiasi = fields.Float(compute='_compute_total_depreciation', string='Total Terdepresiasi')
     gut_unposted = fields.Float(compute='_compute_unposted', string='Unposted')
     gut_sisa_depresiasi = fields.Float(compute='_compute_sisa_depresiasi', string='Sisa Depresiasi')
+    gut_calibration_interval = fields.Integer(string='Calibration Interval')
+    gut_recalibration_schedule = fields.Date(string='Recalibration Schedule')
+    gut_calibration_product_mapping = fields.Many2one('product.product', 'Product Mapping')
+    gut_calibration_notes = fields.Text('Calibration Notes')
 
     @api.multi
     def open_calibration_form(self):

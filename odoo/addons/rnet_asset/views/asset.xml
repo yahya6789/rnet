@@ -75,13 +75,9 @@
                     <attribute name="string">Asset No.</attribute>
                 </field>
                 <field name="date" position="after">
-                    <field name="gut_calibration_certificate"/>
                     <field name="gut_status"/>
                     <field name="gut_condition"/>
                     <field name="gut_condition_desc"/>
-                </field>
-                <field name="invoice_id" position="after">
-                    <field name="gut_last_calibration" readonly="1"/>
                 </field>
                 <field name="custom_model_number" position="attributes">
                     <attribute name="string">Type / Model</attribute>
@@ -111,6 +107,27 @@
                 <field name="value_residual" position="after">
                     <field name="gut_unposted" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_add_view">
+            <field name="name">Product Add View</field>
+            <field name="model">account.asset.asset.custom</field>
+            <field name="inherit_id" ref="odoo_account_asset_extend_ce.product_add_view"/>
+            <field name="priority">70</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[3]" position="after">
+                    <page string='Calibration'>
+                        <group col="4">
+                            <field name="gut_calibration_certificate"/>
+                            <field name="gut_calibration_product_mapping"/>
+                            <field name="gut_calibration_interval" string="Calibration Interval (months)"/>
+                            <field name="gut_calibration_notes"/>
+                            <field name="gut_last_calibration" readonly="1"/>
+                            <field name="gut_recalibration_schedule"/>
+                        </group>
+                    </page>
+                </xpath>
             </field>
         </record>
 
