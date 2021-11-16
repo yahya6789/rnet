@@ -39,6 +39,8 @@ class Takeout(models.Model):
             if self.env.uid == self.gut_approved_by.id:
                 if not picking.move_lines and not picking.package_level_ids:
                     picking.show_mark_as_todo = False
+                if not picking.gut_asset_lines and not picking.package_level_ids:
+                    picking.show_mark_as_todo = False
                 elif not picking.immediate_transfer and picking.state == 'waiting':
                     picking.show_mark_as_todo = True
                 elif picking.state != 'waiting' or not picking.id:
@@ -54,7 +56,9 @@ class Takeout(models.Model):
         for picking in self:
             if not picking.move_lines and not picking.package_level_ids:
                 picking.show_confirm = False
-            elif not (picking.immediate_transfer) and picking.state == 'draft':
+            if not picking.gut_asset_lines and not picking.package_level_ids:
+                picking.show_confirm = False
+            elif not picking.immediate_transfer and picking.state == 'draft':
                 picking.show_confirm = True
             elif picking.state != 'draft' or not picking.id:
                 picking.show_confirm = False
@@ -178,12 +182,10 @@ class Takeout(models.Model):
     @api.one
     def _get_asset_lines_count(self):
         self.gut_asset_lines_count = len(self.gut_asset_lines)
-        return
 
     @api.one
     def _get_inventory_lines_count(self):
         self.gut_inventory_lines_count = len(self.move_lines)
-        return
 
     """
     @api.one
