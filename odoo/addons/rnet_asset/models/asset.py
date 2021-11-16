@@ -44,12 +44,12 @@ class Asset(models.Model):
             }
 
     def _get_last_calibration(self):
-        calibration = self.env['gut.asset.calibration'].search([('asset', '=', self.id)], order='date DESC', limit=1)
-
-        if len(calibration) > 0:
-            self.gut_last_calibration = calibration.date
-
-        return
+        for record in self:
+            calibration = self.env['gut.asset.calibration'].search([('asset', '=', record.id)], order='date DESC', limit=1)
+            if len(calibration) > 0:
+                record.gut_last_calibration = calibration.date
+            else:
+                record.gut_last_calibration = None
 
     def update_additional_info(self, info):
         self.custom_source_partner_id = info['custodian']

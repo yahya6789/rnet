@@ -17,6 +17,15 @@
             <field name="model">account.asset.asset.custom</field>
             <field name="inherit_id" ref="odoo_account_asset.view_account_asset_asset_purchase_tree"/>
             <field name="arch" type="xml">
+                <field name="state" position="replace"/>
+                <field name="custom_serial_number" position="after">
+                    <field name="state"/>
+                    <field name="gut_condition"/>
+                    <field name="gut_product_category"/>
+                    <field name="gut_manufactured_year"/>
+                    <field name="gut_last_calibration"/>
+                    <field name="gut_recalibration_schedule"/>
+                </field>
                 <field name="salvage_value" position="after">
                     <field name="gut_total_terdepresiasi"/>
                 </field>
