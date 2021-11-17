@@ -9,6 +9,6 @@ class brand(models.Model):
     _name = 'gut.brand'
     _description = 'Product Brand'
 
-    code = fields.Char('Brand Code', required=True)
-    name = fields.Char('Brand Name', required=True)
+    code = fields.Char('Brand Type', required=True)
+    name = fields.Char('Brand', required=True)
     alias = fields.Char('Alias')

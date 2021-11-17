@@ -26,7 +26,7 @@
                                         <td>Revision</td><td>:&#8194;00</td>
                                     </tr>
                                     <tr>
-                                        <td>Date</td><td>:&#8194;<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y')"/></td>
+                                        <td>Date</td><td>:&#8194;<span>03.03.2009</span></td>
                                     </tr>
                                 </tbody>
                             </table>

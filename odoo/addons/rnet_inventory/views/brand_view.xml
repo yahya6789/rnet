@@ -4,8 +4,8 @@
         <field name="model">gut.brand</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="code"/>
                 <field name="name"/>
+                <field name="code"/>
                 <field name="alias"/>
             </tree>
         </field>
@@ -18,8 +18,8 @@
             <form>
                 <sheet>
                     <group col="4">
-                        <field name="code"/>
                         <field name="name"/>
+                        <field name="code"/>
                         <field name="alias"/>
                     </group>
                 </sheet>
