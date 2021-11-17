@@ -23,8 +23,8 @@ class Takeout(models.Model):
     gut_received_date = fields.Date('Received Date')
     gut_asset_lines = fields.One2many(comodel_name='gut.takeout.asset.line', inverse_name='gut_takeout_id',
                                       string='Assets', store=True)
-    gut_source_department = fields.Many2one('hr.department', 'Source Department')
-    gut_destination_department = fields.Many2one('hr.department', 'Destination Department')
+    gut_source_department = fields.Many2one('hr.department', 'Source Department', required=True)
+    gut_destination_department = fields.Many2one('hr.department', 'Destination Department', required=True)
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
     gut_inventory_lines_count = fields.Integer(string='Qty Inventory', default=0)
 
@@ -37,9 +37,7 @@ class Takeout(models.Model):
     def _compute_show_mark_as_todo(self):
         for picking in self:
             if self.env.uid == self.gut_approved_by.id:
-                if not picking.move_lines and not picking.package_level_ids:
-                    picking.show_mark_as_todo = False
-                if not picking.gut_asset_lines and not picking.package_level_ids:
+                if not picking.move_lines and not picking.gut_asset_lines and not picking.package_level_ids:
                     picking.show_mark_as_todo = False
                 elif not picking.immediate_transfer and picking.state == 'waiting':
                     picking.show_mark_as_todo = True
@@ -54,9 +52,7 @@ class Takeout(models.Model):
     @api.depends('state', 'move_lines')
     def _compute_show_confirm(self):
         for picking in self:
-            if not picking.move_lines and not picking.package_level_ids:
-                picking.show_confirm = False
-            if not picking.gut_asset_lines and not picking.package_level_ids:
+            if not picking.move_lines and not picking.gut_asset_lines and not picking.package_level_ids:
                 picking.show_confirm = False
             elif not picking.immediate_transfer and picking.state == 'draft':
                 picking.show_confirm = True
@@ -70,7 +66,7 @@ class Takeout(models.Model):
 
     def action_confirm(self):
         res = super(Takeout, self).action_confirm()
-        if self.state == 'draft':
+        if self.state == 'draft' or self.state == 'waiting':
             self.write({'state': 'assigned'})
 
         return res
