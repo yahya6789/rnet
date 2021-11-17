@@ -20,10 +20,10 @@
                             <table class="table table-bordered table-sm m0">
                                 <tbody>
                                     <tr>
-                                        <td>Doc No.</td><td>:&#8194;5.5.3</td>
+                                        <td>Doc No.</td><td>:&#8194;5.5.4</td>
                                     </tr>
                                     <tr>
-                                        <td>Revision</td><td>:&#8194;01</td>
+                                        <td>Revision</td><td>:&#8194;00</td>
                                     </tr>
                                     <tr>
                                         <td>Date</td><td>:&#8194;<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y')"/></td>
