@@ -110,6 +110,10 @@ class Takeout(models.Model):
         asset_type = self.env['asset.transfer.type'].search([('code', '=', 'OUT')])
         cust_source = self.env['res.partner'].search([('id', '=', 1)])
 
+        destination_partner_id = self.partner_id
+        if not destination_partner_id:
+            destination_partner_id = cust_source
+
         for asset in self.gut_asset_lines:
             self.env['asset.accountability.transfer'].create({
                 'transferred_asset_id': asset.asset_id.id,
@@ -119,15 +123,15 @@ class Takeout(models.Model):
                 'destination_department_id': self.gut_destination_department.id,
                 'gut_dest_location': self.location_dest_id.id,
                 'source_partner_id': cust_source.id,
-                'destination_partner_id': self.partner_id.id,
+                'destination_partner_id': destination_partner_id.id,
                 'transferred_date': self.scheduled_date,
                 'gut_source_document': self.name,
                 'gut_asset_lines_id': self.id
             })
 
-        info = {'custodian': self.partner_id, 'department': self.gut_destination_department,
-                'location': self.location_dest_id}
-        asset.asset_id.update_additional_info(info)
+            info = {'custodian': self.partner_id, 'department': self.gut_destination_department,
+                    'location': self.location_dest_id}
+            asset.asset_id.update_additional_info(info)
 
         return
 
@@ -135,6 +139,10 @@ class Takeout(models.Model):
         # _logger.info("===== Creating material movement =====")
         asset_type = self.env['asset.transfer.type'].search([('code', '=', 'REC')])
         dest_source = self.env['res.partner'].search([('id', '=', 1)])
+
+        source_partner_id = self.partner_id
+        if not source_partner_id:
+            source_partner_id = dest_source
 
         for asset in self.gut_asset_lines:
             self.env['asset.accountability.transfer'].create({
@@ -144,16 +152,16 @@ class Takeout(models.Model):
                 'gut_source_location': self.location_dest_id.id,
                 'destination_department_id': self.gut_source_department.id,
                 'gut_dest_location': self.location_id.id,
-                'source_partner_id': self.partner_id.id,
+                'source_partner_id': source_partner_id.id,
                 'destination_partner_id': dest_source.id,
                 'transferred_date': self.scheduled_date,
                 'gut_source_document': self.name,
                 'gut_asset_lines_id': self.id
             })
 
-        info = {'custodian': dest_source.id, 'department': self.gut_destination_department,
-                'location': self.location_dest_id}
-        asset.asset_id.update_additional_info(info)
+            info = {'custodian': dest_source.id, 'department': self.gut_destination_department,
+                    'location': self.location_dest_id}
+            asset.asset_id.update_additional_info(info)
 
         return
 
