@@ -135,7 +135,11 @@
                     </page>
                     <page name="scope" string="Scope of Work"/>
                     <page name="phase" string="Project Phase/Term"/>
-                    <page name="location" string="Site Location"/>
+                    <page name="location" string="Site Location">
+                        <group col="4">
+                            <field name="location" class="oe_inline"/>
+                        </group>
+                    </page>
                     <page name="settings" string="Settings">
                         <group>
                             <field name="privacy_visibility" widget="radio"/>

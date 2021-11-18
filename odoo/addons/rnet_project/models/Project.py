@@ -46,6 +46,7 @@ class Project(models.Model):
     pic_project_cost = fields.Many2one('hr.employee', string='PIC Project Cost')
     team_member = fields.Many2many('hr.employee', string='Team Member')
     analytic_account = fields.Many2one('account.analytic.account', string='Analytic Account')
+    location = fields.Many2one('stock.location', string='Location', domain="[('active', '=', True), ('usage', '=', 'internal')]")
 
     @api.model
     def create(self, vals):
