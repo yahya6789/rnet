@@ -9,6 +9,7 @@
         'security/ir.model.access.csv',
         'data/product_sequence.xml',
         'views/brand_view.xml',
+        'views/product_group_views.xml',
     ],
 
     "installable": True,
