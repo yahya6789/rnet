@@ -28,6 +28,9 @@ class Takeout(models.Model):
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
     gut_inventory_lines_count = fields.Integer(string='Qty Inventory', default=0)
 
+    gut_client = fields.Char(compute='_get_client')
+    gut_client_address = fields.Char('Client Address')
+
     show_confirm = fields.Boolean(
         compute='_compute_show_confirm',
         help='Technical field used to compute whether the confirm button should be shown.')
@@ -211,3 +214,14 @@ class Takeout(models.Model):
                     total = total + line.product_qty
                 vals.update({'gut_inventory_lines_count': total})
         return super(Takeout, self).create(vals)
+
+    def _get_client(self):
+        if not self.partner_id:
+            self.gut_client = self.project.name
+            self.gut_client_address = "-"
+        else:
+            self.gut_client = self.partner_id.name
+            self.gut_client_address = "<br />".join((self.partner_id.street, self.partner_id.street2))
+            self.gut_client_address = self.gut_client_address + '<br/>' + self.partner_id.city \
+                                      + ', ' + self.partner_id.state_id.name \
+                                      + ' - ' + self.partner_id.zip

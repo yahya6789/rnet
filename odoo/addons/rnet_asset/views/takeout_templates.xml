@@ -81,14 +81,11 @@
                                 <table class="table table-borderless table-sm">
                                     <tbody>
                                         <tr>
-                                            <td>Client</td><td>:&#8194;<span t-field="o.project.name"/></td>
+                                            <td>Client</td><td>:&#8194;<span t-field="o.gut_client"/></td>
                                         </tr>
                                         <tr>
                                             <td>Address</td>
-                                            <td>:&#8194;<span t-field="o.partner_id.street"/><br/>
-                                                :&#8194;<span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.display_name"/><br/>
-                                                :&#8194;<span t-field="o.partner_id.country_id.display_name"/>
-                                            </td>
+                                            <td>:&#8194;<span t-raw="o.gut_client_address"/></td>
                                         </tr>
                                         <tr>
                                             <td>Purpose</td><td>:&#8194;<span t-field="o.gut_purpose"/></td>
