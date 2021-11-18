@@ -1,6 +1,11 @@
 from odoo import models, api, fields
 
 
+class ProductTemplateInherit(models.Model):
+    _inherit = 'product.template'
+
+    product_group = fields.Many2one('product.group', string='Product Group')
+
 class ProductGroup(models.Model):
     _name = "product.group"
 
