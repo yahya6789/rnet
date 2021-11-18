@@ -225,11 +225,11 @@ class Takeout(models.Model):
             if self.partner_id.street:
                 self.gut_client_address = self.partner_id.street
             if self.partner_id.street2:
-                self.gut_client_address = self.gut_client_address + '</br>' + self.partner_id.street2
+                self.gut_client_address = str(self.gut_client_address) + '</br>' + self.partner_id.street2
             if self.partner_id.city:
-                self.gut_client_address = self.gut_client_address + '</br>' + self.partner_id.city
+                self.gut_client_address = str(self.gut_client_address) + '</br>' + self.partner_id.city
             if self.partner_id.state_id:
-                self.gut_client_address = self.gut_client_address + ', ' + self.partner_id.state_id.name
+                self.gut_client_address = str(self.gut_client_address) + ', ' + self.partner_id.state_id.name
             if self.partner_id.zip:
-                self.gut_client_address = self.gut_client_address + ' - ' + self.partner_id.zip
+                self.gut_client_address = str(self.gut_client_address) + ' - ' + self.partner_id.zip
 
