@@ -3,7 +3,9 @@
 from odoo import models, fields, api, _
 from datetime import date
 import logging
+
 _logger = logging.getLogger(__name__)
+
 
 class Asset(models.Model):
     _inherit = 'account.asset.asset.custom'
@@ -31,6 +33,7 @@ class Asset(models.Model):
 
     @api.multi
     def open_calibration_form(self):
+        """
         for asset in self:
             return {
                 'name': _('Asset Calibration'),
@@ -42,14 +45,20 @@ class Asset(models.Model):
                 'domain': [('asset', '=', asset.id)],
                 'option': {'no_create_edit': True}
             }
+        """
+        pass
 
     def _get_last_calibration(self):
+        """
         for record in self:
             calibration = self.env['gut.asset.calibration'].search([('asset', '=', record.id)], order='date DESC', limit=1)
             if len(calibration) > 0:
                 record.gut_last_calibration = calibration.date
             else:
                 record.gut_last_calibration = None
+        """
+        for record in self:
+            record.gut_last_calibration = None
 
     def update_additional_info(self, info):
         self.custom_source_partner_id = info['custodian']
@@ -59,12 +68,14 @@ class Asset(models.Model):
 
     @api.multi
     def _gut_calibration_count(self):
+        """
         res = self.env['gut.asset.calibration'].search_count([('asset', '=', self.id)])
         self.gut_calibration_count = res or 0
+        """
+        self.gut_calibration_count = 0
 
     @api.multi
     def name_get(self):
-        #res = super(Asset, self).name_get()
         data = []
         for asset in self:
             display_name = '['
@@ -81,11 +92,16 @@ class Asset(models.Model):
         if asset_type:
             type_domain = [('type', '=', asset_type)]
 
-        ungrouped_assets = self.env['account.asset.asset.custom'].search(type_domain + [('state', '=', 'open'), ('category_id.group_entries', '=', False), ('gut_auto_depreciation', '=', True)])
+        ungrouped_assets = self.env['account.asset.asset.custom'].search(
+            type_domain + [('state', '=', 'open'), ('category_id.group_entries', '=', False),
+                           ('gut_auto_depreciation', '=', True)])
         created_move_ids += ungrouped_assets._compute_entries(date, group_entries=False)
 
-        for grouped_category in self.env['account.asset.category.custom'].search(type_domain + [('group_entries', '=', True)]):
-            assets = self.env['account.asset.asset.custom'].search([('state', '=', 'open'), ('category_id', '=', grouped_category.id), ('gut_auto_depreciation', '=', True)])
+        for grouped_category in self.env['account.asset.category.custom'].search(
+                type_domain + [('group_entries', '=', True)]):
+            assets = self.env['account.asset.asset.custom'].search(
+                [('state', '=', 'open'), ('category_id', '=', grouped_category.id),
+                 ('gut_auto_depreciation', '=', True)])
             created_move_ids += assets._compute_entries(date, group_entries=True)
         return created_move_ids
 
