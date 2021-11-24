@@ -13,7 +13,7 @@ class Brand(models.Model):
     name = fields.Char('Brand', required=True)
     alias = fields.Char('Alias')
 
-    product_count = fields.Integer(string='Product Count', compute='_gut_product_count')
+    product_count = fields.Integer(string='Product Count', compute='_get_product_count')
 
     @api.multi
     def open_products(self):
@@ -29,6 +29,6 @@ class Brand(models.Model):
         pass
 
     @api.multi
-    def _gut_product_count(self):
+    def _get_product_count(self):
         res = self.env['product.template'].search_count([('brand', '=', self.id)])
         self.product_count = res or 0
