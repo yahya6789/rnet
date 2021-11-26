@@ -1,38 +1,62 @@
 from odoo import models, fields, api, _
 from datetime import date
-import logging
-_logger = logging.getLogger(__name__)
 
-class assetCalibration(models.Model):
+
+class AssetCalibration(models.Model):
     _name = 'gut.asset.calibration'
     _description = 'Asset Calibration'
 
-    sequence = fields.Char('Sequence', readonly=True)
-    date = fields.Date('Date', default= date.today(), required=True)
-    description = fields.Char('Description')
-    asset = fields.Many2one('account.asset.asset.custom', 'Asset', required=True, default=lambda self: self._set_selected_asset(),)
+    calibration_request_no = fields.Char('Calibration Request No.', readonly=True, default='New')
+    requisition_date_line = fields.Date('Requisition Date Line', required=True)
+    calibration_responsible = fields.Many2one('hr.employee', 'Calibration Responsible', required=True)
+    vendor = fields.Many2one('res.partner', 'Vendor', required=True)
+    asset_line_ids = fields.One2many(comodel_name='gut.asset.calibration.line', inverse_name='asset_calibration_id', string='Assets')
+
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('pr_created', 'Purchase Request Created'),
+        ('closed', 'Closed'), ],
+        default='draft',
+        track_visibility='onchange',
+    )
 
     @api.model
     def create(self, vals):
-        seq = self.env['ir.sequence'].next_by_code('calibration.seq') or '/'
-        vals['sequence'] = seq
-        return super(assetCalibration, self).create(vals)
+        vals['calibration_request_no'] = self.env['ir.sequence'].next_by_code('calibration.seq') or 'New'
+        return super(AssetCalibration, self).create(vals)
 
-    def _set_selected_asset(self):
-        #_logger.info("=== _set_selected_asset ===")
-        asset_id = self._context.get('asset_id')
-        if asset_id != None:
-            return self.env['account.asset.asset.custom'].search([('id', '=', asset_id)], limit=1).id
-        return None
+    @api.multi
+    def name_get(self):
+        data = []
+        for o in self:
+            display_name = o.calibration_request_no
+            data.append((o.id, display_name))
+        return data
 
-    @api.onchange('asset')
-    def onchange_asset(self):
-        #_logger.info("=== onchange_asset ===")
-        asset_id = self._context.get('asset_id')
-        if asset_id != None:
-            res = {
-                'domain' : {
-                    'asset' : [('id', '=', asset_id)],
-                }
-            }
-            return res
+    @api.multi
+    def action_show_pr(self):
+        pass
+
+
+class AssetCalibrationLine(models.Model):
+    _name = 'gut.asset.calibration.line'
+    _description = 'Asset Calibration Line'
+
+    asset_calibration_id = fields.Many2one(comodel_name='gut.asset.calibration', index=True, required=True, ondelete='cascade')
+    asset_id = fields.Many2one(comodel_name='account.asset.asset.custom', string='Asset', required=True)
+    asset_name = fields.Char('Asset Name')
+    asset_sn = fields.Char('SN')
+    product_name = fields.Char('PR Product')
+    last_calibration = fields.Date('Last Calibration')
+    recalibration_schedule = fields.Date('Recalibration Schedule')
+    recalibration_plan_date = fields.Date('Recalibration Plan Date')
+    calibration_actual_date = fields.Date('Calibration Actual Date')
+    notes = fields.Char('Notes')
+
+    @api.onchange('asset_id')
+    def onchange_asset_id(self):
+        for rec in self:
+            rec.asset_name = rec.asset_id.name
+            rec.asset_sn = rec.asset_id.custom_serial_number
+            rec.product_name = rec.asset_id.gut_product_mapping.name
