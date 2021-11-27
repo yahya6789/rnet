@@ -233,3 +233,6 @@ class Takeout(models.Model):
             if self.partner_id.zip:
                 self.gut_client_address = str(self.gut_client_address) + ' - ' + self.partner_id.zip
 
+    @api.onchange('project')
+    def onchange_project(self):
+        self.location_dest_id = self.project.location
