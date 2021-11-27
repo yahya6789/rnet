@@ -39,7 +39,7 @@ class Takeout(models.Model):
     @api.depends('state', 'move_lines')
     def _compute_show_mark_as_todo(self):
         for picking in self:
-            if self.env.uid == self.gut_approved_by.id:
+            # if self.env.uid == self.gut_approved_by.id:
                 if not picking.move_lines and not picking.gut_asset_lines and not picking.package_level_ids:
                     picking.show_mark_as_todo = False
                 elif not picking.immediate_transfer and picking.state == 'waiting':
@@ -48,8 +48,8 @@ class Takeout(models.Model):
                     picking.show_mark_as_todo = False
                 else:
                     picking.show_mark_as_todo = True
-            else:
-                picking.show_mark_as_todo = False
+            # else:
+            #    picking.show_mark_as_todo = False
 
     @api.multi
     @api.depends('state', 'move_lines')
