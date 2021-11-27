@@ -9,8 +9,10 @@ class Brand(models.Model):
     _name = 'gut.brand'
     _description = 'Product Brand'
 
-    code = fields.Char('Brand Type', required=True)
-    name = fields.Char('Brand', required=True)
+    _sql_constraints = [('code_name', 'unique (name)', "Brand name must be unique!"), ]
+
+    code = fields.Char('Brand Code', required=True)
+    name = fields.Char('Brand Name', required=True)
     alias = fields.Char('Alias')
 
     product_count = fields.Integer(string='Product Count', compute='_get_product_count')
