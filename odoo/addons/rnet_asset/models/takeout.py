@@ -13,8 +13,8 @@ class Takeout(models.Model):
     _description = 'Asset Takeout'
 
     gut_purpose = fields.Char('Purpose')
-    gut_issued_by = fields.Many2one('res.users', 'Issued By')
-    gut_issued_date = fields.Date('Issued Date')
+    gut_issued_by = fields.Many2one('res.users', 'Issued By', default=lambda self: self.env.user)
+    gut_issued_date = fields.Date('Issued Date', default=fields.Date.today())
     gut_qc_by = fields.Many2one('res.users', 'QC By')
     gut_qc_date = fields.Date('QC Date')
     gut_approved_by = fields.Many2one('res.users', 'Approved By', required=True)
