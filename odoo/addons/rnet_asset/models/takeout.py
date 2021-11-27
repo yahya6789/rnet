@@ -219,7 +219,9 @@ class Takeout(models.Model):
         if not self.partner_id:
             if self.project:
                 self.gut_client = self.project.name
-                self.gut_client_address = self.project.location.name
+                #self.gut_client_address = self.project.location.name
+                #self.gut_client_address = self.project.location.location_id.name
+                self.gut_client_address = self.location_dest_id.location_id.name + "/" + self.location_dest_id.name
         else:
             self.gut_client = self.partner_id.display_name
             if self.partner_id.street:
