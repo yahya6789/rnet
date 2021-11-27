@@ -6,9 +6,9 @@ class AssetCalibration(models.Model):
     _name = 'gut.asset.calibration'
     _description = 'Asset Calibration'
 
-    calibration_request_no = fields.Char('Calibration Request No.', readonly=True, default='New')
+    calibration_request_no = fields.Char('Calibration No.', readonly=True, default='New')
     requisition_date_line = fields.Date('Requisition Date Line', required=True)
-    calibration_responsible = fields.Many2one('hr.employee', 'Calibration Responsible', required=True)
+    calibration_responsible = fields.Many2one('hr.employee', 'User Responsible', required=True)
     vendor = fields.Many2one('res.partner', 'Vendor', required=True)
     asset_line_ids = fields.One2many(comodel_name='gut.asset.calibration.line', inverse_name='asset_calibration_id', string='Assets')
 
