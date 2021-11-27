@@ -10,6 +10,9 @@ _logger = logging.getLogger(__name__)
 class Asset(models.Model):
     _inherit = 'account.asset.asset.custom'
 
+    _sql_constraints = [('custom_number_uniq', 'unique (custom_number)', "Asset No must be unique!"), ]
+    custom_number = fields.Char(string='Number', readonly=False, required=True)
+
     gut_product_category = fields.Many2one('product.category', string='Product Category', required=False, readonly=True, states={'draft': [('readonly', False)]})
     gut_product_mapping = fields.Many2one('product.product', 'Product Mapping')
     gut_calibration_certificate = fields.Boolean(string='Calibration Certificate', default=False)
@@ -79,7 +82,7 @@ class Asset(models.Model):
         data = []
         for asset in self:
             display_name = '['
-            display_name += asset.code or ""
+            display_name += asset.custom_number or ""
             display_name += '] '
             display_name += asset.name or ""
             data.append((asset.id, display_name))
@@ -137,3 +140,12 @@ class Asset(models.Model):
 
     def filter_sisa_depresiasi(self, line):
         return line.move_check == False and line.move_posted_check == False
+
+    @api.model
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+        args = args or []
+        domain = []
+        if name:
+            domain = ['|', ('custom_number', operator, name), ('name', operator, name)]
+        object_ids = self._search(domain + args, limit=limit)
+        return self.browse(object_ids).name_get()
