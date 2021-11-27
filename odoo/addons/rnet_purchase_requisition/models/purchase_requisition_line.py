@@ -20,3 +20,4 @@ class PurchaseRequisitionLine(models.Model):
             rec.description = rec.product_id.name
             rec.uom = rec.product_id.uom_id.id
             rec.brand = rec.product_id.brand.id
+            rec.brand_note = rec.product_id.brand_type
