@@ -219,11 +219,21 @@ class Takeout(models.Model):
         if not self.partner_id:
             if self.project:
                 self.gut_client = self.project.name
-                #self.gut_client_address = self.project.location.name
-                #self.gut_client_address = self.project.location.location_id.name
-                self.gut_client_address = self.location_dest_id.location_id.name + "/" + self.location_dest_id.name
+                warehouse = self.location_dest_id.location_id.get_warehouse()
+
+                if warehouse.partner_id.street:
+                    self.gut_client_address = warehouse.partner_id.street
+                if warehouse.partner_id.street2:
+                    self.gut_client_address = str(self.gut_client_address) + '</br>' + warehouse.partner_id.street2
+                if warehouse.partner_id.city:
+                    self.gut_client_address = str(self.gut_client_address) + '</br>' + warehouse.partner_id.city
+                if warehouse.partner_id.state_id:
+                    self.gut_client_address = str(self.gut_client_address) + ', ' + warehouse.partner_id.state_id.name
+                if self.partner_id.zip:
+                    self.gut_client_address = str(self.gut_client_address) + ' - ' + warehouse.partner_id.zip
         else:
             self.gut_client = self.partner_id.display_name
+
             if self.partner_id.street:
                 self.gut_client_address = self.partner_id.street
             if self.partner_id.street2:
