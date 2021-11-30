@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 import logging
 
@@ -9,7 +10,7 @@ class Brand(models.Model):
     _name = 'gut.brand'
     _description = 'Product Brand'
 
-    _sql_constraints = [('code_name', 'unique (name)', "Brand name must be unique!"), ]
+    _sql_constraints = [('brand_name_unique', 'unique(name)', "Brand name must be unique!"), ]
 
     code = fields.Char('Brand Code', required=True)
     name = fields.Char('Brand Name', required=True)
@@ -34,3 +35,15 @@ class Brand(models.Model):
     def _get_product_count(self):
         res = self.env['product.template'].search_count([('brand', '=', self.id)])
         self.product_count = res or 0
+
+    #https://www.odoo.com/forum/help-1/odoo-14-unique-values-but-how-to-prevent-with-spelling-mistakes-182159
+    @api.constrains('name')
+    def _check_unique_brand(self):
+        brand_ids = self.search([]) - self
+
+        value = [x.name.lower() for x in brand_ids]
+
+        if self.name and self.name.lower() in value:
+            raise ValidationError(_('The Brand Name is already Exist'))
+
+        return True
