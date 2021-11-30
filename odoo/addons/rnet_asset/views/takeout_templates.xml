@@ -68,7 +68,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <h2 class="text-center m-0">Take Out</h2>
+                                                <h3 class="text-center m-0">Take Out</h3>
                                                 <p class="text-center font-italic m-0">Bon Pengambilan Barang</p>
                                             </td>
                                         </tr>
@@ -90,6 +90,12 @@
                                         <tr>
                                             <td>Purpose</td><td>:&#8194;<span t-field="o.gut_purpose"/></td>
                                         </tr>
+                                        <tr>
+                                            <td>From</td><td>:&#8194;<span t-field="o.location_id"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>To</td><td>:&#8194;<span t-field="o.location_dest_id"/></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -107,12 +113,6 @@
                                         </tr>
                                         <tr>
                                             <td>Project</td><td>:&#8194;<span t-field="o.project.name"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>From</td><td>:&#8194;<span t-field="o.location_id"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>To</td><td>:&#8194;<span t-field="o.location_dest_id"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -176,22 +176,16 @@
                                             <td>
                                                 <p>&#160;</p>
                                                 <p>&#160;</p>
-                                                <p>&#160;</p>
-                                                <p>&#160;</p>
                                             </td>
                                             <td>
-                                                <p>&#160;</p>
-                                                <p>&#160;</p>
                                                 <p>&#160;</p>
                                                 <div class="text-center">Quality Control</div>
                                             </td>
                                             <td>
                                                 <p>&#160;</p>
                                                 <p>&#160;</p>
-                                                <p>&#160;</p>
                                             </td>
                                             <td>
-                                                <p>&#160;</p>
                                                 <p>&#160;</p>
                                                 <p>&#160;</p>
                                             </td>
