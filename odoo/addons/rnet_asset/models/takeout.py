@@ -13,13 +13,13 @@ class Takeout(models.Model):
     _description = 'Asset Takeout'
 
     gut_purpose = fields.Char('Purpose')
-    gut_issued_by = fields.Many2one('res.users', 'Issued By', default=lambda self: self.env.user)
+    gut_issued_by = fields.Many2one('hr.employee', 'Issued By')
     gut_issued_date = fields.Date('Issued Date', default=fields.Date.today())
-    gut_qc_by = fields.Many2one('res.users', 'QC By')
+    gut_qc_by = fields.Many2one('hr.employee', 'QC By')
     gut_qc_date = fields.Date('QC Date')
-    gut_approved_by = fields.Many2one('res.users', 'Approved By', required=True)
+    gut_approved_by = fields.Many2one('hr.employee', 'Approved By', required=True)
     gut_approved_date = fields.Date('Approved Date')
-    gut_received_by = fields.Many2one('res.users', 'Received By')
+    gut_received_by = fields.Many2one('hr.employee', 'Received By')
     gut_received_date = fields.Date('Received Date')
     gut_asset_lines = fields.One2many(comodel_name='gut.takeout.asset.line', inverse_name='gut_takeout_id',
                                       string='Assets', store=True)
@@ -248,3 +248,12 @@ class Takeout(models.Model):
     @api.onchange('project')
     def onchange_project(self):
         self.location_dest_id = self.project.location
+        self.gut_approved_by = self.project.project_manager
+
+    @api.model
+    def default_get(self, fields):
+        res = super(Takeout, self).default_get(fields)
+        res.update({
+            'gut_issued_by': self.env['hr.employee'].search([('user_id', '=', self.env.uid)]).id or False
+        })
+        return res
