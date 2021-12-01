@@ -120,7 +120,7 @@
                         </div>
                         <div class="row mt24 font-smaller">
                             <div class="col-12">
-                                <table class="table table-bordered table-sm">
+                                <table class="table table-bordered table-sm" style="height:500px;">
                                     <thead>
                                         <tr>
                                             <th width="1%">No.</th>
