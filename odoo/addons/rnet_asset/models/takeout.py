@@ -16,7 +16,7 @@ class Takeout(models.Model):
     gut_issued_by = fields.Many2one('hr.employee', 'Issued By')
     gut_issued_date = fields.Date('Issued Date', default=fields.Date.today())
     gut_qc_by = fields.Many2one('hr.employee', 'QC By')
-    gut_qc_date = fields.Date('QC Date')
+    gut_qc_date = fields.Date('QC Date', default=fields.Date.today())
     gut_approved_by = fields.Many2one('hr.employee', 'Approved By', required=True)
     gut_approved_date = fields.Date('Approved Date')
     gut_received_by = fields.Many2one('hr.employee', 'Received By')
