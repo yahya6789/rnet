@@ -77,42 +77,42 @@
                             </div>
                         </div>
                         <div class="row mt24">
-                            <div class="col-6">
+                            <div class="col-7">
                                 <table class="table table-borderless table-sm">
                                     <tbody>
                                         <tr>
-                                            <td>Client</td><td>:&#8194;<span t-field="o.gut_client"/></td>
+                                            <td>Client</td><td>:&#8194;</td><td><span t-field="o.gut_client"/></td>
                                         </tr>
                                         <tr>
                                             <td>Address</td>
-                                            <td>:&#8194;<span t-raw="o.gut_client_address"/></td>
+                                            <td>:&#8194;</td><td><span t-raw="o.gut_client_address"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Purpose</td><td>:&#8194;<span t-field="o.gut_purpose"/></td>
+                                            <td>Purpose</td><td>:&#8194;</td><td><span t-field="o.gut_purpose"/></td>
                                         </tr>
                                         <tr>
-                                            <td>From</td><td>:&#8194;<span t-field="o.location_id"/></td>
+                                            <td>From</td><td>:&#8194;</td><td><span t-field="o.location_id"/></td>
                                         </tr>
                                         <tr>
-                                            <td>To</td><td>:&#8194;<span t-field="o.location_dest_id"/></td>
+                                            <td>To</td><td>:&#8194;</td><td><span t-field="o.location_dest_id"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-6">
+                            <div class="col-5">
                                 <table class="table table-borderless table-sm">
                                     <tbody>
                                         <tr>
-                                            <td>Takeout No.</td><td>:&#8194;<span t-field="o.name"/></td>
+                                            <td width="150px">Takeout No.</td><td>:&#8194;</td><td><span t-field="o.name"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Date</td><td>:&#8194;<span t-field="o.scheduled_date" t-options='{"format": "dd-MM-yyyy"}'/></td>
+                                            <td width="150px">Date</td><td>:&#8194;</td><td><span t-field="o.scheduled_date" t-options='{"format": "dd-MM-yyyy"}'/></td>
                                         </tr>
                                         <tr>
-                                            <td>Job Order No.</td><td>:&#8194;<span t-field="o.project.no"/></td>
+                                            <td width="150px">Job Order No.</td><td>:&#8194;</td><td><span t-field="o.project.no"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Project</td><td>:&#8194;<span t-field="o.project.name"/></td>
+                                            <td width="150px">Project</td><td>:&#8194;</td><td><span t-field="o.project.name"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -120,7 +120,7 @@
                         </div>
                         <div class="row mt24 font-smaller">
                             <div class="col-12">
-                                <table class="table table-bordered table-sm" style="height:500px;">
+                                <table class="table table-bordered table-sm" style="height:400px;">
                                     <thead>
                                         <tr>
                                             <th width="1%">No.</th>
