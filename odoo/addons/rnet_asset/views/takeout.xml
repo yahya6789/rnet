@@ -22,7 +22,8 @@
                     <field name="picking_type_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                 </field>
                 <field name="picking_type_id" position="after">
-                    <field name="gut_source_department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <!--<field name="gut_source_department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                    <field name="gut_source_department"/>
                 </field>
                 <field name="gut_source_department" position="after">
                     <field name="location_id"/>
@@ -31,7 +32,8 @@
                     <attribute name='string'>Source Dept.</attribute>
                 </field>
                 <field name="location_id" position="after">
-                    <field name="gut_destination_department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <!--<field name="gut_destination_department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                    <field name="gut_destination_department"/>
                 </field>
                 <field name="gut_destination_department" position="after">
                     <field name="location_dest_id"/>
