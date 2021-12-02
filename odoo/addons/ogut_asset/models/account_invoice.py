@@ -33,58 +33,54 @@ class AccountInvoiceLine(models.Model):
 
     @api.one
     def asset_create(self):
-        if self.product_id.is_generate_multiple_asset:
-            return self.create_multiple_asset()
+        asset_receive_date = None
 
-        return self.create_asset()
+        picking_ids = self.purchase_line_id.order_id.picking_ids
+        for picking in picking_ids:
+            received_date = picking.gut_received_date
+            if received_date:
+                if asset_receive_date:
+                    if received_date > asset_receive_date:
+                        asset_receive_date = received_date
+                else:
+                    asset_receive_date = received_date
+
+        vals = {
+            'name': self.name,
+            # 'code': self.invoice_id.number or False,
+            'category_id': self.asset_category_id_custom.id,
+            # 'category_name': self.asset_category_id_custom.name,
+            'value': self.price_subtotal_signed,
+            'partner_id': self.invoice_id.partner_id.id,
+            'company_id': self.invoice_id.company_id.id,
+            'currency_id': self.invoice_id.company_currency_id.id,
+            'date': self.invoice_id.date_invoice,
+            'invoice_id': self.invoice_id.id,
+            'custom_receive_date': asset_receive_date,
+        }
+
+        changed_vals = self.env['account.asset.asset.custom'].onchange_category_id_values(vals['category_id'])
+        vals.update(changed_vals['value'])
+
+        if self.product_id.is_generate_multiple_asset:
+            return self.create_multiple_asset(vals)
+
+        return self.create_asset(vals)
 
     @api.one
-    def create_asset(self):
+    def create_asset(self, vals):
         #if not self.asset_category_id_custom:
             #raise ValidationError("Asset category cannot blank")
 
         if self.asset_category_id_custom:
-            vals = {
-                'name': self.name,
-                # 'code': self.invoice_id.number or False,
-                'category_id': self.asset_category_id_custom.id,
-                #'category_name': self.asset_category_id_custom.name,
-                'value': self.price_subtotal_signed,
-                'partner_id': self.invoice_id.partner_id.id,
-                'company_id': self.invoice_id.company_id.id,
-                'currency_id': self.invoice_id.company_currency_id.id,
-                'date': self.invoice_id.date_invoice,
-                'invoice_id': self.invoice_id.id,
-            }
-
-            changed_vals = self.env['account.asset.asset.custom'].onchange_category_id_values(vals['category_id'])
-            vals.update(changed_vals['value'])
-            #raise ValidationError("Asset category cannot blank")
             asset = self.env['account.asset.asset.custom'].create(vals)
             if self.asset_category_id.open_asset:
                 asset.validate()
         return True
 
     @api.one
-    def create_multiple_asset(self):
+    def create_multiple_asset(self, vals):
         if self.asset_category_id_custom:
-            vals = {
-                'name': self.name,
-                # 'code': self.invoice_id.number or False,
-                'category_id': self.asset_category_id_custom.id,
-                #'category_name': self.asset_category_id_custom.name,
-                #'value': self.price_subtotal_signed,
-                'value': self.price_unit,
-                'partner_id': self.invoice_id.partner_id.id,
-                'company_id': self.invoice_id.company_id.id,
-                'currency_id': self.invoice_id.company_currency_id.id,
-                'date': self.invoice_id.date_invoice,
-                'invoice_id': self.invoice_id.id,
-            }
-
-            changed_vals = self.env['account.asset.asset.custom'].onchange_category_id_values(vals['category_id'])
-            vals.update(changed_vals['value'])
-
             assets = set()
             for x in range(int(self.quantity)):
                 asset = self.env['account.asset.asset.custom'].create(vals)
@@ -94,6 +90,3 @@ class AccountInvoiceLine(models.Model):
                 for a in assets:
                     a.validate()
         return True
-
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
