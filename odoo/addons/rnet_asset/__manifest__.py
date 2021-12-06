@@ -14,6 +14,7 @@
         'views/calibration.xml',
         'views/takeout.xml',
         'views/takeout_templates.xml',
+        'views/asset_category_view.xml',
         'report/asset.xml',
     ],
 

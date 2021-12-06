@@ -7,16 +7,23 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
+class AssetCategory(models.Model):
+    _inherit = 'account.asset.category.custom'
+    asset_prefix = fields.Char("Asset Prefix")
+
+
 class Asset(models.Model):
     _inherit = 'account.asset.asset.custom'
 
     _sql_constraints = [('custom_number_uniq', 'unique (custom_number)', "Asset No must be unique!"), ]
     custom_number = fields.Char(string='Number', readonly=False, required=True)
 
-    gut_product_category = fields.Many2one('product.category', string='Product Category', required=False, readonly=True, states={'draft': [('readonly', False)]})
+    gut_product_category = fields.Many2one('product.category', string='Product Category', required=False, readonly=True,
+                                           states={'draft': [('readonly', False)]})
     gut_product_mapping = fields.Many2one('product.product', 'Product Mapping')
     gut_calibration_certificate = fields.Boolean(string='Calibration Certificate', default=False)
-    gut_condition_desc = fields.Char(string='Condition Desc.', required=False, readonly=True, states={'draft': [('readonly', False)]})
+    gut_condition_desc = fields.Char(string='Condition Desc.', required=False, readonly=True,
+                                     states={'draft': [('readonly', False)]})
     gut_status = fields.Many2one('gut.asset.status', string='Status', required=False)
     gut_condition = fields.Many2one('gut.asset.condition', string='Condition', required=False)
     gut_longitude = fields.Float(string='Longitude', default=0.0)
