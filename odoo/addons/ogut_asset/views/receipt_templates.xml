@@ -120,7 +120,7 @@
                         </div>
                         <div class="row mt24 font-smaller">
                             <div class="col-12">
-                                <table class="table table-bordered table-sm">
+                                <table class="table table-bordered table-sm" style="height:400px;">
                                     <thead>
                                         <tr>
                                             <th width="1%">No.</th>
@@ -176,22 +176,16 @@
                                             <td>
                                                 <p>&#160;</p>
                                                 <p>&#160;</p>
-                                                <p>&#160;</p>
-                                                <p>&#160;</p>
                                             </td>
                                             <td>
-                                                <p>&#160;</p>
-                                                <p>&#160;</p>
                                                 <p>&#160;</p>
                                                 <div class="text-center">Quality Control</div>
                                             </td>
                                             <td>
                                                 <p>&#160;</p>
                                                 <p>&#160;</p>
-                                                <p>&#160;</p>
                                             </td>
                                             <td>
-                                                <p>&#160;</p>
                                                 <p>&#160;</p>
                                                 <p>&#160;</p>
                                             </td>
