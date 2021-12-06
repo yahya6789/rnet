@@ -60,7 +60,8 @@ class AccountInvoiceLine(models.Model):
         }
 
         changed_vals = self.env['account.asset.asset.custom'].onchange_category_id_values(vals['category_id'])
-        vals.update(changed_vals['value'])
+        if changed_vals:
+            vals.update(changed_vals['value'])
 
         if self.product_id.is_generate_multiple_asset:
             return self.create_multiple_asset(vals)
