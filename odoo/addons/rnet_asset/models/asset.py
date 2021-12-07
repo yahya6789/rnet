@@ -156,3 +156,8 @@ class Asset(models.Model):
             domain = ['|', ('custom_number', operator, name), ('name', operator, name)]
         object_ids = self._search(domain + args, limit=limit)
         return self.browse(object_ids).name_get()
+
+    @api.model
+    def create(self, vals):
+        return super(models.Model, self).create(vals)
+

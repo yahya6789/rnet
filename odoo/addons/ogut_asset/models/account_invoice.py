@@ -63,6 +63,8 @@ class AccountInvoiceLine(models.Model):
         if changed_vals:
             vals.update(changed_vals['value'])
 
+        vals.update({"custom_number": self._get_asset_number()})
+
         if self.product_id.is_generate_multiple_asset:
             return self.create_multiple_asset(vals)
 
@@ -91,3 +93,16 @@ class AccountInvoiceLine(models.Model):
                 for a in assets:
                     a.validate()
         return True
+
+    def _get_asset_number(self):
+        if self.asset_category_id_custom:
+            categ_id = self.asset_category_id_custom.asset_prefix if self.asset_category_id_custom.asset_prefix else "XX"
+            categ_id = categ_id + self.invoice_id.date_invoice.strftime("%m%y") if self.invoice_id.date_invoice else "0000"
+            categ_id = categ_id + str(self._get_depreciation_year())
+            categ_id = categ_id + "-" + str(self.env['ir.sequence'].next_by_code('account.seq'))
+            return categ_id
+        else:
+            return str(self.env['ir.sequence'].next_by_code('account.seq'))
+
+    def _get_depreciation_year(self):
+        return int(self.asset_category_id_custom.method_number / 12)
