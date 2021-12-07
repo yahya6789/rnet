@@ -16,6 +16,9 @@
                 <xpath expr="//tree[1]/field[@name='partner_id']" position="after">
                     <field name="remark"/>
                 </xpath>
+                <xpath expr="//button[@name='request_stock']" position="replace">
+                    <button name="request_stock" type="object" string="Create Picking and PO" groups="purchase.group_purchase_manager"  states="approve"/>
+                </xpath>
             </field>
         </record>
 
