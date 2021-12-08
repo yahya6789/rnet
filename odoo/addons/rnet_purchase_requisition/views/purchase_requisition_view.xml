@@ -35,5 +35,20 @@
                 </field>
             </field>
         </record>
+
+        <record id="material_purchase_requisition_tree_view" model="ir.ui.view">
+            <field name="name">Purchase Requisition Tree View</field>
+            <field name="model">material.purchase.requisition</field>
+            <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="project"/>
+                </field>
+                 <field name="project" position="after">
+                    <field name="analytic_account_id"/>
+                </field>
+            </field>
+        </record>
+
     </data>
 </odoo>
