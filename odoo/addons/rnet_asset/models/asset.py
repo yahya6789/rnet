@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from datetime import date
+from datetime import datetime
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ class Asset(models.Model):
     _inherit = 'account.asset.asset.custom'
 
     _sql_constraints = [('custom_number_uniq', 'unique (custom_number)', "Asset No must be unique!"), ]
-    custom_number = fields.Char(string='Number', readonly=False, required=True)
+    custom_number = fields.Char(string='Number', readonly=False)
 
     gut_product_category = fields.Many2one('product.category', string='Product Category', required=False, readonly=True,
                                            states={'draft': [('readonly', False)]})
@@ -159,5 +159,41 @@ class Asset(models.Model):
 
     @api.model
     def create(self, vals):
+        asset_no = vals.get("custom_number")
+        if not asset_no:
+            category = None
+            date = None
+
+            if vals.get("category_id"):
+                category = self.env['account.asset.category.custom'].search([('id', '=', vals.get("category_id"))])
+            if vals.get("date"):
+                date = datetime.strptime(vals.get("date"), "%Y-%m-%d")
+
+            vals["custom_number"] = self._generate_custom_number(category, date)
+
         return super(models.Model, self).create(vals)
 
+    @api.multi
+    def write(self, vals):
+        asset_no = self.custom_number
+        if not asset_no:
+            vals["custom_number"] = self._generate_custom_number(self.category_id, self.date)
+
+        return super(Asset, self).write(vals)
+
+    def _generate_custom_number(self, category, asset_date):
+        asset_prefix = "XX"
+        entries = "00"
+        date = "0000"
+        seq = str(self.env['ir.sequence'].next_by_code('account.seq'))
+
+        if category:
+            if category.asset_prefix:
+                asset_prefix = category.asset_prefix
+            if category.method_number:
+                entries = str(int(category.method_number / 12)).zfill(2)
+
+        if asset_date:
+            date = asset_date.strftime("%m%y")
+
+        return asset_prefix + date + entries + "-" + seq
