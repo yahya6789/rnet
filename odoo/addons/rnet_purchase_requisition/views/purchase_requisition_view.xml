@@ -22,6 +22,9 @@
                 <xpath expr="//button[@name='reset_draft']" position="replace">
                     <button name="reset_draft" type="object" string="Reset to Draft" groups="material_purchase_requisitions.group_purchase_requisition_user" states="cancel,reject,receive"/>
                 </xpath>
+                <xpath expr="//button[@name='manager_approve']" position="replace">
+                    <button name="manager_approve" type="object" string="Department Approve" groups="material_purchase_requisitions.group_purchase_requisition_department" states="dept_confirm" confirm="Are you sure you want to confirm?"/>
+                </xpath>
             </field>
         </record>
 
