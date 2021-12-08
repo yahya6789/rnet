@@ -247,7 +247,15 @@ class Takeout(models.Model):
 
     @api.onchange('project')
     def onchange_project(self):
-        self.location_dest_id = self.project.location
+        if self.picking_type_id:
+            location = self.picking_type_id.default_location_src_id
+            if 'SITE' in location.name:
+                self.location_id = self.project.location
+            else:
+                self.location_dest_id = self.project.location
+        else:
+            self.location_dest_id = self.project.location
+
         self.gut_approved_by = self.project.project_manager
 
     @api.model
