@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 import logging
 
@@ -33,17 +34,6 @@ class PurchaseOrder(models.Model):
 
         return super(PurchaseOrder, self).button_confirm()
 
-    def _get_latest_revision_number(self):
-        query = """
-            SELECT MAX (poh.revision)
-            FROM purchase_order_history poh
-            WHERE poh.original_id = %s
-        """
-        params = [self.id]
-        self.env.cr.execute(query, params)
-        res = self.env.cr.dictfetchone()
-        return res['max']
-
     @api.one
     def _get_po_revision_count(self):
         res = self.env['purchase.order.history'].search_count([('original_id', '=', self.id)])
@@ -68,123 +58,38 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def button_make_revision(self):
-        latest = self._get_latest_revision_number()
-        if not latest:
-            latest = 0
-
         query = """
-            INSERT INTO purchase_order_history (
-                access_token,
-                amount_tax,
-                amount_total,
-                amount_untaxed,
-                approve_dept_manager_id,
-                approve_director_manager_id,
-                approve_finance_manager_id,
-                company_id,
-                create_date,
-                create_uid,
-                currency_id,
-                custom_requisition_id,
-                date_approve,
-                date_order,
-                date_planned,
-                dept_manager_approve_date,
-                dept_manager_id,
-                dest_address_id,
-                director_manager_approve_date,
-                director_manager_id,
-                finance_manager_approve_date,
-                finance_manager_id,
-                fiscal_position_id,
-                group_id,
-                incoterm_id,
-                invoice_count,
-                invoice_status,
-                message_main_attachment_id,
-                "name",
-                notes,
-                origin,
-                original_id,
-                partner_id,
-                partner_ref,
-                payment_term_id,
-                picking_count,
-                picking_type_id,
-                po_refuse_date,
-                po_refuse_user_id,
-                project,
-                purchase_user_id,
-                refuse_reason_note,
-                requisition_id,
-                revision,
-                revision_date,
-                state,
-                user_id,
-                write_date,
-                write_uid
-            )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-            %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            insert into purchase_order_history (
+                message_main_attachment_id,access_token,"name",origin,partner_ref,date_order,date_approve,partner_id,
+                dest_address_id,currency_id,notes,invoice_count,invoice_status,date_planned,amount_untaxed,amount_tax,
+                amount_total,fiscal_position_id,payment_term_id,user_id,company_id,custom_requisition_id,incoterm_id,
+                picking_count,picking_type_id,group_id,state,po_refuse_user_id,po_refuse_date,refuse_reason_note,
+                dept_manager_id,finance_manager_id,director_manager_id,approve_dept_manager_id,approve_finance_manager_id,
+                approve_director_manager_id,dept_manager_approve_date,finance_manager_approve_date,
+                director_manager_approve_date,purchase_user_id,requisition_id,project,create_uid,create_date,write_uid,
+                write_date,disc_percent,vat_percent,responsible_id,original_id,revision,revision_date
+            ) 
+            select 
+                message_main_attachment_id,access_token,"name",origin,partner_ref,date_order,date_approve,partner_id,
+                dest_address_id,currency_id,notes,invoice_count,invoice_status,date_planned,amount_untaxed,amount_tax,
+                amount_total,fiscal_position_id,payment_term_id,user_id,company_id,custom_requisition_id,incoterm_id,
+                picking_count,picking_type_id,group_id,state,po_refuse_user_id,po_refuse_date,refuse_reason_note,
+                dept_manager_id,finance_manager_id,director_manager_id,approve_dept_manager_id,approve_finance_manager_id,
+                approve_director_manager_id,dept_manager_approve_date,finance_manager_approve_date,
+                director_manager_approve_date,purchase_user_id,requisition_id,project,create_uid,create_date,write_uid,
+                write_date,disc_percent,vat_percent,responsible_id,%s,
+                (
+                    select case when count(1) > 0 then max(poh.revision) + 1 else 1 end as revision 
+                    from purchase_order_history poh where poh.original_id = original_id
+                ),
+                %s
+            from 
+              purchase_order where id = %s
         """
-        params = [
-            self.access_token,
-            self.amount_tax,
-            self.amount_total,
-            self.amount_untaxed,
-            self.approve_dept_manager_id.id if self.approve_dept_manager_id.id else None,
-            self.approve_director_manager_id.id if self.approve_director_manager_id.id else None,
-            self.approve_finance_manager_id.id if self.approve_finance_manager_id.id else None,
-            self.company_id.id if self.company_id.id else None,
-            self.create_date,
-            self.create_uid.id,
-            self.currency_id.id,
-            self.custom_requisition_id.id if self.custom_requisition_id.id else None,
-            self.date_approve,
-            self.date_order,
-            self.date_planned,
-            self.dept_manager_approve_date if self.dept_manager_approve_date else None,
-            self.dept_manager_id.id if self.dept_manager_id.id else None,
-            self.dest_address_id.id if self.dest_address_id.id else None,
-            self.director_manager_approve_date if self.director_manager_approve_date else None,
-            self.director_manager_id.id if self.director_manager_id.id else None,
-            self.finance_manager_approve_date if self.finance_manager_approve_date else None,
-            self.finance_manager_id.id if self.finance_manager_id.id else None,
-            self.fiscal_position_id.id if self.fiscal_position_id.id else None,
-            self.group_id.id if self.group_id.id else None,
-            self.incoterm_id.id if self.incoterm_id.id else None,
-            self.invoice_count,
-            self.invoice_status,
-            self.message_main_attachment_id.id if self.message_main_attachment_id.id else None,
-            self.name,
-            self.notes,
-            self.origin,
-            self.id,
-            self.partner_id.id if self.partner_id.id else None,
-            self.partner_ref,
-            self.payment_term_id.id if self.payment_term_id.id else None,
-            self.picking_count,
-            self.picking_type_id.id if self.picking_type_id.id else None,
-            self.po_refuse_date if self.po_refuse_date else None,
-            self.po_refuse_user_id.id if self.po_refuse_user_id.id else None,
-            self.project.id if self.project.id else None,
-            self.purchase_user_id.id if self.purchase_user_id.id else None,
-            self.refuse_reason_note,
-            self.requisition_id.id if self.requisition_id.id else None,
-            latest + 1,
-            fields.datetime.now(),
-            self.state,
-            self.user_id.id,
-            self.write_date,
-            self.write_uid.id,
-        ]
-
+        params = [self.id, fields.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), self.id]
         self.env.cr.execute(query, params)
         self.env.cr.commit()
-        return True;
+        return True
 
     @api.depends('order_line.price_total', 'freight')
     def _amount_all(self):
