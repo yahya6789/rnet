@@ -38,6 +38,7 @@
                             <h1>
                                 <field name="name" readonly="1"/> (rev. <field name="revision" readonly="1"/>)
                             </h1>
+                            <span class="o_form_label">Revision Date: <field name="revision_date"/></span>
                         </div>
                         <group>
                             <group>

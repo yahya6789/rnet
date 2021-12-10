@@ -58,6 +58,10 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def button_make_revision(self):
+        self._create_purchase_order_history()
+        self._create_purchase_order_line_history()
+
+    def _create_purchase_order_history(self):
         query = """
             insert into purchase_order_history (
                 message_main_attachment_id,access_token,"name",origin,partner_ref,date_order,date_approve,partner_id,
@@ -80,16 +84,36 @@ class PurchaseOrder(models.Model):
                 write_date,disc_percent,vat_percent,responsible_id,%s,
                 (
                     select case when count(1) > 0 then max(poh.revision) + 1 else 1 end as revision 
-                    from purchase_order_history poh where poh.original_id = original_id
+                    from purchase_order_history poh where poh.original_id = %s
                 ),
                 %s
             from 
               purchase_order where id = %s
         """
-        params = [self.id, fields.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), self.id]
+        params = [self.id, self.id, fields.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), self.id]
         self.env.cr.execute(query, params)
         self.env.cr.commit()
-        return True
+
+    def _create_purchase_order_line_history(self):
+        query = """
+            insert into purchase_order_line_history (
+                "name","sequence",product_qty,product_uom_qty,date_planned,product_uom, product_id,price_unit,
+                price_subtotal,price_total,price_tax,order_id,account_analytic_id,company_id,state, qty_invoiced,
+                qty_received,partner_id,currency_id,create_uid,create_date,write_uid,write_date,orderpoint_id,
+                sale_order_id,sale_line_id,custom_requisition_line_id,gut_remark,discount
+            ) 
+            select
+                "name","sequence",product_qty,product_uom_qty,date_planned,product_uom,product_id,price_unit,
+                price_subtotal,price_total,price_tax,(
+                    select poh.id from purchase_order_history poh where poh.original_id = %s order by poh.revision desc limit 1
+                ), account_analytic_id,company_id,state,qty_invoiced,qty_received,partner_id,currency_id,create_uid,
+                create_date,write_uid,write_date,orderpoint_id,sale_order_id,sale_line_id,custom_requisition_line_id,
+                gut_remark,discount 
+            from purchase_order_line where order_id = %s
+        """
+        params = [self.id, self.id]
+        self.env.cr.execute(query, params)
+        self.env.cr.commit()
 
     @api.depends('order_line.price_total', 'freight')
     def _amount_all(self):

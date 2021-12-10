@@ -9,4 +9,7 @@ class PurchaseOrderHistory(models.Model):
     revision = fields.Integer(default=0)
     revision_date = fields.Datetime()
 
+    order_line = fields.One2many('purchase.order.line.history', 'order_id', string='Order Lines',
+                                 states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, copy=True)
+
 
