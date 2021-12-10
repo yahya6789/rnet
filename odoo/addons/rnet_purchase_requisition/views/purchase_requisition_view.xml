@@ -25,6 +25,15 @@
                 <xpath expr="//button[@name='manager_approve']" position="replace">
                     <button name="manager_approve" type="object" string="Department Approve" class="btn-primary" groups="material_purchase_requisitions.group_purchase_requisition_department" states="dept_confirm" confirm="Are you sure you want to confirm?"/>
                 </xpath>
+                <xpath expr="//field[@name='state']" position="before">
+                    <button name="button_make_revision" states="draft,dept_confirm,ir_approve,approve" string="Make Revision" type="object"/>
+                </xpath>
+                <xpath expr="//button[@name='action_show_po'][@class='oe_stat_button']" position="after">
+                    <button type="object" class="oe_stat_button" icon="fa-clipboard"
+                            name="open_pr_revision_list" context="{'original_id': id,}" attrs="{'invisible':['|', ('pr_revision_count', '=', 0)]}">
+                        <field string="Revision" name="pr_revision_count" widget="statinfo"/>
+                    </button>
+                </xpath>
             </field>
         </record>
 
