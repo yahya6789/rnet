@@ -257,7 +257,8 @@
                                     <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.subtot"/></td>
                                 </tr>
                                 <tr>
-                                    <td>Discount <span t-field="o.disc_percent"/> %</td>
+                                    <!--<td>Discount <span t-field="o.disc_percent"/> %</td>-->
+                                    <td>Discount</td>
                                     <td class="text-right" style="width: 0%">:</td>
                                     <td class="text-right">&amp;ensp;<span t-field="o.disc_amount"/></td>
                                 </tr>
