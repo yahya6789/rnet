@@ -14,7 +14,11 @@ class PurchaseOrder(models.Model):
     gut_qc = fields.selection([
         ('Yes','Yes'),
         ('No','No'),
-    ],string='Quality Control')
+    ], string='Quality Control')
+    gut_term_of_delivery = fields.selection([
+        ('allowed','Partial Delivery Allowed'),
+        ('not allowed', 'Partial Delivery Not Allowed'),
+    ], string='Term of Delivery')
 
     @api.one
     def _get_qty_total(self):
