@@ -239,9 +239,9 @@
                                     <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
                                 </tr>
                                 <tr>
-                                    <td class="border border-dark small"><span t-field="o.approve_finance_manager_id.name"/></td>
-                                    <td class="border border-dark small"><span t-field="o.approve_director_manager_id.name"/></td>
-                                    <td class="border border-dark small"><span t-field="o.approve_dept_manager_id.name"/></td>
+                                    <td class="border border-dark small"><span t-field="o.director_manager_id.name"/></td>
+                                    <td class="border border-dark small"><span t-field="o.finance_manager_id.name"/></td>
+                                    <td class="border border-dark small"><span t-field="o.dept_manager_id.name"/></td>
                                     <td class="border border-dark small">&amp;ensp;</td>
                                 </tr>
                             </tbody>
