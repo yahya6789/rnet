@@ -5,6 +5,8 @@
             <field name="model">purchase.requisition.history</field>
             <field name="arch" type="xml">
                 <tree string="Revision History" default_order="revision desc" create="0">
+                    <field name="revision"/>
+                    <field name="revision_date"/>
                     <field name="name" modifiers="{'readonly':true}"/>
                     <field name="employee_id" on_change="1" can_create="true" can_write="true" modifiers="{'required':true}"/>
                     <field name="department_id" can_create="true" can_write="true" modifiers="{'required':true}"/>
@@ -68,7 +70,17 @@
 
                         <notebook modifiers="{}">
                             <page string="Requisitions Lines" modifiers="{}">
-                                <field name="requisition_line_ids" attrs="{'readonly': [('state', 'in', ['cancel','receive'])]}" modifiers="{'readonly':[['state','in',['cancel','receive']]]}"/>
+                                <field name="requisition_line_ids" attrs="{'readonly': [('state', 'in', ['cancel','receive'])]}">
+                                    <tree editable="bottom">
+                                        <!--<field name="requisition_type" groups="material_purchase_requisitions.group_purchase_requisition_user,purchase.group_purchase_user,material_purchase_requisitions.group_purchase_requisition_manager,material_purchase_requisitions.group_purchase_requisition_department"/>-->
+                                        <field name="requisition_type"/>
+                                        <field name="product_id"/>
+                                        <field name="description"/>
+                                        <field name="qty"/>
+                                        <field name="uom"/>
+                                        <field name="partner_id" groups="material_purchase_requisitions.group_purchase_requisition_user,purchase.group_purchase_user,material_purchase_requisitions.group_purchase_requisition_manager,material_purchase_requisitions.group_purchase_requisition_department" attrs="{'readonly': [('requisition_type', '!=', 'purchase')]}" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
                                 <group modifiers="{}">
                                     <field name="reason" attrs="{'readonly': [['state', 'in', ['reject','cancel','receive']]]}" placeholder="Add Reason for Internal Requistion ...." modifiers="{'readonly':[['state','in',['reject','cancel','receive']]]}"/>
                                 </group>

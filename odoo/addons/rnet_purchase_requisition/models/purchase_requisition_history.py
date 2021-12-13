@@ -11,3 +11,4 @@ class PurchaseRequisitionHistory(models.Model):
 
     requisition_line_ids = fields.One2many('purchase.requisition.line.history', 'requisition_id',
                                            string='Purchase Requisitions Line', copy=True,)
+

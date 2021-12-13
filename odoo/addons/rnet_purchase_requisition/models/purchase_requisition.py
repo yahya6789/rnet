@@ -196,7 +196,20 @@ class PurchaseRequisition(models.Model):
         self.env.cr.commit()
 
     def _create_requisition_line_history(self):
-        pass
+        query = """
+            insert into purchase_requisition_line_history (
+                product_id,description,qty,uom,requisition_type,brand,brand_note,remark,requisition_id,create_uid,
+                create_date,write_uid,write_date)
+            select
+                product_id,description,qty,uom,requisition_type,brand,brand_note,remark,(
+                    select pr.id from purchase_requisition_history pr where pr.original_id = %s 
+                    order by pr.revision desc limit 1
+                ) as requisition_id,create_uid,create_date,write_uid,write_date
+            from material_purchase_requisition_line prl where prl.requisition_id = %s
+        """
+        params = [self.id, self.id]
+        self.env.cr.execute(query, params)
+        self.env.cr.commit()
 
     @api.multi
     def open_pr_revision_list(self):
