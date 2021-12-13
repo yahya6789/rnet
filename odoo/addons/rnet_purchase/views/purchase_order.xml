@@ -11,10 +11,10 @@
                 <xpath expr="//field[@name='taxes_id']" position="after">
                     <field name="price_tax"/>
                 </xpath>
-                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='project']" position="after">
+                <xpath expr="//group[1]/group[2]/field[@name='project']" position="after">
                     <field name="gut_qc"/>
                 </xpath>
-                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='currency_id']" position="after">
+                <xpath expr="//group[1]/group[1]/field[@name='currency_id']" position="after">
                     <field name="gut_term_of_delivery"/>
                 </xpath>
                  <xpath expr="//sheet/notebook/page[1]/field/tree/field[@name='company_id']" position="attributes">
