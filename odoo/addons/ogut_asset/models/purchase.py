@@ -10,7 +10,7 @@ class PurchaseOrder(models.Model):
     po_revision_count = fields.Integer(compute='_get_po_revision_count')
 
     subtot = fields.Monetary(compute='_compute_subtot')
-    disc_percent = fields.Float(string='Discount (%)', default=0)
+    disc_percent = fields.Float(string='Discount', default=0)
     disc_amount = fields.Monetary(compute='_compute_disc')
     subtot_after_disc = fields.Monetary(compute='_compute_subtot_after_disc')
     vat_percent = fields.Float(string='VAT', default=0)
@@ -140,7 +140,8 @@ class PurchaseOrder(models.Model):
     @api.one
     @api.depends('subtot', 'disc_percent')
     def _compute_disc(self):
-        self.disc_amount = self.subtot * (self.disc_percent / 100)
+        #self.disc_amount = self.subtot * (self.disc_percent / 100)
+        self.disc_amount = self.disc_percent
 
     @api.one
     @api.depends('subtot', 'disc_amount')

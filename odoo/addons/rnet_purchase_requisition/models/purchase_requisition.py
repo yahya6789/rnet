@@ -15,6 +15,8 @@ class PurchaseRequisition(models.Model):
     categories = fields.Char(compute='_get_categories')
     product_id = fields.Many2one('product.product', related='requisition_line_ids.product_id', string='Product', readonly=False)
 
+    pr_revision_count = fields.Integer(compute='_get_pr_revision_count')
+
     @api.model
     def create(self, vals):
         res = super(PurchaseRequisition, self).create(vals)
@@ -139,3 +141,87 @@ class PurchaseRequisition(models.Model):
     def user_approve(self):
         self.is_requisition_date_valid()
         return super(PurchaseRequisition, self).user_approve()
+
+    @api.one
+    def _get_pr_revision_count(self):
+        res = self.env['purchase.requisition.history'].search_count([('original_id', '=', self.id)])
+        self.pr_revision_count = res or 0
+
+    @api.multi
+    def open_pr_revision_list(self):
+        pass
+        """
+        if self.pr_revision_count:
+            for pr in self:
+                return {
+                    'name': _('Revision History'),
+                    'view_type': 'form',
+                    'view_mode': 'tree,form',
+                    'res_model': 'purchase.requisition.history',
+                    'view_id': False,
+                    'type': 'ir.actions.act_window',
+                    'domain': [('original_id', '=', pr.id)],
+                    'option': {'no_create_edit': True},
+                }
+        """
+
+    @api.multi
+    def button_make_revision(self):
+        self._create_requisition_history()
+        self._create_requisition_line_history()
+
+    def _create_requisition_history(self):
+        query = """
+        insert into purchase_requisition_history (
+            message_main_attachment_id,access_token,"name",state,request_date,department_id,employee_id,
+            approve_manager_id,reject_manager_id,approve_employee_id,reject_employee_id,company_id,location_id,date_end,
+            date_done,managerapp_date,manareject_date,userreject_date,userrapp_date,receive_date,reason,analytic_account_id,
+            dest_location_id,delivery_picking_id,requisiton_responsible_id,employee_confirm_id,confirm_date,
+            custom_picking_type_id,create_uid,create_date,write_uid,write_date,maintenance_id,project,
+            reject_reason,original_id,revision,revision_date)
+        select 
+            message_main_attachment_id,access_token,"name",state,request_date,department_id,employee_id,
+            approve_manager_id,reject_manager_id,approve_employee_id,reject_employee_id,company_id,location_id,
+            date_end,date_done,managerapp_date,manareject_date,userreject_date,userrapp_date,receive_date,
+            reason,analytic_account_id,dest_location_id,delivery_picking_id,requisiton_responsible_id,employee_confirm_id,
+            confirm_date,custom_picking_type_id,create_uid,create_date,write_uid,write_date,maintenance_id,project,reject_reason,
+            %s,(
+                select case when count(1) > 0 then max(pr.revision) + 1 else 1 end as revision 
+                from purchase_requisition_history pr where pr.original_id = %s
+            ),%s
+            from material_purchase_requisition pr where pr.id = %s
+        """
+        params = [self.id, self.id, fields.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), self.id]
+        self.env.cr.execute(query, params)
+        self.env.cr.commit()
+
+    def _create_requisition_line_history(self):
+        query = """
+            insert into purchase_requisition_line_history (
+                product_id,description,qty,uom,requisition_type,brand,brand_note,remark,requisition_id,create_uid,
+                create_date,write_uid,write_date)
+            select
+                product_id,description,qty,uom,requisition_type,brand,brand_note,remark,(
+                    select pr.id from purchase_requisition_history pr where pr.original_id = %s 
+                    order by pr.revision desc limit 1
+                ) as requisition_id,create_uid,create_date,write_uid,write_date
+            from material_purchase_requisition_line prl where prl.requisition_id = %s
+        """
+        params = [self.id, self.id]
+        self.env.cr.execute(query, params)
+        self.env.cr.commit()
+
+    @api.multi
+    def open_pr_revision_list(self):
+        if self.pr_revision_count:
+            for pr in self:
+                return {
+                    'name': _('Revision History'),
+                    'view_type': 'form',
+                    'view_mode': 'tree,form',
+                    'res_model': 'purchase.requisition.history',
+                    'view_id': False,
+                    'type': 'ir.actions.act_window',
+                    'domain': [('original_id', '=', pr.id)],
+                    'option': {'no_create_edit': True},
+                }
