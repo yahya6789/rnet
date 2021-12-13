@@ -11,7 +11,7 @@
                 <xpath expr="//field[@name='taxes_id']" position="after">
                     <field name="price_tax"/>
                 </xpath>
-                <xpath expr="//group[1]/group[2]/field[@name='project']" position="after">
+                <xpath expr="//sheet[1]/group[1]/group[2]/field[@name='project']" position="after">
                     <field name="gut_qc"/>
                 </xpath>
                 <xpath expr="//group[1]/group[1]/field[@name='currency_id']" position="after">
