@@ -7,6 +7,7 @@
 
     'data': [
         'views/purchase_requisition_view.xml',
+        'views/purchase_requisition_history_view.xml',
         'report/purchase_requisition_template.xml',
         'security/ir.model.access.csv',
     ],

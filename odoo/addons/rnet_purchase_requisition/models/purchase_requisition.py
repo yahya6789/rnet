@@ -200,4 +200,15 @@ class PurchaseRequisition(models.Model):
 
     @api.multi
     def open_pr_revision_list(self):
-        pass
+        if self.pr_revision_count:
+            for pr in self:
+                return {
+                    'name': _('Revision History'),
+                    'view_type': 'form',
+                    'view_mode': 'tree,form',
+                    'res_model': 'purchase.requisition.history',
+                    'view_id': False,
+                    'type': 'ir.actions.act_window',
+                    'domain': [('original_id', '=', pr.id)],
+                    'option': {'no_create_edit': True},
+                }
