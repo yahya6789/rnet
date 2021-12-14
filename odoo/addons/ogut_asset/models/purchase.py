@@ -71,7 +71,7 @@ class PurchaseOrder(models.Model):
                 dept_manager_id,finance_manager_id,director_manager_id,approve_dept_manager_id,approve_finance_manager_id,
                 approve_director_manager_id,dept_manager_approve_date,finance_manager_approve_date,
                 director_manager_approve_date,purchase_user_id,requisition_id,project,create_uid,create_date,write_uid,
-                write_date,disc_percent,vat_percent,responsible_id,original_id,revision,revision_date
+                write_date,disc_percent,vat_percent,responsible_id,original_id,revision,revision_date,gut_qc,gut_term_of_delivery
             ) 
             select 
                 message_main_attachment_id,access_token,"name",origin,partner_ref,date_order,date_approve,partner_id,
@@ -86,7 +86,7 @@ class PurchaseOrder(models.Model):
                     select case when count(1) > 0 then max(poh.revision) + 1 else 1 end as revision 
                     from purchase_order_history poh where poh.original_id = %s
                 ),
-                %s
+                %s,gut_qc,gut_term_of_delivery
             from 
               purchase_order where id = %s
         """
