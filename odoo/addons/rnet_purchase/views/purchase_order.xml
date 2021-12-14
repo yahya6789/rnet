@@ -14,6 +14,9 @@
                 <xpath expr="//group[1]/group[1]/field[@name='currency_id']" position="after">
                     <field name="gut_term_of_delivery"/>
                 </xpath>
+                <field name="company_id" position="after">
+                    <field name="gut_qc"/>
+                </field>
             </field>
         </record>
 

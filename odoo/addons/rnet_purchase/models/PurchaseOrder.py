@@ -11,11 +11,11 @@ class PurchaseOrder(models.Model):
     gut_qty_received = fields.Integer('Quantity Received', compute='_get_qty_received')
     gut_qty_billed = fields.Integer('Quantity Billed', compute='_get_qty_billed')
     gut_receive_status = fields.Char('Receive Status', compute='_get_receive_status')
-    gut_qc = fields.selection([
+    gut_qc = fields.Selection([
         ('Yes','Yes'),
         ('No','No'),
     ], string='Quality Control')
-    gut_term_of_delivery = fields.selection([
+    gut_term_of_delivery = fields.Selection([
         ('allowed','Partial Delivery Allowed'),
         ('not allowed', 'Partial Delivery Not Allowed'),
     ], string='Term of Delivery')
