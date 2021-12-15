@@ -1,8 +1,10 @@
 <odoo>
-    <template id="report_purchase_order_history" inherit_id="purchase.report_purchaseorder_document">
+    <template id="report_purchase_order_history" inherit_id="ogut_asset.report_purchaseorder_document">
         <xpath expr="//h5[@class='text-center'][1]" position="replace">
             <h5 class="text-center">
-                <strong class="text-danger">Revision <span t-field="o.revision"/></strong><br/>
+                <t t-if="'revision' in o">
+                    <strong class="text-danger">Revision <span t-field="o.revision"/></strong><br/>
+                </t>
                 <strong>PURCHASE ORDER</strong>
             </h5>
         </xpath>
