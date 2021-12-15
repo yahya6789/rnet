@@ -65,7 +65,7 @@
                                 </tr>
                                 <tr>
                                     <td>Terms of Delivery</td>
-                                    <td>:&amp;nbsp;</td>
+                                    <td>:&amp;nbsp;<span t-field="o.gut_term_of_delivery"/></td>
                                     <td>Contact Person</td>
                                     <td>:&amp;nbsp;
                                         <t t-foreach="o.partner_id.child_ids" t-as="p" >
@@ -86,7 +86,7 @@
                                 </tr>
                                 <tr>
                                     <td>Quality Control</td>
-                                    <td>:&amp;nbsp;</td>
+                                    <td>:&amp;nbsp;<span t-field="o.gut_qc"/></td>
                                 </tr>
                             </tbody>
                         </table>
