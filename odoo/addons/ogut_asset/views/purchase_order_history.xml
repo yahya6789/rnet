@@ -1,5 +1,14 @@
 <odoo>
     <data>
+        <report
+            string="Purchase Order"
+            id="action_report_purchase_order_history"
+            model="purchase.order.history"
+            name="ogut_asset.report_purchase_order_history"
+            file="ogut_asset.report_purchase_order_history"
+            print_report_name="'Purchase Order - %s' % (object.name)"
+        />
+
         <record model="ir.ui.view" id="purchase_order_history_tree">
             <field name="name">Purchase Order History Tree</field>
             <field name="model">purchase.order.history</field>
@@ -23,6 +32,7 @@
                 </tree>
             </field>
         </record>
+
         <record model="ir.ui.view" id="purchase_order_history_form">
             <field name="name">Purchase Order History Form</field>
             <field name="model">purchase.order.history</field>
