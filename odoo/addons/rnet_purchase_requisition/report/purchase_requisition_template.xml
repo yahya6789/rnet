@@ -95,8 +95,8 @@
                                             <td class="border border-dark"><span t-field="line.product_id.name"/></td>
                                             <td class="border border-dark"><span t-esc="line.qty"/></td>
                                             <td class="border border-dark"><span t-esc="line.uom.name"/></td>
-                                            <td class="border border-dark">&amp;nbsp;</td>
-                                            <td class="border border-dark">&amp;nbsp;</td>
+                                            <td class="border border-dark"><span t-esc="line.product_id.standard_price"/></td>
+                                            <td class="border border-dark"><span t-esc="line.product_id.standard_price * line.qty"/></td>
                                             <td class="border border-dark"><span t-field="line.remark"/></td>
                                         </tr>
                                     </t>
