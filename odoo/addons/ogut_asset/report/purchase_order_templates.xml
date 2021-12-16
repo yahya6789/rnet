@@ -207,12 +207,21 @@
                                         <td class="border border-dark"><span t-field="line.name"/></td>
                                         <t t-if="o.custom_requisition_id">
                                             <t t-if="o.custom_requisition_id.requisition_line_ids">
-                                                <t t-if="o.custom_requisition_id.requisition_line_ids.brand">
-                                                    <td class="border border-dark">
-                                                        <span t-field="o.custom_requisition_id.requisition_line_ids.brand"/>
-                                                    </td>
+                                                <t t-set="n" t-value="0" />
+                                                <t t-foreach="o.custom_requisition_id.requisition_line_ids" t-as="req_line" >
+                                                    <t t-if="req_line.product_id.id == line.product_id.id">
+                                                        <t t-set="n" t-value="1"/>
+                                                        <td class="border border-dark">
+                                                            <t t-if="req_line.brand">
+                                                                <span t-field="req_line.brand"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="line.product_id.brand.name"/>
+                                                            </t>
+                                                        </td>
+                                                    </t>
                                                 </t>
-                                                <t t-else="">
+                                                <t t-if="n == 0">
                                                     <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
                                                 </t>
                                             </t>
