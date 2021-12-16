@@ -205,7 +205,24 @@
                                     <t t-if="not line.product_id.display_as_delivery_cost">
                                         <td class="border border-dark"><span t-esc="i"/><t t-set="i" t-value="i+1"/></td>
                                         <td class="border border-dark"><span t-field="line.name"/></td>
-                                        <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
+                                        <t t-if="o.custom_requisition_id">
+                                            <t t-if="o.custom_requisition_id.requisition_line_ids">
+                                                <t t-if="o.custom_requisition_id.requisition_line_ids.brand">
+                                                    <td class="border border-dark">
+                                                        <span t-field="o.custom_requisition_id.requisition_line_ids.brand"/>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <td class="border border-dark"><span t-field="line.product_id.brand.name"/></td>
+                                        </t>
                                         <td class="text-center border border-dark"><span t-field="line.product_qty"/></td>
                                         <td class="text-center border border-dark"><span t-field="line.product_uom"/></td>
                                         <td class="text-right border border-dark"><span t-field="line.price_unit"/></td>
