@@ -19,6 +19,7 @@ class PurchaseOrder(models.Model):
         ('allowed','Partial Delivery Allowed'),
         ('not allowed', 'Partial Delivery Not Allowed'),
     ], string='Term of Delivery', default='allowed', required=True)
+    num_word = fields.Char(string="Say:", compute='_compute_amount_in_word')
 
     @api.one
     def _get_qty_total(self):
@@ -52,6 +53,11 @@ class PurchaseOrder(models.Model):
             self.gut_receive_status = 'Over'
         else:
             self.gut_receive_status = None
+
+    @api.multi
+    def _compute_amount_in_word(self):
+        for rec in self:
+            rec.num_word = str(rec.currency_id.amount_to_text(rec.amount_total))
 
 
 class PurchaseOrderLine(models.Model):

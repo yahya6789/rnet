@@ -59,6 +59,9 @@
                  <field name="project" position="after">
                     <field name="analytic_account_id"/>
                 </field>
+                <field name="company_id" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </field>
             </field>
         </record>
 
