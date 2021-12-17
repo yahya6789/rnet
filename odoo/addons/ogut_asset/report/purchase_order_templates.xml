@@ -331,7 +331,7 @@
                         <table class="table table-bordered table-sm">
                             <tbody>
                                 <tr>
-                                    <td colspan="2" class="border border-dark">Say:</td>
+                                    <td colspan="2" class="border border-dark">Say:&amp;ensp;<span t-field="o.num_word"/></td>
                                 </tr>
                                 <tr>
                                     <td class="border border-dark" style="width: 50%">
