@@ -62,6 +62,9 @@
                 <field name="company_id" position="attributes">
                      <attribute name="invisible">1</attribute>
                 </field>
+                 <field name="state" position="replace">
+                    <field name="state" widget="label_selection" options="{'classes': {'draft': 'secondary', 'cancel': 'danger', 'dept_confirm': 'info', 'ir_approve': 'info', 'stock': 'success', 'reject': 'warning'}}"/>
+                </field>
             </field>
         </record>
 
