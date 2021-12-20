@@ -24,73 +24,110 @@
                 </div>
                 <br/>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-6">
                         <table class="table table-borderless table-sm">
                             <tbody>
                                 <tr>
                                     <td style="width: 20%">Order Date</td>
-                                    <td style="width: 30%">:&amp;nbsp;</td><td><span t-field="o.date_order" t-options="{'format': 'dd/MM/yyyy'}"/></td>
-                                    <td style="width: 20%">Vendor ID</td>
-                                    <td style="width: 30%">:&amp;nbsp;</td><td><span t-field="o.partner_id.ref"/></td>
+                                    <td style="width: 1%">:&amp;nbsp;</td>
+									<td style="width: 29%"><span t-field="o.date_order" t-options="{'format': 'dd/MM/yyyy'}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Order No</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.name"/></td>
-                                    <td>Vendor Name</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.partner_id.name"/></td>
+                                    <td>:&amp;nbsp;</td>
+									<td><span t-field="o.name"/></td>
                                 </tr>
                                 <tr>
                                     <td>PR Doc No.</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.origin"/></td>
-                                    <td>Vendor Address</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.partner_id.street"/>&amp;nbsp;
-                                        <span t-field="o.partner_id.city"/></td>
+                                    <td>:&amp;nbsp;</td>
+									<td><span t-field="o.origin"/></td>
                                 </tr>
                                 <tr>
                                     <td>Delivery Date</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.date_planned" t-options="{'format': 'dd/MM/yyyy'}"/></td>
-                                    <td>Phone</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.partner_id.phone"/></td>
+                                    <td>:&amp;nbsp;</td>
+									<td><span t-field="o.date_planned" t-options="{'format': 'dd/MM/yyyy'}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Deliver To</td>
                                     <t t-set="partner_id" t-value="o.picking_type_id.warehouse_id.partner_id"/>
-                                    <td>:&amp;nbsp;</td><td>
+                                    <td>:&amp;nbsp;</td>
+									<td>
                                         <span t-field="partner_id.street"/>
                                         <span t-field="partner_id.street2"/>
                                         <span t-field="partner_id.city"/>
                                     </td>
-                                    <td>Fax</td>
-                                    <td>:&amp;nbsp;</td>
                                 </tr>
                                 <tr>
                                     <td>Terms of Delivery</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.gut_term_of_delivery"/></td>
-                                    <td>Contact Person</td>
-                                    <td>:&amp;nbsp;</td><td>
-                                        <t t-foreach="o.partner_id.child_ids" t-as="p" >
-                                            <t t-if="p.type == 'contact'">
-                                                <span t-field="p.name"/>
-                                                <t t-if="not p_last">
-                                                    <span>,&amp;nbsp;</span>
-                                                </t>
-                                            </t>
-                                        </t>
-                                    </td>
+                                    <td>:&amp;nbsp;</td>
+									<td><span t-field="o.gut_term_of_delivery"/></td>
                                 </tr>
                                 <tr>
                                     <td>Payment Terms</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.payment_term_id.name"/></td>
-                                    <td>Currency</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.currency_id.name"/></td>
+                                    <td>:&amp;nbsp;</td>
+									<td><span t-field="o.payment_term_id.name"/></td>
                                 </tr>
                                 <tr>
                                     <td>Quality Control</td>
-                                    <td>:&amp;nbsp;</td><td><span t-field="o.gut_qc"/></td>
+                                    <td>:&amp;nbsp;</td>
+									<td><span t-field="o.gut_qc"/></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+					<div class="col-6">
+						<table class="table table-borderless table-sm">
+                            <tbody>
+								<tr>
+									<td style="width: 20%">Vendor ID</td>
+									<td style="width: 1%">:&amp;nbsp;</td>
+									<td style="width: 29%"><span t-field="o.partner_id.ref"/></td>
+								</tr>
+								<tr>
+									<td>Vendor Name</td>
+									<td>:&amp;nbsp;</td>
+									<td><span t-field="o.partner_id.name"/></td>
+								</tr>
+								<tr>
+									<td>Vendor Address</td>
+									<td>:&amp;nbsp;</td>
+									<td>
+										<span t-field="o.partner_id.street"/>&amp;nbsp;
+										<span t-field="o.partner_id.city"/>
+									</td>
+								</tr>
+								<tr>
+									<td>Phone</td>
+									<td>:&amp;nbsp;</td>
+									<td><span t-field="o.partner_id.phone"/></td>
+								</tr>
+								<tr>
+									<td>Fax</td>
+									<td>:&amp;nbsp;</td>
+									<td>&amp;nbsp;</td>
+								</tr>
+								<tr>
+									<td>Contact Person</td>
+									<td>:&amp;nbsp;</td>
+									<td>
+										<t t-foreach="o.partner_id.child_ids" t-as="p" >
+										   <t t-if="p.type == 'contact'">
+											<span t-field="p.name"/>
+											 <t t-if="not p_last">
+											   <span>,&amp;nbsp;</span>
+											 </t>
+										   </t>
+										</t>
+									</td>
+								</tr>
+								<tr>
+									<td>Currency</td>
+									<td>:&amp;nbsp;</td>
+									<td><span t-field="o.currency_id.name"/></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
                 </div>
                 <br/>
                 <div class="row">
