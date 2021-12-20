@@ -1,8 +1,13 @@
 from odoo import fields, models, api, _
+from odoo.exceptions import Warning
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class PurchaseRequisitionRejectWizard(models.TransientModel):
     _name = 'purchase.requisition.reject.wizard'
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
 
     reject_reason = fields.Text(string="Reject Reason", required=True)
 
@@ -16,3 +21,6 @@ class PurchaseRequisitionRejectWizard(models.TransientModel):
             'reject_reason': self.reject_reason,
         })
 
+        template = self.env.ref('ogut_asset.purchase_requisition_reject_email_template')
+        if template:
+            template.send_mail(pr.id)

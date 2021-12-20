@@ -22,6 +22,7 @@
         'report/purchase_order_templates.xml',
         'report/purchase_history_templates.xml',
         'views/purchase_order_history.xml',
+        'views/purchase_requisition_email_template.xml',
         'wizard/purchase_requisition_reject_wizard_view.xml'
     ],
 
