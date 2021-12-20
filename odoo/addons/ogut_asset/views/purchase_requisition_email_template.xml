@@ -4,12 +4,13 @@
         <record id="purchase_requisition_reject_email_template" model="mail.template">
             <field name="name">Purchase Requisition Reject Email Template</field>
             <field name="model_id" ref="material_purchase_requisitions.model_material_purchase_requisition"/>
+            <field name="email_from">${object.reject_employee_id.work_email}</field>
             <field name="email_to">${object.employee_id.work_email}</field>
-            <field name="subject">Purchase Requisition Rejected</field>
+            <field name="subject">Purchase Requisition Rejected - ${object.name}</field>
             <field name="auto_delete" eval="True"/>
             <field name="body_html"><![CDATA[
                 <p>Dear ${object.employee_id.name},</p>
-                <p>Your Purchase Requistion - ${object.name} is rejected by ${object.reject_employee_id.name}</p>
+                <p>Your Purchase Requistion - ${object.name} is rejected</p>
                 <p>Reason: ${object.reject_reason}</p>
                 <p>Thank You,</p>
                 <br/>
