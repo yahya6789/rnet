@@ -31,6 +31,9 @@
                         </div>
                     </group>   
                 </xpath>
+                <xpath expr="//sheet/notebook/page[2]/group[1]/group[1]/field[@name='incoterm_id']" position="before">
+                    <field name="gut_description"/>
+                </xpath>
             </field>
         </record>
 

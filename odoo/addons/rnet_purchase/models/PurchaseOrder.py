@@ -20,6 +20,7 @@ class PurchaseOrder(models.Model):
         ('not allowed', 'Partial Delivery Not Allowed'),
     ], string='Term of Delivery', default='allowed', required=True)
     num_word = fields.Char(string="Say:", compute='_compute_amount_in_word')
+    gut_description = fields.Text(string='Description')
 
     @api.one
     def _get_qty_total(self):
