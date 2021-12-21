@@ -261,7 +261,9 @@ class Takeout(models.Model):
     @api.model
     def default_get(self, fields):
         res = super(Takeout, self).default_get(fields)
-        res.update({
-            'gut_issued_by': self.env['hr.employee'].search([('user_id', '=', self.env.uid)]).id or False
-        })
+        employees = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
+        if employees:
+            res.update({
+                'gut_issued_by': employees[0].id or False
+            })
         return res
