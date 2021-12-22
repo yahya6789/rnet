@@ -71,6 +71,8 @@ class PurchaseRequisition(models.Model):
                     'custom_requisition_id': rec.id,
                     'origin': rec.name,
                     'company_id': rec.company_id.id,
+                    'gut_issued_by': rec.employee_id.id,
+                    'gut_issued_date': rec.request_date,
 
                 }
                 stock_id = stock_obj.sudo().create(picking_vals)

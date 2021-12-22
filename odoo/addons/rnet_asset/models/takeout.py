@@ -212,7 +212,11 @@ class Takeout(models.Model):
                 total = 0
                 for line in order.order_line:
                     total = total + line.product_qty
-                vals.update({'gut_inventory_lines_count': total})
+                vals.update({
+                    'gut_inventory_lines_count': total,
+                    'gut_issued_by': order.custom_requisition_id.employee_id.id,
+                    'gut_issued_date': order.custom_requisition_id.request_date,
+                })
         return super(Takeout, self).create(vals)
 
     def _get_client(self):
