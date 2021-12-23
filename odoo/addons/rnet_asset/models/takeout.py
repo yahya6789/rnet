@@ -26,7 +26,7 @@ class Takeout(models.Model):
     gut_source_department = fields.Many2one('hr.department', 'Source Department', required=True)
     gut_destination_department = fields.Many2one('hr.department', 'Destination Department', required=True)
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
-    gut_inventory_lines_count = fields.Integer(string='Qty Inventory', compute='_get_inventory_lines_count')
+    gut_inventory_lines_count = fields.Integer(string='Qty Inventory', default=0)
 
     gut_client = fields.Char(compute='_get_client')
     gut_client_address = fields.Char('Client Address')
