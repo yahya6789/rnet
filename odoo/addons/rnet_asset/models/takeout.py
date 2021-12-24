@@ -26,7 +26,7 @@ class Takeout(models.Model):
     gut_source_department = fields.Many2one('hr.department', 'Source Department', required=True)
     gut_destination_department = fields.Many2one('hr.department', 'Destination Department', required=True)
     gut_asset_lines_count = fields.Integer(string='Qty Asset', compute='_get_asset_lines_count')
-    gut_inventory_lines_count = fields.Integer(string='Qty Inventory', compute='_get_inventory_lines_count')
+    gut_inventory_lines_count = fields.Integer(string='Qty Inventory', compute='_get_inventory_lines_sum')
 
     gut_client = fields.Char(compute='_get_client')
     gut_client_address = fields.Char('Client Address')
@@ -194,26 +194,19 @@ class Takeout(models.Model):
     def _get_inventory_lines_count(self):
         self.gut_inventory_lines_count = len(self.move_lines)
 
-    """
     @api.one
     def _get_inventory_lines_sum(self):
         total = 0
-        for line in self.move_line_ids_without_package:
-            total = total + line.qty_done
-
+        for line in self.move_lines:
+            total = total + line.product_uom_qty
         self.gut_inventory_lines_count = total
-    """
 
     @api.model
     def create(self, vals):
         if vals.get('origin'):
             order = self.env['purchase.order'].search([('name', '=', vals.get('origin'))])
             if order:
-                total = 0
-                for line in order.order_line:
-                    total = total + line.product_qty
                 vals.update({
-                    'gut_inventory_lines_count': total,
                     'gut_issued_by': order.custom_requisition_id.employee_id.id,
                     'gut_issued_date': order.custom_requisition_id.request_date,
                 })
