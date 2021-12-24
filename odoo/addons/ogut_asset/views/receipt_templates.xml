@@ -91,10 +91,7 @@
                                             <td>Purpose</td><td>:&#8194;</td><td><span t-field="o.gut_purpose"/></td>
                                         </tr>
                                         <tr>
-                                            <td>From</td><td>:&#8194;</td><td><span t-field="o.location_id"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>To</td><td>:&#8194;</td><td><span t-field="o.location_dest_id"/></td>
+                                            <td width="150px">Project</td><td>:&#8194;</td><td><span t-field="o.project.name"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -112,7 +109,10 @@
                                             <td width="150px">Job Order No.</td><td>:&#8194;</td><td><span t-field="o.project.no"/></td>
                                         </tr>
                                         <tr>
-                                            <td width="150px">Project</td><td>:&#8194;</td><td><span t-field="o.project.name"/></td>
+                                            <td>From</td><td>:&#8194;</td><td><span t-field="o.location_id"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>To</td><td>:&#8194;</td><td><span t-field="o.location_dest_id"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
