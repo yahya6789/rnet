@@ -21,6 +21,9 @@ class PurchaseOrder(models.Model):
     ], string='Term of Delivery', default='allowed', required=True)
     num_word = fields.Char(string="Say:", compute='_compute_amount_in_word')
     gut_description = fields.Text(string='Description')
+    total_purchase_product = fields.Integer(string='Total Products:',compute='_total_purchase_product',help="total Products")
+    total_purchase_quantity = fields.Integer(string='Total Quantities:',compute='_total_purchase_product_qty',help="total Quantity")
+
 
     @api.one
     def _get_qty_total(self):
@@ -60,6 +63,19 @@ class PurchaseOrder(models.Model):
         for rec in self:
             rec.num_word = str(rec.currency_id.amount_to_text(rec.amount_total))
 
+    def _total_purchase_product(self):
+            for record in self:
+                list_of_product=[]
+                for line in record.order_line:
+                    list_of_product.append(line.product_id)
+                record.total_purchase_product = len(set(list_of_product))
+
+    def _total_purchase_product_qty(self):
+            for record in self:
+                total_qty = 0
+                for line in record.order_line:
+                    total_qty = total_qty + line.product_qty
+                record.total_purchase_quantity = total_qty
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
