@@ -33,7 +33,7 @@ class PurchaseOrder(models.Model):
                 sequence = self.env['ir.sequence'].next_by_code('purchase.order') or '/'
                 order.write({
                     'name': sequence,
-                    # 'unrevisioned_name': sequence
+                    'unrevisioned_name': sequence
                 })
 
         return super(PurchaseOrder, self).button_confirm()
