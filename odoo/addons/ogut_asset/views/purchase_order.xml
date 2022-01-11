@@ -11,15 +11,6 @@
                 <xpath expr="//sheet[1]/group[1]/group[2]/field[@name='project']" position="attributes">
                     <attribute name="string">Job Order No.</attribute>
                 </xpath>
-                <xpath expr="//button[@name='button_unlock']" position="after">
-                    <button name="button_make_revision" states="purchase,finance_approval,director_approval" string="Make Revision" type="object"/>
-                </xpath>
-                <xpath expr="//button[@name='action_view_invoice'][@class='oe_stat_button']" position="after">
-                    <button type="object" class="oe_stat_button" icon="fa-clipboard"
-                            name="open_po_revision_list" context="{'original_id': id,}" attrs="{'invisible':['|', ('po_revision_count', '=', 0), ('state', 'in', ('draft','sent','to approve'))]}">
-                        <field string="Revision" name="po_revision_count" widget="statinfo"/>
-                    </button>
-                </xpath>
                 <xpath expr="//group[1]/group[1]/field[@name='currency_id']" position="before">
                     <field name="disc_percent"/>
                 </xpath>
@@ -37,9 +28,6 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_tree"/>
             <field name="arch" type="xml">
-                <field name="name" position="after">
-                    <field name="po_revision_count" string="Revision"/>
-                </field>
                 <field name="partner_id" position="after">
                     <field name="project"/>
                 </field>
