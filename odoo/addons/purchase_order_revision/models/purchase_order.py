@@ -51,6 +51,13 @@ class PurchaseOrder(models.Model):
     #      'Order Reference and revision must be unique per Company.'),
     # ]
 
+    revision_count = fields.Integer(compute='_get_revision_count')
+
+    @api.one
+    @api.depends('old_revision_ids')
+    def _get_revision_count(self):
+        self.revision_count = len(self.old_revision_ids)
+
     @api.multi
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
@@ -112,3 +119,18 @@ class PurchaseOrder(models.Model):
 
         # Returning the new purchase order view with new record.
         return action
+
+    @api.multi
+    def open_revision_list(self):
+        if self.old_revision_ids:
+            for po in self:
+                return {
+                    'name': _('Revision History'),
+                    'view_type': 'form',
+                    'view_mode': 'tree,form',
+                    'res_model': 'purchase.order',
+                    'view_id': False,
+                    'type': 'ir.actions.act_window',
+                    'domain': ['&', ['current_revision_id', '=', po.id], ['active', '=', False]],
+                    'option': {'no_create_edit': True},
+                }
