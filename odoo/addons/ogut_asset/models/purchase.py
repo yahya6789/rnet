@@ -7,6 +7,10 @@ _logger = logging.getLogger(__name__)
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
+
+    origin = fields.Char('Source Document', copy=True,
+        help="Reference of the document that generated this purchase order request (e.g. a sales order)")
+
     project = fields.Many2one('project.project', string='Project')
 
     subtot = fields.Monetary(compute='_compute_subtot')
