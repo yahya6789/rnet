@@ -1,0 +1,18 @@
+<odoo>
+    <template id="report_purchase_order_revision" inherit_id="ogut_asset.report_purchaseorder_document">
+        <xpath expr="//h5[@class='text-center'][1]" position="replace">
+            <h5 class="text-center">
+                <t t-if="o.state == 'cancel'">
+                    <strong class="text-danger">Not Valid</strong>
+                </t>
+                <t t-else="1">
+                    <t t-if="o.revision_number > 0">
+                        <strong class="text-danger">Revision</strong>
+                    </t>
+                </t>
+                <br/>
+                <strong>PURCHASE ORDER</strong>
+            </h5>
+        </xpath>
+    </template>
+</odoo>

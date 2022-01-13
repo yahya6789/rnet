@@ -15,6 +15,11 @@ class PurchaseOrder(models.Model):
             if purchase_order.old_revision_ids:
                 purchase_order.has_old_revisions = True
 
+    @api.one
+    @api.depends('old_revision_ids')
+    def _compute_revision_count(self):
+        self.revision_count = len(self.old_revision_ids)
+
     current_revision_id = fields.Many2one(
         comodel_name='purchase.order',
         string='Current revision',
@@ -51,12 +56,7 @@ class PurchaseOrder(models.Model):
     #      'Order Reference and revision must be unique per Company.'),
     # ]
 
-    revision_count = fields.Integer(compute='_get_revision_count')
-
-    @api.one
-    @api.depends('old_revision_ids')
-    def _get_revision_count(self):
-        self.revision_count = len(self.old_revision_ids)
+    revision_count = fields.Integer(compute='_compute_revision_count')
 
     @api.multi
     @api.returns('self', lambda value: value.id)
@@ -89,7 +89,6 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def create_revision(self):
-
         revision_ids = []
         # Looping over purchase order records
         for purchase_order_rec in self:

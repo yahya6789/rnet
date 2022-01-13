@@ -21,6 +21,7 @@
     ],
     "data": [
         "view/purchase_order.xml",
+        "view/purchase_order_templates.xml",
     ],
     "installable": True,
     "post_init_hook": "populate_unrevisioned_name",
