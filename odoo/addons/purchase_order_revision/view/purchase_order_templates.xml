@@ -1,18 +1,18 @@
 <odoo>
     <template id="report_purchase_order_revision" inherit_id="ogut_asset.report_purchaseorder_document">
-        <xpath expr="//h5[@class='text-center'][1]" position="replace">
-            <h5 class="text-center">
-                <t t-if="o.state == 'cancel'">
-                    <strong class="text-danger">Not Valid</strong>
+        <xpath expr="//div[@class='col-4'][1]" position="after">
+            <t t-if="o.state == 'cancel'">
+                <div class="col-4 first-page">
+                    <img t-att-src="'/purchase_order_revision/static/src/img/not-valid.png'" style="max-height: 100px;"/>
+                </div>
+            </t>
+            <t t-else="1">
+                <t t-if="o.revision_number > 0">
+                    <div class="col-4 first-page">
+                        <img t-att-src="'/purchase_order_revision/static/src/img/revision.png'" style="max-height: 100px;"/>
+                    </div>
                 </t>
-                <t t-else="1">
-                    <t t-if="o.revision_number > 0">
-                        <strong class="text-danger">Revision</strong>
-                    </t>
-                </t>
-                <br/>
-                <strong>PURCHASE ORDER</strong>
-            </h5>
+            </t>
         </xpath>
     </template>
 </odoo>
