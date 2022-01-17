@@ -6,12 +6,15 @@
                     <img t-att-src="'/purchase_order_revision/static/src/img/not-valid.png'" style="max-height: 100px;"/>
                 </div>
             </t>
-            <t t-else="1">
-                <t t-if="o.revision_number > 0">
-                    <div class="col-4 first-page">
-                        <img t-att-src="'/purchase_order_revision/static/src/img/revision.png'" style="max-height: 100px;"/>
-                    </div>
-                </t>
+            <t t-elif="o.revision_number > 0">
+                <div class="col-4 first-page">
+                    <img t-att-src="'/purchase_order_revision/static/src/img/revision.png'" style="max-height: 100px;"/>
+                </div>
+            </t>
+            <t t-else=" not o.revision_number">
+                <div class="col-4">
+                    &amp;ensp;
+                </div>
             </t>
         </xpath>
     </template>
