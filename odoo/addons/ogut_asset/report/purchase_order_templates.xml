@@ -2,7 +2,7 @@
     <template id="report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document">
         <xpath expr="//t[1]/t[1]" position="replace">
             <t t-call="web.basic_layout">
-                <div class="header">
+            <div class="header">
                 <div class="container">
                     <div class="row">
                         <div class="col-4">
@@ -15,18 +15,19 @@
                             <small><strong>Cert. No. 422970</strong></small>
                         </div>
                     </div>
-                </div>
-            </div>
-                <div class="page">
-                <div class="row">
-                    <div class="col-12">
+                    <div class="row">
+                    <div class="col-12 first-page">
                         <h5 class="text-center"><strong>PURCHASE ORDER</strong></h5>
+                        <div class="text-center" style="border-top: 1px solid black;"></div>
+                        <div class="text-center" style="border-top: 1px solid black; margin-top: 3px"></div>
                     </div>
                 </div>
-                <br/>
+                </div>
+            </div>
+            <div class="page">
                 <div class="row">
                     <div class="col-6">
-                        <table class="table table-borderless table-sm">
+                        <table class="table table-borderless table-sm small">
                             <tbody>
                                 <tr>
                                     <td style="width: 20%">Order Date</td>
@@ -84,7 +85,7 @@
                         </table>
                     </div>
 					<div class="col-6">
-						<table class="table table-borderless table-sm">
+						<table class="table table-borderless table-sm small">
                             <tbody>
 								<tr>
 									<td style="width: 20%">Vendor ID</td>
@@ -137,10 +138,9 @@
 						</table>
 					</div>
                 </div>
-                <br/>
                 <div class="row">
                     <div class="col-6 mr-1">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm small">
                             <tbody>
                                 <tr>
                                     <td class="border border-dark bg-dark">Only for Tax Purpose</td>
@@ -158,7 +158,7 @@
                         </table>
                     </div>
                     <div class="col-6">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm small">
                             <tbody>
                                 <tr>
                                     <td class="border border-dark bg-dark">Acknowledgement</td>
@@ -176,16 +176,15 @@
                         </table>
                     </div>
                 </div>
-                <br/>
                 <div class="row">
                     <div class="col-6 mr-1">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-borderless table-sm small">
                             <tbody>
                                 <tr>
-                                    <td class="border border-dark bg-dark">Invoice To</td>
+                                    <td  style="text-decoration:underline;">Invoice To</td>
                                 </tr>
                                 <tr>
-                                    <td class="border border-dark small">
+                                    <td class="borderless small">
                                         PT. Graha Usaha Teknik<br/>
                                         Jl. Asem Baris Raya No. 100A Kebon Baru<br/>
                                         Tebet, Jakarta Selatan, DKI Jakarta Raya 12830<br/>
@@ -198,14 +197,14 @@
                         </table>
                     </div>
                     <div class="col-6">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm small">
                             <tbody>
                                 <tr>
                                     <td class="border border-dark bg-dark">Remark</td>
                                 </tr>
                                 <tr>
                                     <td class="border border-dark">
-                                         <table class="table table-borderless table-sm">
+                                         <table class="table table-borderless table-sm small">
                                             <tbody>
                                                 <tr>
                                                     <td style="width: 30%">PIC/User</td>
@@ -230,7 +229,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-12">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm small">
                             <thead>
                                 <tr>
                                     <td style="width: 5%" class="border border-dark">No.</td>
@@ -292,10 +291,12 @@
                 <div class="row">
                     <div class="col-12">Remarks:</div>
                 </div>
-                <p style="page-break-before:always;"></p>
+            </div>
+                <!-- <p style="page-break-before:always;"></p> -->
+                <br/>
                 <div class="row">
                     <div class="col-7 mr-1">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm small">
                             <tbody>
                                 <tr>
                                     <td style="width: 20%" class="border border-dark text-center">Approval</td>
@@ -319,7 +320,7 @@
                         </table>
                     </div>
                     <div class="col-5">
-                        <table class="table table-borderless table-sm">
+                        <table class="table table-borderless table-sm small">
                             <tbody>
                                 <tr>
                                     <td style="width: 50%">Sub Total</td>
@@ -370,10 +371,9 @@
                         </table>
                     </div>
                 </div>
-                <br/>
                 <div class="row">
                     <div class="col-12">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm small">
                             <tbody>
                                 <tr>
                                     <td colspan="2" class="border border-dark">Say:&amp;ensp;<span t-field="o.num_word"/></td>
@@ -400,7 +400,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
                 <div class="footer">
                     <div class="container">
                         <div class="row justify-content-end">
