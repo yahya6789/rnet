@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_requisition_revision_form" model="ir.ui.view">
+        <field name="name">purchase.requisition.revision.form</field>
+        <field name="model">material.purchase.requisition</field>
+        <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_form_view"/>
+        <field name="priority">18</field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" type="object" states="draft,dept_confirm,ir_approve,approve" string="Cancel" groups="material_purchase_requisitions.group_purchase_requisition_user"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="create_revision" states="cancel" string="Make a Revision" type="object"/>
+            </xpath>
+            <xpath expr="//button[@name='action_show_po'][@class='oe_stat_button']" position="after">
+                <button type="object" class="oe_stat_button" icon="fa-clipboard" name="open_revision_list" attrs="{'invisible':['|', ('revision_count', '=', 0), ('state', 'in', ('cancel'))]}">
+                    <field string="Revision" name="revision_count" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
