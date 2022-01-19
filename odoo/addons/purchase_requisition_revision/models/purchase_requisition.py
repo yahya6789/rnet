@@ -75,6 +75,12 @@ class PurchaseRequisition(models.Model):
 
     revision_count = fields.Integer(compute='_compute_revision_count')
 
+    receive_date = fields.Date(
+        string='Received Date',
+        readonly=True,
+        copy=True,
+    )
+
     @api.multi
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
