@@ -20,7 +20,8 @@
         "material_purchase_requisitions",
     ],
     "data": [
-        "view/purchase_requisition.xml"
+        "view/purchase_requisition.xml",
+        "view/purchase_requisition_templates.xml",
     ],
     "installable": True,
 }

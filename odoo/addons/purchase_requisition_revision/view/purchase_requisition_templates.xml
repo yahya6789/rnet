@@ -1,18 +1,37 @@
 <odoo>
-    <template id="report_purchase_order_revision" inherit_id="ogut_asset.report_purchaseorder_document">
-        <xpath expr="//div[@class='col-4'][1]" position="after">
-            <t t-if="o.state == 'cancel'">
-                <div class="col-4 first-page">
-                    <img t-att-src="'/purchase_order_revision/static/src/img/not-valid.png'" style="max-height: 100px;"/>
+    <template id="report_purchase_requisition_revision" inherit_id="rnet_purchase_requisition.purchase_requisition_template">
+        <xpath expr="//div[@class='row'][1]" position="replace">
+            <div class="row">
+                <div class="col-2">
+                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"/>
                 </div>
-            </t>
-            <t t-else="1">
-                <t t-if="o.revision_number > 0">
-                    <div class="col-4 first-page">
-                        <img t-att-src="'/purchase_order_revision/static/src/img/revision.png'" style="max-height: 100px;"/>
-                    </div>
-                </t>
-            </t>
+                <div class="col-6 text-center">
+                    <t t-if="doc.state == 'cancel'">
+                        <img t-att-src="'/purchase_requisition_revision/static/src/img/not-valid.png'" style="max-height: 100px;"/>
+                    </t>
+                    <t t-elif="doc.revision_number > 0">
+                        <img t-att-src="'/purchase_requisition_revision/static/src/img/revision.png'" style="max-height: 100px;"/>
+                    </t>
+                </div>
+                <div class="col-4">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr class="border">
+                                <td style="width: 40%" class="border border-dark">Doc No.</td>
+                                <td style="width: 60%" class="border border-dark">6.3.1</td>
+                            </tr>
+                            <tr class="border">
+                                <td style="width: 40%" class="border border-dark">Revision</td>
+                                <td style="width: 60%" class="border border-dark">02</td>
+                            </tr>
+                            <tr class="border">
+                                <td style="width: 40%" class="border border-dark">Release Date</td>
+                                <td style="width: 60%" class="border border-dark">22.09.2011</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </xpath>
     </template>
 </odoo>
