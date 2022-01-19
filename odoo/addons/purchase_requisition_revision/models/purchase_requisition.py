@@ -15,7 +15,22 @@ class PurchaseRequisition(models.Model):
 
     @api.model
     def create(self, values):
-        return super(PurchaseRequisition, self).create(values)
+        if 'unrevisioned_name' not in values:
+            res = super(PurchaseRequisition, self).create(values)
+            list_name = res.name.split('/')
+            list_name[2] = res.department_id.name[0:3].upper()
+            new_name = '/'.join(list_name)
+            res.write({
+                'name': new_name,
+                'unrevisioned_name': new_name
+            })
+            return res
+        else:
+            res = super(models.Model, self).create(values)
+            res.write({
+                'name': values['name']
+            })
+            return res
 
     @api.depends('current_revision_id', 'old_revision_ids')
     def _compute_has_old_revisions(self):

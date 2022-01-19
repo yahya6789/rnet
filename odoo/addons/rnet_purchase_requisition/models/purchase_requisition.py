@@ -17,17 +17,6 @@ class PurchaseRequisition(models.Model):
 
     pr_revision_count = fields.Integer(compute='_get_pr_revision_count')
 
-    @api.model
-    def create(self, vals):
-        res = super(PurchaseRequisition, self).create(vals)
-        list_name = res.name.split('/')
-        list_name[2] = res.department_id.name[0:3].upper()
-        new_name = '/'
-        res.write({
-            'name': new_name.join(list_name)
-        })
-        return res
-
     @api.one
     def _get_vendors(self):
         vendors = set()
