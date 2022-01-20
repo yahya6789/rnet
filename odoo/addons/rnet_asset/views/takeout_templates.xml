@@ -14,37 +14,32 @@
                 <t t-foreach="docs" t-as="o">
                     <div class="row">
                         <div class="col-7">
-                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"/>
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Logo" style="max-height: 100px;"/>
                         </div>
                         <div class="col-5">
-                            <table class="table table-bordered table-sm m0">
+                            <table class="table table-bordered table-sm small m0">
                                 <tbody>
                                     <tr>
-                                        <td>Doc No.</td><td>:&#8194;5.5.3</td>
+                                        <td>Doc No.</td><td>&#8194;5.5.3</td>
                                     </tr>
                                     <tr>
-                                        <td>Revision</td><td>:&#8194;01</td>
+                                        <td>Revision</td><td>&#8194;01</td>
                                     </tr>
                                     <tr>
-                                        <td>Date</td><td>:&#8194;<span>03.03.2009</span></td>
+                                        <td>Date</td><td>&#8194;<span>03.03.2009</span></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <div class="text-center" style="border-top: 1px solid black;"></div>
+                    <div class="text-center" style="border-top: 1px solid black; margin-top: 2px"></div>
                 </t>
                 <div class="row mb24">
-                    <div class="col-12">
-                        <table class="table table-borderless table-sm">
-                            <tbody>
-                                <tr>
-                                    <td>Record No.:</td>
-                                </tr>
-                                <tr>
-                                    <td>Date Record:</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-12 first-page">
+                        <p class="text-left m-0">Record No   :</p>
+                        <p class="text-left m-0">Date Record :</p>
+                        <div class="text-center" style="border-top: 1px solid black;"></div>
                     </div>
                 </div>
             </div>
@@ -64,19 +59,12 @@
                         </style>
                         <div class="row">
                             <div class="col">
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <h4 class="text-center m-0">Take Out</h4>
-                                                <p class="text-center font-italic m-0">Bon Pengambilan Barang</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <h5 class="text-center m-0">Take Out</h5>
+                                <p class="text-center font-italic m-0">Bon Pengambilan Barang</p>
+                                <div class="text-center" style="border-top: 1px solid black;"></div>
                             </div>
                         </div>
-                        <div class="row mt24">
+                        <div class="row mt12 font-smaller">
                             <div class="col-7">
                                 <table class="table table-borderless table-sm">
                                     <tbody>
@@ -106,7 +94,7 @@
                                             <td width="150px">Date</td><td>:&#8194;</td><td><span t-field="o.scheduled_date" t-options='{"format": "dd-MM-yyyy"}'/></td>
                                         </tr>
                                         <tr>
-                                            <td width="150px">Job Order No.</td><td>:&#8194;</td><td><span t-field="o.project.no"/></td>
+                                            <td width="150px">Job Order No.</td><td>:&#8194;</td><td  style="font-weight: bold;"><span t-field="o.project.no"/></td>
                                         </tr>
                                         <tr>
                                             <td>From</td><td>:&#8194;</td><td><span t-field="o.location_id"/></td>
@@ -118,43 +106,49 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row mt24 font-smaller">
+                        <div class="row mt12">
                             <div class="col-12">
-                                <table class="table table-bordered table-sm" style="height:400px;">
+                                <table class="table table-bordered table-sm small">
                                     <thead>
                                         <tr>
-                                            <th width="1%">No.</th>
-                                            <th width="29%">Description</th>
-                                            <th width="15%">Type / Model</th>
-                                            <th width="10%">Quantity</th>
-                                            <th width="20%">Asset No.</th>
-                                            <th width="25%">Remarks</th>
+                                            <th width="1%" class="text-center">No.</th>
+                                            <th width="29%" class="text-center">Description</th>
+                                            <th width="15%" class="text-center">Type / Model</th>
+                                            <th width="10%" class="text-center">Quantity</th>
+                                            <th width="20%" class="text-center">Asset No.</th>
+                                            <th width="25%" class="text-center">Remarks</th>
                                         </tr>
                                     </thead>
                                     <t t-set="idx" t-value="1"/>
                                     <tbody>
                                         <t t-foreach="o.move_ids_without_package" t-as="line">
                                             <tr>
-                                                <td><span t-esc="idx"/></td>
+                                                <td class="text-center"><span t-esc="idx"/></td>
                                                 <td><span t-field="line.product_id.display_name"/></td>
-                                                <td><span t-field="line.product_id.brand.name"/></td>
-                                                <td>
+                                                <td class="text-center">
+                                                    <span t-field="line.product_id.brand.name"/>&#160;
+                                                    <span t-field="line.product_id.brand_type"/>
+                                                </td>
+                                                <td class="text-center">
                                                     <span t-esc="'%.0f'% line.quantity_done" />&#160;
                                                     <span t-field="line.product_id.uom_id.name"/>
                                                 </td>
                                                 <td>&#8194;</td>
-                                                <td><span t-field="line.gut_remarks"/></td>
+                                                <td class="text-center"><span t-field="line.gut_remarks"/></td>
                                                 <t t-set="idx" t-value="idx+1"/>
                                             </tr>
                                         </t>
                                         <t t-foreach="o.gut_asset_lines" t-as="line">
                                             <tr>
-                                                <td><span t-esc="idx"/></td>
-                                                <td><span t-field="line.asset_id.name"/></td>
+                                                <td class="text-center"><span t-esc="idx"/></td>
+                                                <td>
+                                                    <span t-field="line.asset_id.name"/>&#160;S/N :&#160;
+                                                    <span t-field="line.asset_id.custom_serial_number"/>
+                                                </td>
                                                 <td><span t-field="line.model"/></td>
                                                 <td>&#8194;</td>
-                                                <td><span t-field="line.number"/></td>
-                                                <td><span t-field="line.remarks"/></td>
+                                                <td class="text-center"><span t-field="line.number"/></td>
+                                                <td class="text-center"><span t-field="line.remarks"/></td>
                                                 <t t-set="idx" t-value="idx+1"/>
                                             </tr>
                                         </t>
@@ -163,7 +157,7 @@
                             </div>
                         </div>
                         <div class="row mt24">
-                            <div class="col-12">
+                            <div class="col-12 mr-1">
                                 <table class="table table-bordered table-sm">
                                     <tbody>
                                         <tr>
@@ -207,15 +201,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="footer o_standard_footer">
-                        <div class="col-12">
-                            <div class="text-center" style="border-top: 1px solid black;">
-                                <div t-if="report_type == 'pdf'">
-                                    Page: <span class="page"/> / <span class="topage"/>
+                    <div class="footer">
+                    <div class="container">
+                        <div class="row justify-content-end">
+                            <div class="col-6">
+                                <div class="text-left">
+                                    <span t-field="o.name"/>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-right">
+                                    Page <span class="page" /> of <span class="topage" />
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 </t>
             </t>
         </t>
