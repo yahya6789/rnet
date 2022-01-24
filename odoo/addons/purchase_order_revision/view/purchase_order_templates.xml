@@ -1,21 +1,27 @@
 <odoo>
     <template id="report_purchase_order_revision" inherit_id="ogut_asset.report_purchaseorder_document">
-        <xpath expr="//div[@class='col-4'][1]" position="after">
-            <t t-if="o.state == 'cancel'">
-                <div class="col-4 first-page">
-                    <img t-att-src="'/purchase_order_revision/static/src/img/not-valid.png'" style="max-height: 100px;"/>
-                </div>
-            </t>
-            <t t-elif="o.revision_number > 0">
-                <div class="col-4 first-page">
-                    <img t-att-src="'/purchase_order_revision/static/src/img/revision.png'" style="max-height: 100px;"/>
-                </div>
-            </t>
-            <t t-else=" not o.revision_number">
+        <xpath expr="//div[@class='row'][1]" position="replace">
+            <div class="row">
                 <div class="col-4">
-                    &amp;ensp;
+                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 100px;"/>
                 </div>
-            </t>
+                <div class="col-4 text-center first-page">
+                    <t t-if="o.state == 'cancel'">
+                        <img t-att-src="'/purchase_order_revision/static/src/img/not-valid.png'" style="max-height: 100px;"/>
+                    </t>
+                    <t t-elif="o.revision_number > 0">
+                        <img t-att-src="'/purchase_order_revision/static/src/img/revision.png'" style="max-height: 100px;"/>
+                    </t>
+                </div>
+                <div class="col-4 text-right">
+                    <img t-att-src="'/ogut_asset/static/src/img/dqs-logo.png'" style="max-height: 50px;"/>
+                    <img t-att-src="'/ogut_asset/static/src/img/iqnet-logo.png'" style="max-height: 50px;"/>
+                    <br/>
+                    <small>
+                        <strong>Cert. No. 422970</strong>
+                    </small>
+                </div>
+            </div>
         </xpath>
     </template>
 </odoo>
