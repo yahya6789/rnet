@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from datetime import datetime
+import datetime
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -167,7 +167,7 @@ class Asset(models.Model):
             if vals.get("category_id"):
                 category = self.env['account.asset.category.custom'].search([('id', '=', vals.get("category_id"))])
             if vals.get("date"):
-                date = datetime.strptime(vals.get("date"), "%Y-%m-%d")
+                date = vals.get("date") #datetime.datetime.strptime(vals.get("date"), "%Y-%m-%d")
 
             vals["custom_number"] = self._generate_custom_number(category, date)
 
@@ -194,6 +194,10 @@ class Asset(models.Model):
                 entries = str(int(category.method_number / 12)).zfill(2)
 
         if asset_date:
-            date = asset_date.strftime("%m%y")
+            if isinstance(asset_date, datetime.date):
+                date = asset_date.strftime("%m%y")
+            else:
+                asset_date = datetime.datetime.strptime(asset_date, "%Y-%m-%d")
+                date = asset_date.strftime("%m%y")
 
         return asset_prefix + date + entries + "-" + seq

@@ -63,7 +63,7 @@ class AccountInvoiceLine(models.Model):
         if changed_vals:
             vals.update(changed_vals['value'])
 
-        vals.update({"custom_number": self._get_asset_number()})
+        # vals.update({"custom_number": self._get_asset_number()})
 
         if self.product_id.is_generate_multiple_asset:
             return self.create_multiple_asset(vals)
@@ -86,6 +86,7 @@ class AccountInvoiceLine(models.Model):
         if self.asset_category_id_custom:
             assets = set()
             for x in range(int(self.quantity)):
+                vals["custom_number"] = None
                 asset = self.env['account.asset.asset.custom'].create(vals)
                 assets.add(asset)
 
