@@ -4,25 +4,23 @@
             <t t-call="web.basic_layout">
                 <!-- header -->
                 <div class="header">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-7">
-                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 100px;"/>
-                            </div>
-                            <!-- stamp not valid here -->
-                            <div class="col-5 text-right">
-                                <img t-att-src="'/ogut_asset/static/src/img/dqs-logo.png'" style="max-height: 50px;"/>
-                                <img t-att-src="'/ogut_asset/static/src/img/iqnet-logo.png'" style="max-height: 50px;"/><br/>
-                                <small><strong>Cert. No. 422970</strong></small>
-                            </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 100px;"/>
                         </div>
-                        <div class="row">
-                        <div class="col-12 first-page">
-                            <h5 class="text-center"><strong>PURCHASE ORDER</strong></h5>
+                        <!-- stamp not valid here -->
+                        <div class="col-5  text-right small">
+                            <img t-att-src="'/ogut_asset/static/src/img/dqs-logo.png'" style="max-height: 70px;"/>
+                            <img t-att-src="'/ogut_asset/static/src/img/iqnet-logo.png'" style="max-height: 70px;"/><br/>
+                            <p class="text-center" style="margin-left:105px">Cert. No. 422970</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col first-page mt-2">
+                            <h5 class="text-left"  style="font-weight: bold;">PURCHASE ORDER</h5>
                             <div class="text-center" style="border-top: 1px solid black;"></div>
                             <div class="text-center" style="border-top: 1px solid black; margin-top: 3px"></div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <!-- page -->
@@ -39,7 +37,7 @@
                                     <tr>
                                         <td>Order No</td>
                                         <td>:&amp;nbsp;</td>
-                                        <td><span t-field="o.name"/></td>
+                                        <td  style="font-weight: bold;"><span t-field="o.name"/></td>
                                     </tr>
                                     <tr>
                                         <td>PR Doc No.</td>
@@ -235,10 +233,10 @@
                                 <thead>
                                     <tr>
                                         <td style="width: 5%" class="border border-dark text-center">No.</td>
-                                        <td style="width: 32%" class="border border-dark text-center">Description</td>
+                                        <td style="width: 35%" class="border border-dark text-center">Description</td>
                                         <td style="width: 10%" class="border border-dark text-center">Type/Brand</td>
                                         <td style="width: 5%" class="border border-dark text-center">Qty</td>
-                                        <td style="width: 8%" class="border border-dark text-center">Unit</td>
+                                        <td style="width: 5%" class="border border-dark text-center">Unit</td>
                                         <td style="width: 10%" class="border border-dark text-center">Unit Price</td>
                                         <td style="width: 5%" class="border border-dark text-center">Disc %</td>
                                         <td style="width: 10%" class="border border-dark text-center">Tax</td>
@@ -291,128 +289,128 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 small"><p>Remarks :</p> </div>
+                        <div class="col-12 small">
+                           Remarks:
+                        </div>
                     </div>
                 <!-- end page -->
                 </div>
-                    <!-- <p style="page-break-before:always;"></p> -->
+                <!-- <p style="page-break-before:always;"></p> -->
     
                 <!-- footer -->
                 <div class="footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-7 last-page">
-                                <br/>
-                                <br/>
-                                <table class="table table-bordered table-sm small">
-                                    <tbody>
-                                        <tr>
-                                            <td style="width: 20%" class="border border-dark text-center">Approval</td>
-                                            <td style="width: 20%" class="border border-dark text-center">Approval</td>
-                                            <td style="width: 20%" class="border border-dark text-center">Purchaser</td>
-                                            <td style="width: 20%" class="border border-dark text-center">Acknowledgement</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
-                                            <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
-                                            <td class="border border-dark"><span t-field="o.dept_manager_id.name" widget="signature" width="400" height="100"/><br/><br/></td>
-                                            <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-dark small text-center"><span t-field="o.director_manager_id.name"/></td>
-                                            <td class="border border-dark small text-center"><span t-field="o.finance_manager_id.name"/></td>
-                                            <td class="border border-dark small text-center"><span t-field="o.dept_manager_id.name"/></td>
-                                            <td class="border border-dark small text-center">&amp;ensp;</td>
-                                        </tr>
-                                        </tbody>
-                                </table>
-                            </div>
-                            <div class="col-5 last-page">
-                                <table class="table table-borderless table-sm small">
-                                    <tbody>
-                                        <tr>
-                                            <td style="width: 50%">Sub Total</td>
-                                            <td class="text-right" style="width: 0%">:</td>
-                                            <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.subtot"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Discount</td>
-                                            <td class="text-right" style="width: 0%">:</td>
-                                            <td class="text-right">&amp;ensp;<span t-field="o.disc_amount"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sub. Tot After Disc.</td>
-                                            <td class="text-right" style="width: 0%">:</td>
-                                            <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_disc"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>VAT</td>
-                                            <td class="text-right" style="width: 0%">:</td>
-                                            <td class="text-right">&amp;ensp;<span t-field="o.vat_amount"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sub Tot After Tax</td>
-                                            <td class="text-right" style="width: 0%">:</td>
-                                            <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_tax"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Freight</td>
-                                            <td class="text-right" style="width: 0%">:</td>
-                                            <td class="text-right">&amp;ensp;<span t-field="o.freight"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sub Tot After Freight</td>
-                                            <td class="text-right" style="width: 0%">:</td>
-                                            <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_freight"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Total Order</strong></td>
-                                            <td class="text-right" style="width: 0%"><strong>:</strong></td>
-                                            <td class="text-right">&amp;ensp;<strong><span t-field="o.total_order"/></strong></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="row">
+                        <div class="col-7 last-page">
+                            <br/>
+                            <br/>
+                            <table class="table table-bordered table-sm small">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 20%" class="border border-dark text-center">Approval</td>
+                                        <td style="width: 20%" class="border border-dark text-center">Approval</td>
+                                        <td style="width: 20%" class="border border-dark text-center">Purchaser</td>
+                                        <td style="width: 20%" class="border border-dark text-center">Acknowledgement</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
+                                        <td class="border border-dark"><p>&amp;ensp;</p><br/><br/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark small text-center"><span t-field="o.director_manager_id.name"/></td>
+                                        <td class="border border-dark small text-center"><span t-field="o.finance_manager_id.name"/></td>
+                                        <td class="border border-dark small text-center"><span t-field="o.dept_manager_id.name"/></td>
+                                        <td class="border border-dark small text-center">&amp;ensp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="row">
-                            <div class="col-12 last-page">
-                                <table class="table table-bordered table-sm small">
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="2" class="border border-dark">Say:&amp;ensp;<span style="margin-left: 10%;" t-field="o.num_word"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-dark small" style="width: 50%">
-                                                <div class="row">
-                                                    <div class="col-6">http://www.ptgut.co.id</div>
-                                                    <div class="col-6">
-                                                        <div class="text-right">
-                                                            Tel: +62 21 8378 7333&amp;nbsp;
-                                                            <br/>
-                                                            Fax: +62 21 8378 7222&amp;nbsp;
-                                                        </div>
+                        <div class="col-5 last-page">
+                            <table class="table table-borderless table-sm small">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%">Sub Total</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td style="width: 50%" class="text-right">&amp;ensp;<span t-field="o.subtot"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Discount</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.disc_amount"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sub. Tot After Disc.</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_disc"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>VAT</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.vat_amount"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sub Tot After Tax</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_tax"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Freight</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.freight"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sub Tot After Freight</td>
+                                        <td class="text-right" style="width: 0%">:</td>
+                                        <td class="text-right">&amp;ensp;<span t-field="o.subtot_after_freight"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Order</strong></td>
+                                        <td class="text-right" style="width: 0%"><strong>:</strong></td>
+                                        <td class="text-right">&amp;ensp;<strong><span t-field="o.total_order"/></strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 last-page">
+                            <table class="table table-bordered table-sm small">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="border border-dark">Say:&amp;ensp;<span style="margin-left: 10%;" t-field="o.num_word"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-dark small" style="width: 50%">
+                                            <div class="row">
+                                                <div class="col-6">http://www.ptgut.co.id</div>
+                                                <div class="col-6">
+                                                    <div class="text-right">
+                                                        Tel: +62 21 8378 7333&amp;nbsp;
+                                                        <br/>
+                                                        Fax: +62 21 8378 7222&amp;nbsp;
                                                     </div>
                                                 </div>
-                                            </td>
-                                            <td class="border border-dark small" style="width: 50%">
-                                                <span t-field="o.company_id.partner_id.street"/>&amp;nbsp;
-                                                <span t-field="o.company_id.partner_id.street2"/>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </div>
+                                        </td>
+                                        <td class="border border-dark small" style="width: 50%">
+                                            <span t-field="o.company_id.partner_id.street"/>&amp;nbsp;
+                                            <span t-field="o.company_id.partner_id.street2"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 small">
+                            <div class="text-left">
+                                <span t-field="o.name"/>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6 small">
-                                <div class="text-left">
-                                    <span t-field="o.name"/>
-                                </div>
-                            </div>
-                            <div class="col-6 small">
-                                <div class="text-right">
-                                    Page <span class="page" /> of <span class="topage" />
-                                </div>
+                        <div class="col-6 small">
+                            <div class="text-right">
+                                Page <span class="page" /> of <span class="topage" />
                             </div>
                         </div>
                     </div>
