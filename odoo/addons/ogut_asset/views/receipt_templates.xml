@@ -2,6 +2,7 @@
 <odoo>
     <template id="report_receipt">
         <t t-call="web.html_container">
+            <!-- header -->
             <div class="header">
                 <style type="text/css">
                     table.table-bordered > thead > tr > th {
@@ -35,14 +36,15 @@
                     <div class="text-center" style="border-top: 1px solid black;"></div>
                     <div class="text-center" style="border-top: 1px solid black; margin-top: 2px"></div>
                 </t>
-                <div class="row mb24">
-                    <div class="col-12 first-page">
-                        <p class="text-left m-0">Record No   :</p>
-                        <p class="text-left m-0">Date Record :</p>
-                        <div class="text-center" style="border-top: 1px solid black;"></div>
+                    <div class="row mb24">
+                        <div class="col-12 first-page">
+                            <p class="text-left m-0">Record No   :</p>
+                            <p class="text-left m-0">Date Record :</p>
+                            <div class="text-center" style="border-top: 1px solid black;"></div>
+                        </div>
                     </div>
-                </div>
             </div>
+            <!-- page -->
             <t t-call="web.external_layout">
                 <t t-foreach="docs" t-as="o">
                     <div class="page">
@@ -111,12 +113,12 @@
                                 <table class="table table-bordered table-sm small">
                                     <thead>
                                         <tr>
-                                            <th width="1%"  class="text-center">No.</th>
-                                            <th width="29%" class="text-center">Description</th>
+                                            <th width="3%" class="text-center">No.</th>
+                                            <th width="40%" class="text-center">Description</th>
                                             <th width="15%" class="text-center">Type / Model</th>
                                             <th width="10%" class="text-center">Quantity</th>
-                                            <th width="20%" class="text-center">Asset No.</th>
-                                            <th width="25%" class="text-center">Remarks</th>
+                                            <th width="14%" class="text-center">Asset No.</th>
+                                            <th width="13%" class="text-center">Remarks</th>
                                         </tr>
                                     </thead>
                                     <t t-set="idx" t-value="1"/>
@@ -129,7 +131,7 @@
                                                     <span t-field="line.product_id.brand.name"/>&#160;
                                                     <span t-field="line.product_id.brand_type"/>
                                                 </td>
-                                                <td class="text-center">
+                                                <td>
                                                     <span t-esc="'%.0f'% line.quantity_done" />&#160;
                                                     <span t-field="line.product_id.uom_id.name"/>
                                                 </td>
@@ -153,8 +155,19 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row mt24">
-                            <div class="col-12">
+                    </div>
+                    <!-- footer -->
+                    <div class="footer">
+                        <style type="text/css">
+                            table.table-bordered > thead > tr > th {
+                                border:1px solid;
+                            }
+                            table.table-bordered > tbody > tr > td {
+                                border:1px solid;
+                            }
+                        </style>
+                        <div class="row">
+                            <div class="col last-page">
                                 <table class="table table-bordered table-sm">
                                     <tbody>
                                         <tr>
@@ -197,23 +210,19 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="footer">
-                    <div class="container">
-                        <div class="row justify-content-end">
-                            <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 small">
                                 <div class="text-left">
                                     <span t-field="o.name"/>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 small">
                                 <div class="text-right">
                                     Page <span class="page" /> of <span class="topage" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </t>
             </t>
         </t>
