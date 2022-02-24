@@ -37,6 +37,10 @@
                 <xpath expr="//sheet/notebook/page[2]/group[1]/group[1]/field[@name='incoterm_id']" position="before">
                     <field name="gut_description"/>
                 </xpath>
+                <xpath expr="//field[@name='notes']" position="replace">
+                    <field name="notes" class="oe_inline" placeholder="Additional Remark"/>
+                    <div class="oe_clear"/>
+                </xpath>
             </field>
         </record>
 
