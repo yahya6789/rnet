@@ -26,3 +26,10 @@ class Expense(models.Model):
     def update_seq_no(self, seq):
         self.seq = seq
         return
+
+
+class ExpenseAdvance(models.Model):
+    _inherit = 'hr.expense.advance'
+
+    transaction_type = fields.Selection([('petty_cash', 'Petty Cash'), ('hutang_usaha', 'Hutang Usaha'), ],
+                                        'Transaction Type', default='petty_cash')
