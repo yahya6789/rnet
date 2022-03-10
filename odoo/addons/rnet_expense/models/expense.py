@@ -35,18 +35,25 @@ class ExpenseAdvance(models.Model):
     transaction_type = fields.Selection([('petty_cash', 'Petty Cash'), ('hutang_usaha', 'Hutang Usaha'), ],
                                         'Transaction Type', default='petty_cash')
 
-    # Cek account petty cash employee ybs.
-    def _validate_pettycash(self, values):
-        if values.get('transaction_type'):
-            if not self.employee_id.user_id.partner_id.account_pettycash_id:
-                raise ValidationError('Untuk tipe transaksi petty cash, Account Pettycash employee harus dipilih')
-
     @api.model
     def create(self, values):
-        self._validate_pettycash(values)
+        partner_id = self.employee_id.address_home_id
+        if values.get('transaction_type') == 'petty_cash' and partner_id.account_pettycash_id.id is False:
+            raise ValidationError('Untuk tipe transaksi petty cash, Account Pettycash employee harus dipilih')
         return super(ExpenseAdvance, self).create(values)
 
     @api.multi
     def write(self, values):
-        self._validate_pettycash(values)
+        transaction_type_changed = values.get('transaction_type')
+        partner_id = self.employee_id.address_home_id
+
+        if transaction_type_changed is not None:
+            # field transaction_type berubah
+            transaction_type = values.get('transaction_type')
+        else:
+            transaction_type = self.transaction_type
+
+        if transaction_type == 'petty_cash' and partner_id.account_pettycash_id.id is False:
+            raise ValidationError('Untuk tipe transaksi petty cash, Account Pettycash employee harus dipilih')
+
         return super(ExpenseAdvance, self).write(values)
