@@ -10,6 +10,7 @@
         'views/expense.xml',
         'views/partner_view.xml',
         'report/expense.xml',
+        'wizard/hr_expense_advance_register_payment.xml',
         #
         'views/sequence.xml',
     ],
