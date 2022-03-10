@@ -37,7 +37,8 @@ class ExpenseAdvance(models.Model):
 
     @api.model
     def create(self, values):
-        partner_id = self.employee_id.address_home_id
+        employee_id = self.env['hr.employee'].search([('id', '=',  values.get('employee_id'))])
+        partner_id = employee_id.address_home_id
         if values.get('transaction_type') == 'petty_cash' and partner_id.account_pettycash_id.id is False:
             raise ValidationError('Untuk tipe transaksi petty cash, Account Pettycash employee harus dipilih')
         return super(ExpenseAdvance, self).create(values)
