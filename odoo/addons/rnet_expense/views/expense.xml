@@ -24,7 +24,7 @@
                     <button name="556" type="action"
                             string="Register Payment" class="oe_highlight o_expense_sheet_pay"
                             context="{'default_amount': paid_amount, 'partner_id': address_id, 'transaction_type': transaction_type}"
-                            groups="account.group_account_manager"/>
+                            groups="account.group_account_manager" attrs="{'invisible': [('state', '!=', 'approved')]}"/>
                 </button>
             </field>
         </record>

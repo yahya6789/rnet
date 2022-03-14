@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[2]/field[@name='property_account_payable_id']" position="after">
                     <field name="account_pettycash_id"/>
+                    <field name="journal_petty_cash"/>
                 </xpath>
             </field>
         </record>

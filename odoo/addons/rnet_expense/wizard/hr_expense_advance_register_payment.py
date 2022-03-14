@@ -16,3 +16,10 @@ class HrExpenseAdvanceRegisterPaymentWizard(models.TransientModel):
             self.hide_transfer_to = False
         else:
             self.hide_transfer_to = True
+
+    def _get_payment_vals(self):
+        vals = super(HrExpenseAdvanceRegisterPaymentWizard, self)._get_payment_vals()
+        if self._context.get('transaction_type', None) == 'petty_cash':
+            vals['payment_type'] = 'transfer'
+            vals['destination_journal_id'] = self.transfer_to.id
+        return vals
