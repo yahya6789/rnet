@@ -4,10 +4,20 @@
             <field name="name">rnet.expense_sheet_form</field>
             <field name="model">hr.expense.sheet</field>
             <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="priority" eval="25"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet/group/group/field[@name='employee_id']" position="before">
                     <field name="seq"/>
                 </xpath>
+                <field name="payment_mode" position="after">
+                    <field name="transaction_type"/>
+                </field>
+                <field name="expense_request_id" position="replace">
+                    <field name="expense_request_id" attrs="{'invisible':[('transaction_type', '==', 'petty_cash')]}"/>
+                </field>
+                <field name="expense_advance_id" position="replace">
+                    <field name="expense_advance_id" attrs="{'invisible':[('transaction_type', '==', 'petty_cash')]}"/>
+                </field>
             </field>
         </record>
 
