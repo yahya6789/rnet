@@ -1,6 +1,8 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from .validator import ExpenseValidator
+import logging
+
 
 
 class Sheet(models.Model):
@@ -57,7 +59,18 @@ class Expense(models.Model):
 
     def update_seq_no(self, seq):
         self.seq = seq
-        return
+
+    @api.multi
+    def _get_account_move_line_values(self):
+        move_line_values_by_expense = super(Expense, self)._get_account_move_line_values()
+        for expense in self:
+            move_line_values = move_line_values_by_expense.get(expense.id)
+            if expense.sheet_id.transaction_type == 'petty_cash':
+                move_line_credit = move_line_values[1]
+                partner_id = self.env['res.partner'].search([('id', '=', move_line_credit.get('partner_id'))])
+                move_line_values[1]['account_id'] = partner_id.account_pettycash_id.id
+            move_line_values_by_expense[expense.id] = move_line_values_by_expense.get(expense.id)
+        return move_line_values_by_expense
 
 
 class ExpenseAdvance(models.Model):
