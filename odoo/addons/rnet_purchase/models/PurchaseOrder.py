@@ -80,3 +80,7 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
     gut_remark = fields.Char('Remark')
+
+class PartnerFax(models.Model):
+    _inherit = 'res.partner'
+    fax = fields.Char('Fax')
