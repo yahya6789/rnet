@@ -16,6 +16,7 @@ class PurchaseRequisition(models.Model):
     product_id = fields.Many2one('product.product', related='requisition_line_ids.product_id', string='Product', readonly=False)
 
     pr_revision_count = fields.Integer(compute='_get_pr_revision_count')
+    req_no = fields.Char('No Requisition')
 
     @api.one
     def _get_vendors(self):

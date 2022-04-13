@@ -9,6 +9,9 @@
                 <xpath expr="//sheet[1]/group[1]/group[1]/field[@name='company_id']" position="after">
                     <field name="project" options="{'no_create':True, 'no_quick_create':True}"/>
                  </xpath>
+                <xpath expr="//sheet[1]/group[1]/group[2]/field[@name='request_date']" position="before">
+                    <field name="req_no" attrs="{'invisible': [('req_no','=',False)]}"/>
+                </xpath>
                 <xpath expr="//tree[1]/field[@name='description']" position="after">
                     <field name="brand"/>
                     <field name="brand_note"/>
